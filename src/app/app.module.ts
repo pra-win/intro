@@ -4,15 +4,10 @@ import { HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChildCopComponent } from './child-cop/child-cop.component';
-import { RecordsService } from './services/records.service';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ChildCopComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +15,7 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule
   ],
   providers: [
-    RecordsService
+
   ],
   bootstrap: [AppComponent]
 })
