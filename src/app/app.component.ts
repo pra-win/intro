@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RecordsService } from './services/records.service';
 
 function log(){
   //console.log("Test decorator");
@@ -11,12 +12,21 @@ function log(){
 })
 export class AppComponent {
   title = 'intro';
-  constructor(){
+  data = {};
+
+  constructor(private recordsService: RecordsService){
     this.testDecorator();
   }
 
-  @log
+  //@log
   testDecorator() {
     //console.log("test decorator");
+  }
+
+  ngOnInit() {
+    this.recordsService.getData().subscribe(d => {
+      console.log(d);
+      this.data = d;
+    });
   }
 }

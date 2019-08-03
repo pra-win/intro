@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecordsService } from './../services/records.service';
 
 @Component({
   selector: 'app-child-cop',
@@ -7,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChildCopComponent implements OnInit {
 
-  constructor() { }
+  constructor(private recordsService:RecordsService) { }
 
   ngOnInit() {
     console.log("ngOnUnit");
+    console.log(this.recordsService.getData());
   }
 
   ngOnChanges() {

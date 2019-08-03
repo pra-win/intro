@@ -1,2 +1,14 @@
+
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Is Online</td>
+  </tr>
+  <tr *ngFor="let record of data.result">
+    <td>{{record.name}}</td>
+    <td>{{record.online}}</td>
+  </tr>
+</table>
+
 <router-outlet></router-outlet>
-<app-child-cop></app-child-cop>
+<!-- <app-child-cop></app-child-cop> -->
