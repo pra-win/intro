@@ -12,7 +12,9 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { LogoutService } from './services/logout.service';
 import { AuthGuard } from './services/auth.guard';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { AuthGuard } from './services/auth.guard';
     LoginComponent,
     AdminComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { AuthGuard } from './services/auth.guard';
   providers: [
     AuthService,
     AuthGuard,
-    UserService
+    UserService,
+    LogoutService
   ],
   bootstrap: [AppComponent]
 })
