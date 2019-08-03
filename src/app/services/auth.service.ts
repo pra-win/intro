@@ -11,14 +11,14 @@ interface myData {
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedInStatus = false;
+  private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false');
 
   constructor(private http: HttpClient) { }
 
   getUserDetails(uid, pass) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/x-www-form-urlencoded',
+        'Content-Type':  'application/json',
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -27,10 +27,11 @@ export class AuthService {
   }
 
   get isLoggedIn() {
-    return this.loggedInStatus;
+    return JSON.parse(localStorage.getItem('loggedIn') || this.loggedInStatus);
   }
 
   setLoggedIn(value: boolean) {
     this.loggedInStatus = value;
+    localStorage.setItem('loggedIn', value.toString());
   }
 }
