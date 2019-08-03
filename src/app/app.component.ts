@@ -24,9 +24,5 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.recordsService.getData().subscribe(d => {
-      console.log(d);
-      this.data = d;
-    });
   }
 }

@@ -7,12 +7,16 @@ import { RecordsService } from './../services/records.service';
   styleUrls: ['./child-cop.component.css']
 })
 export class ChildCopComponent implements OnInit {
+  data = {};
 
   constructor(private recordsService:RecordsService) { }
 
   ngOnInit() {
     console.log("ngOnUnit");
-    console.log(this.recordsService.getData());
+    this.recordsService.getData().subscribe(d => {
+      console.log(d);
+      this.data = d;
+    });
   }
 
   ngOnChanges() {

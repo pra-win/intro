@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChildCopComponent } from './child-cop/child-cop.component';
 import { RecordsService } from './services/records.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChildCopComponent
+    ChildCopComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
