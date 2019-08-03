@@ -15,12 +15,6 @@ export class UserService {
   constructor(private http:HttpClient) { }
 
   getUserData() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      })
-    };
-    return this.http.get<myData>('testApi/dataBase.php',httpOptions);
+    return this.http.get<myData>('testApi/dataBase.php');
   }
 }

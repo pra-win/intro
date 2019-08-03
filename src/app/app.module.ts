@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -15,6 +15,8 @@ import { UserService } from './services/user.service';
 import { LogoutService } from './services/logout.service';
 import { AuthGuard } from './services/auth.guard';
 import { LogoutComponent } from './logout/logout.component';
+
+import { HttpConfigInterceptor} from './interceptor/httpconfig.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { LogoutComponent } from './logout/logout.component';
     AuthService,
     AuthGuard,
     UserService,
-    LogoutService
+    LogoutService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

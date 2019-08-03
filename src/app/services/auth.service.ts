@@ -16,14 +16,8 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   getUserDetails(uid, pass) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      })
-    };
     console.log(uid, pass);
-    return this.http.post<myData>('/testApi/auth.php',{uid, pass}, httpOptions);
+    return this.http.post<myData>('/testApi/auth.php',{uid, pass});
   }
 
   get isLoggedIn() {
