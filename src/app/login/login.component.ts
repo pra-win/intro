@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     uid: new FormControl(''),
     pass: new FormControl('')
   });
+
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     this.authService.getUserDetails(uid, pass).subscribe(data => {
       console.log(data);
       if(data.success) {
-        this.router.navigate(['admin'])
+        this.router.navigate(['admin']);
+        this.authService.setLoggedIn(data.success);
       } else {
         alert(data.message);
       }

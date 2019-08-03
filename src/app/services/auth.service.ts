@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
+interface myData {
+  message: string,
+  success: boolean
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-
+  private loggedInStatus = false;
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +23,14 @@ export class AuthService {
       })
     };
     console.log(uid, pass);
-    return this.http.post<Object>('/testApi/auth.php',{uid, pass}, httpOptions);              
+    return this.http.post<myData>('/testApi/auth.php',{uid, pass}, httpOptions);
+  }
+
+  get isLoggedIn() {
+    return this.loggedInStatus;
+  }
+
+  setLoggedIn(value: boolean) {
+    this.loggedInStatus = value;
   }
 }
