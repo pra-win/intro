@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <td>Id</td>
+    <td>Name</td>
+    <td>Type</td>
+  </tr>
+  <tr *ngFor="let category of categoriesData.response">
+    <td>{{category.cid}}</td>
+    <td>{{category.cname}}</td>
+    <td appReplaceCatType [catType]="category.type">{{category.type}}</td>
+  </tr>
+</table>
