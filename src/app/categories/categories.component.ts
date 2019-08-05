@@ -10,6 +10,7 @@ import { CategoriesService } from './../services/categories.service';
 export class CategoriesComponent implements OnInit {
 
   categoriesData = {};
+  showType = 'a';
 
   constructor(private categories: CategoriesService) { }
 
@@ -18,6 +19,10 @@ export class CategoriesComponent implements OnInit {
       console.log("data=",data);
       data.success && (this.categoriesData = data);
     });
+  }
+
+  showCategory(type) {
+    this.showType = type;
   }
 
 }
