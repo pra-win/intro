@@ -3,17 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CategoriesService } from './../services/categories.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
-interface CategoriesObj {
-    [index: number]: { cid: number; cname: string; type: string };
-}
-
-interface ResObj {
-  message: string,
-  success: boolean,
-  response: [
-    {cname: string, type:string}
-  ]
-}
+import { CategoriesObj as ResObj} from './../interfaces';
 
 @Component({
   selector: 'app-categories',

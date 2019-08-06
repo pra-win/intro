@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface CategoriesObj {
-    [index: number]: { cid: number; cname: string; type: string };
-}
-
-interface ResObj {
-  message: string,
-  success: boolean,
-  response: [
-    {cname: string, type:string}
-  ]
-}
+import { CategoriesObj as ResObj} from './../interfaces';
 
 @Injectable({
   providedIn: 'root'
