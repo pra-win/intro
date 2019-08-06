@@ -14,7 +14,14 @@ export class ReplaceCatTypeDirective {
 
   ngOnInit() {
     let value = "";
-    this.catType === "e" ? (value = "Expense") : (value = "Income");
+    //this.catType === "e" ? (value = "Expense") : (value = "Income");
+    if(this.catType === "e") {
+      value = "Expense";
+    } else if(this.catType === "i") {
+      value = "Income";
+    } else {
+      value = this.catType;
+    }
     this.elRef.nativeElement.innerText = value;
   }
 

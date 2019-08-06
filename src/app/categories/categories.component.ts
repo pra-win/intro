@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CategoriesService } from './../services/categories.service';
+import { FormGroup, FormControl } from '@angular/forms';
+
+interface CategoriesObj {
+    [index: number]: { cid: number; cname: string; type: string };
+}
+
+interface ResObj {
+  message: string,
+  success: boolean,
+  response: CategoriesObj
+}
 
 @Component({
   selector: 'app-categories',
@@ -9,8 +20,13 @@ import { CategoriesService } from './../services/categories.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  categoriesData = {};
+  categoriesData:ResObj;
   showType = 'a';
+
+  categoryForm = new FormGroup({
+    cname: new FormControl('Category Name'),
+    type: new FormControl('Category Type')
+  });
 
   constructor(private categories: CategoriesService) { }
 
@@ -23,6 +39,18 @@ export class CategoriesComponent implements OnInit {
 
   showCategory(type) {
     this.showType = type;
+  }
+
+  addCategory(event) {
+    event.preventDefault();
+    let {cname, type} = this.categoryForm.value;
+    let catObj = {cname, type};
+    this.categoriesData.response.push(catObj);
+
+    this.categories.addCategory(catObj)
+                    .subscribe(data => {
+                      console.log(data);
+                    });
   }
 
 }

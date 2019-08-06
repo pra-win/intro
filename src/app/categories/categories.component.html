@@ -8,11 +8,21 @@
     <td>Name</td>
     <td>Type</td>
   </tr>
-  <ng-container *ngFor="let category of categoriesData.response">
-    <tr *ngIf="showType===category.type || showType==='a'">
-      <!-- <td>{{category.cid}}</td> -->
-      <td>{{category.cname}}</td>
-      <td appReplaceCatType [catType]="category.type">{{category.type}}</td>
-    </tr>
+  <ng-container *ngIf="categoriesData">
+    <ng-container *ngFor="let category of categoriesData.response">
+      <tr *ngIf="showType===category.type || showType==='a'">
+        <!-- <td>{{category.cid}}</td> -->
+        <td>{{category.cname}}</td>
+        <td appReplaceCatType [catType]="category.type">{{category.type}}</td>
+      </tr>
+    </ng-container>
   </ng-container>
 </table>
+
+<form [formGroup]="categoryForm" (submit)="addCategory($event)">
+  <input formControlName="cname" type="text" name="cname"/>
+  <input formControlName="type" type="text" name="type"/>
+  <button> Submit </button>
+</form>
+
+<!-- <button (click)="showCategoryForm()">Add Category</button> -->
