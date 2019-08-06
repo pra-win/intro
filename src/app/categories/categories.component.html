@@ -21,7 +21,11 @@
 
 <form [formGroup]="categoryForm" (submit)="addCategory($event)">
   <input formControlName="cname" type="text" name="cname"/>
-  <input formControlName="type" type="text" name="type"/>
+  <!-- <input formControlName="type" type="text" name="type"/> -->
+  <select formControlName="type">
+    <option value="i"> Income</option>
+    <option value="e"> Expence</option>
+  </select>
   <button> Submit </button>
 </form>
 
