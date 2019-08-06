@@ -10,7 +10,9 @@ interface CategoriesObj {
 interface ResObj {
   message: string,
   success: boolean,
-  response: CategoriesObj
+  response: [
+    {cname: string, type:string}
+  ]
 }
 
 @Component({
