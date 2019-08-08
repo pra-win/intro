@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './services/auth.guard';
 import { CategoriesComponent } from './categories/categories.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'transaction',
+    component: TransactionComponent,
     canActivate: [AuthGuard]
   },
   {

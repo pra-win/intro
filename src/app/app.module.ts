@@ -19,11 +19,14 @@ import { UserService } from './services/user.service';
 import { LogoutService } from './services/logout.service';
 import { AuthGuard } from './services/auth.guard';
 import { CategoriesService } from './services/categories.service';
+import { NavbarService } from './services/navbar.service';
 
 
 import { HttpConfigInterceptor} from './interceptor/httpconfig.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReplaceCatTypeDirective } from './directives/replace-cat-type.directive';
+import { NavbarComponent } from './navbar/navbar.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { ReplaceCatTypeDirective } from './directives/replace-cat-type.directive
     NotFoundComponent,
     LogoutComponent,
     CategoriesComponent,
-    ReplaceCatTypeDirective
+    ReplaceCatTypeDirective,
+    NavbarComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { ReplaceCatTypeDirective } from './directives/replace-cat-type.directive
     AuthGuard,
     UserService,
     LogoutService,
+    NavbarService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
