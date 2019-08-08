@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from './../../environments/environment';
 
 interface myData {
   message: string,
@@ -17,7 +18,7 @@ export class AuthService {
 
   getUserDetails(uid, pass) {
     console.log(uid, pass);
-    return this.http.post<myData>('/testApi/auth.php',{uid, pass});
+    return this.http.post<myData>(environment.apiURLs.auth,{uid, pass});
   }
 
   get isLoggedIn() {
