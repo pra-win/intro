@@ -19,7 +19,6 @@ import { UserService } from './services/user.service';
 import { LogoutService } from './services/logout.service';
 import { AuthGuard } from './services/auth.guard';
 import { CategoriesService } from './services/categories.service';
-import { NavbarService } from './services/navbar.service';
 
 
 import { HttpConfigInterceptor} from './interceptor/httpconfig.interceptor';
@@ -54,7 +53,6 @@ import { TransactionComponent } from './transaction/transaction.component';
     AuthGuard,
     UserService,
     LogoutService,
-    NavbarService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
