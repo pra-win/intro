@@ -18,7 +18,19 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+        {
+          path: 'categories',
+          component: CategoriesComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'transaction',
+          component: TransactionComponent,
+          canActivate: [AuthGuard]
+        }
+    ]
   },
   {
     path: 'home',
@@ -31,16 +43,6 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
-  },
-  {
-    path: 'categories',
-    component: CategoriesComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'transaction',
-    component: TransactionComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: '**',
