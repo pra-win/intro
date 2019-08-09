@@ -9,6 +9,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './services/auth.guard';
 import { CategoriesComponent } from './categories/categories.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { SpendingComponent } from './spending/spending.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,16 @@ const routes: Routes = [
         {
           path: 'transaction',
           component: TransactionComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'spending',
+          component: SpendingComponent,
+          canActivate: [AuthGuard]
+        },
+        {
+          path: '',
+          component: SpendingComponent,
           canActivate: [AuthGuard]
         }
     ]

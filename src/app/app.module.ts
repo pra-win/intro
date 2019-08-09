@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReplaceCatTypeDirective } from './directives/replace-cat-type.directive';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { SpendingComponent } from './spending/spending.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     CategoriesComponent,
     ReplaceCatTypeDirective,
     NavbarComponent,
-    TransactionComponent
+    TransactionComponent,
+    SpendingComponent
   ],
   imports: [
     BrowserModule,
