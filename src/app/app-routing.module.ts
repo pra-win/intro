@@ -48,12 +48,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: '',
-    component: HomeComponent
-  },
-  {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
   },
   {
     path: '**',

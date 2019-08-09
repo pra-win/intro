@@ -19,6 +19,7 @@ import { UserService } from './services/user.service';
 import { LogoutService } from './services/logout.service';
 import { AuthGuard } from './services/auth.guard';
 import { CategoriesService } from './services/categories.service';
+import { TransactionsService } from './services/transactions.service';
 
 
 import { HttpConfigInterceptor} from './interceptor/httpconfig.interceptor';
@@ -55,6 +56,7 @@ import { SpendingComponent } from './spending/spending.component';
     AuthGuard,
     UserService,
     LogoutService,
+    TransactionsService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

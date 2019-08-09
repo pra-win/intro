@@ -8,7 +8,8 @@ export const environment = {
     getCategories: '/testApi/categories.php',
     addCategory: '/testApi/addCategory.php',
     logout: 'testApi/logout.php',
-    auth: '/testApi/auth.php'
+    auth: '/testApi/auth.php',
+    getTransactions: '/testApi/transactions.php'
   }
 };
 
