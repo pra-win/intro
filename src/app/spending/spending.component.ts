@@ -14,6 +14,8 @@ export class SpendingComponent implements OnInit {
   incomeTotal = 0;
   expenseTotal = 0;
 
+  transactionCategory = 'i';
+
   constructor(private transactions: TransactionsService) { }
 
   ngOnInit() {
@@ -35,6 +37,10 @@ export class SpendingComponent implements OnInit {
         this.incomeTotal+=t.amt;
       }
     });
+  }
+
+  onTransaction(type) {
+    this.transactionCategory = type;
   }
 
 }

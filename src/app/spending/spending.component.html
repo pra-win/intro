@@ -24,3 +24,7 @@
     <td>{{incomeTotal-expenseTotal}}</td>
   </tr>
 </table>
+
+<button (click)="onTransaction('i')">income</button> &nbsp; &nbsp; <button (click)="onTransaction('e')">expense</button>
+
+<app-transaction-form [transactionCategory]="transactionCategory"></app-transaction-form>

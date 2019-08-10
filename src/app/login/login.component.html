@@ -1,14 +1,14 @@
 
-<div class="mat-app-background basic-container">
+<div>
   <form [formGroup]="loginForm" (submit)="loginUser($event)">
     <label>User Id</label>
-    <mat-form-field>
+
       <input matInput type="text" formControlName="uid" placeholder="User Id" />
-    </mat-form-field>
+
     <label>Password</label>
-    <mat-form-field>
+
       <input matInput type="password" formControlName="pass" placeholder="Password"/>
-    </mat-form-field>
+
     <button mat-button>Login</button>
 
   </form>

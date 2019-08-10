@@ -1,0 +1,15 @@
+<form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">
+  <select formControlName="category">
+    <ng-container *ngFor="let category of categories">
+      <option  *ngIf="category.type === transactionCategory" value="category.id">{{category.cname}}</option>
+    </ng-container>
+  </select>
+  <br/>
+  <input type="text" formControlName="desc" placeholder="desc"/>
+  <br/>
+  <input type="number" formControlName="amt" placeholder="amt"/>
+  <br/>
+  <input type="date" formControlName="date" placeholder="date"/>
+  <br/>
+  <button value="submit">submit</button>
+</form>

@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import {MaterialModule} from './modules/material/material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -28,6 +26,7 @@ import { ReplaceCatTypeDirective } from './directives/replace-cat-type.directive
 import { NavbarComponent } from './navbar/navbar.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { SpendingComponent } from './spending/spending.component';
+import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 
 @NgModule({
   declarations: [
@@ -41,15 +40,15 @@ import { SpendingComponent } from './spending/spending.component';
     ReplaceCatTypeDirective,
     NavbarComponent,
     TransactionComponent,
-    SpendingComponent
+    SpendingComponent,
+    TransactionFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MaterialModule
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
