@@ -1,12 +1,7 @@
 <table>
   <tr>
-    <td></td>
-  </tr>
-</table>
-<table>
-  <tr>
     <td>income</td>
-    <td></td>
+    <td>{{incomeTotal}}</td>
   </tr>
   <tr *ngFor="let in of income">
     <td>&nbsp;&nbsp;{{in.cname}}</td>
@@ -16,10 +11,16 @@
 <table>
   <tr>
     <td>expense</td>
-    <td></td>
+    <td>{{expenseTotal}}</td>
   </tr>
   <tr *ngFor="let in of expense">
     <td>&nbsp;&nbsp;{{in.cname}}</td>
     <td>{{in.amt}}</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td>Total Balanse</td>
+    <td>{{incomeTotal-expenseTotal}}</td>
   </tr>
 </table>
