@@ -1,5 +1,5 @@
 
-<div class="col-md-6">
+<!-- <div class="col-md-6">
   <form [formGroup]="loginForm" (submit)="loginUser($event)">
     <label>User Id</label>
 
@@ -12,4 +12,48 @@
     <button mat-button>Login</button>
 
   </form>
-</div>
+</div> -->
+
+
+<div class="container login-container">
+            <div class="row">
+                <div class="offset-md-2"></div>
+                <div class="col-md-4 login-form-1">
+                    <h3>Sign In</h3>
+                    <form [formGroup]="loginForm" (submit)="loginUser($event)">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="uid" placeholder="Your Login ID *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="pass" placeholder="Your Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btnSubmit" mat-button>Login</button>
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 login-form-2">
+                    <h3>Sign UP</h3>
+                    <form [formGroup]="signUpForm" (submit)="loginUser($event)">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="uid" placeholder="Your Login ID *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="pass" placeholder="New Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="conPass" placeholder="Confirm Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btnSubmit" mat-button>Login</button>
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

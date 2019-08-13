@@ -15,6 +15,12 @@ export class LoginComponent implements OnInit {
     pass: new FormControl('')
   });
 
+  signUpForm = new FormGroup({
+    uid: new FormControl(''),
+    pass: new FormControl(''),
+    conPass: new FormControl('')
+  });
+
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
