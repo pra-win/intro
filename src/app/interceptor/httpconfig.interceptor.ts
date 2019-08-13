@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 //import { ErrorDialogService } from '../error-dialog/errordialog.service';
+import { Router } from '@angular/router';
+import { AuthService } from './../services/auth.service';
+
 import {
     HttpInterceptor,
     HttpRequest,
@@ -13,6 +16,8 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 export class HttpConfigInterceptor {
+  constructor(private router:Router,private auth:AuthService) {}
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token: string = localStorage.getItem('token');
 
@@ -31,6 +36,12 @@ export class HttpConfigInterceptor {
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     console.log('event--->>>', event);
+
+                    if(event.headers.get('Is-Logged-In') === 'false') {
+                      console.log(event.headers.get('Is-Logged-In'));
+                      this.router.navigate(['/login']);
+                      this.auth.setLoggedIn(false);
+                    }
                 }
                 return event;
             }),
