@@ -37,7 +37,7 @@ export class HttpConfigInterceptor {
                 if (event instanceof HttpResponse) {
                     console.log('event--->>>', event);
 
-                    if(event.headers.get('Is-Logged-In') === 'false') {
+                    if(!event.headers.get('Is-Logged-In') || event.headers.get('Is-Logged-In') === 'false') {
                       console.log(event.headers.get('Is-Logged-In'));
                       this.router.navigate(['/login']);
                       this.auth.setLoggedIn(false);

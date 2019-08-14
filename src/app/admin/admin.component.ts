@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './../services/user.service';
+import { AuthService } from './../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,17 +9,15 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
   message = "Loading...";
-  constructor(private user: UserService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.user.getUserData()
-            .subscribe(data => {
-              if(data.success) {
-
-              } else {
-                this.router.navigate(['']);
-              }
-            });
+    console.log(this.auth.isLoggedIn);
+    if(this.auth.isLoggedIn) {
+      this.router.navigate(['/admin/spending']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
 }
