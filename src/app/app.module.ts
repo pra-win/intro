@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { ModalComponent } from './modal/modal.component';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -28,6 +29,8 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { SpendingComponent } from './spending/spending.component';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 
+import { ModalModule } from 'ngx-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,14 +44,16 @@ import { TransactionFormComponent } from './transaction-form/transaction-form.co
     NavbarComponent,
     TransactionComponent,
     SpendingComponent,
-    TransactionFormComponent
+    TransactionFormComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ModalModule.forRoot()
   ],
   providers: [
     AuthService,

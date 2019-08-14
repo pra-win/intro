@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TransactionsService } from './../services/transactions.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-spending',
@@ -7,6 +8,8 @@ import { TransactionsService } from './../services/transactions.service';
   styleUrls: ['./spending.component.css']
 })
 export class SpendingComponent implements OnInit {
+
+    @ViewChild('template', {static: false}) input;
 
   transactionsData = [];
   income = [];
@@ -16,7 +19,9 @@ export class SpendingComponent implements OnInit {
 
   transactionCategory = 'i';
 
-  constructor(private transactions: TransactionsService) { }
+  modalRef: BsModalRef;
+
+  constructor(private transactions: TransactionsService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.transactions.getTransactions().subscribe((data) => {
@@ -42,5 +47,10 @@ export class SpendingComponent implements OnInit {
   onTransaction(type) {
     this.transactionCategory = type;
   }
+
+  ngAfterViewInit() {
+      console.log(this.input);
+      this.modalRef = this.modalService.show(this.input);
+    }
 
 }
