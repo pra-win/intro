@@ -38,8 +38,8 @@ const routes: Routes = [
         },
         {
           path: '',
-          component: SpendingComponent,
-          canActivate: [AuthGuard]
+          redirectTo: '/admin/spending',
+          pathMatch: 'full'
         }
     ]
   },
@@ -53,7 +53,9 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent
+    component: AdminComponent
+    // redirectTo: '/admin',
+    // pathMatch: 'full'
   },
   {
     path: '**',

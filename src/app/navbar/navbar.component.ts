@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Event } from '@angular/router';
+import { LogoutService } from './../services/logout.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,8 +8,12 @@ import { Router, Event } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private logout:LogoutService) { }
 
   ngOnInit() {
+  }
+
+  onLogout() {
+    this.logout.getLogoutStatus();
   }
 }

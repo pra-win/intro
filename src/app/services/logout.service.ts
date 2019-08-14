@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 interface statusData {
   message: string,
@@ -12,9 +14,15 @@ interface statusData {
 })
 export class LogoutService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router, private auth:AuthService) { }
 
   getLogoutStatus() {
-    return this.http.get<statusData>(environment.apiURLs.logout);
+    this.http.get<statusData>(environment.apiURLs.logout)
+                .subscribe(data => {
+                  if(data.success) {
+                    this.router.navigate(['']);
+                    this.auth.setLoggedIn(false);
+                  }
+                });;
   }
 }
