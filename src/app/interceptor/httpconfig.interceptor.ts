@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 //import { ErrorDialogService } from '../error-dialog/errordialog.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
+import { LoadingService } from './../services/loading.service';
 
 import {
     HttpInterceptor,
@@ -16,9 +17,10 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 export class HttpConfigInterceptor {
-  constructor(private router:Router,private auth:AuthService) {}
+  constructor(private router:Router, private auth:AuthService, private loading: LoadingService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+         this.loading.sendMessage(true);
         const token: string = localStorage.getItem('token');
 
         if (token) {
@@ -42,6 +44,7 @@ export class HttpConfigInterceptor {
                       this.router.navigate(['/login']);
                       this.auth.setLoggedIn(false);
                     }
+                    this.loading.sendMessage(false);
                 }
                 return event;
             }),
@@ -52,6 +55,7 @@ export class HttpConfigInterceptor {
                       status: error.status
                   };
                   console.error(data);
+                  this.loading.sendMessage(false);
                   //this.errorDialogService.openDialog(data);
                   return throwError(error);
               }));
