@@ -21,6 +21,11 @@ export class SpendingComponent implements OnInit {
 
   modalRef: BsModalRef;
 
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
+
   constructor(private transactions: TransactionsService, private modalService: BsModalService) { }
 
   ngOnInit() {
@@ -46,11 +51,12 @@ export class SpendingComponent implements OnInit {
 
   onTransaction(type) {
     this.transactionCategory = type;
+    this.modalRef = this.modalService.show(this.input, this.config);
   }
 
   ngAfterViewInit() {
       console.log(this.input);
-      this.modalRef = this.modalService.show(this.input);
+     // this.modalRef = this.modalService.show(this.input);
     }
 
 }

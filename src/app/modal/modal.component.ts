@@ -7,7 +7,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-  @ViewChild('template', {static: false}) input;
   modalRef: BsModalRef;
   constructor(private modalService: BsModalService) {}
 
