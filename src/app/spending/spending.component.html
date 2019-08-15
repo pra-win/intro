@@ -1,32 +1,42 @@
-<table>
-  <tr>
-    <td>income</td>
-    <td>{{incomeTotal}}</td>
-  </tr>
-  <tr *ngFor="let in of income">
-    <td>&nbsp;&nbsp;{{in.cname}}</td>
-    <td>{{in.amt}}</td>
-  </tr>
-</table>
-<table>
-  <tr>
-    <td>expense</td>
-    <td>{{expenseTotal}}</td>
-  </tr>
-  <tr *ngFor="let in of expense">
-    <td>&nbsp;&nbsp;{{in.cname}}</td>
-    <td>{{in.amt}}</td>
-  </tr>
-</table>
-<table>
-  <tr>
-    <td>Total Balanse</td>
-    <td>{{incomeTotal-expenseTotal}}</td>
-  </tr>
-</table>
+<div class="row">
+<div class="col-md-6">
+  <table>
+    <tr>
+      <td>income</td>
+      <td>{{incomeTotal}}</td>
+    </tr>
+    <tr *ngFor="let in of income">
+      <td>&nbsp;&nbsp;{{in.cname}}</td>
+      <td>{{in.amt}}</td>
+    </tr>
+  </table>
+  <button (click)="onTransaction('i')">income</button>
+</div>
 
-<button (click)="onTransaction('i')">income</button> &nbsp; &nbsp; <button (click)="onTransaction('e')">expense</button>
+<div class="col-md-6">
+  <table>
+    <tr>
+      <td>expense</td>
+      <td>{{expenseTotal}}</td>
+    </tr>
+    <tr *ngFor="let in of expense">
+      <td>&nbsp;&nbsp;{{in.cname}}</td>
+      <td>{{in.amt}}</td>
+    </tr>
+  </table>
+  <button (click)="onTransaction('e')">expense</button>
+</div>
 
+<div class="col-md-12">
+  <table>
+    <tr>
+      <td>Total Balanse</td>
+      <td>{{incomeTotal-expenseTotal}}</td>
+    </tr>
+  </table>
+
+</div>
+</div>
 
 
 <!-- <app-modal></app-modal> -->

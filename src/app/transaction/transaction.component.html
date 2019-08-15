@@ -8,7 +8,7 @@
         <td>Transaction amount</td>
     </tr>
     <ng-container *ngIf="transactions">
-        <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of transactions.response">
+        <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of transactions">
             <td>{{tran.id}}</td>
             <td>{{tran.cname}}</td>
             <td appReplaceCatType [catType]="tran.ctype">{{tran.ctype}}</td>

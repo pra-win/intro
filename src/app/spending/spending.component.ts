@@ -33,15 +33,16 @@ export class SpendingComponent implements OnInit {
     private categoriesService: CategoriesService) { }
 
   ngOnInit() {
-    this.transactions.getTransactions().subscribe((data) => {
-      this.transactionsData = data.response;
-      if(data.response) {
-        this.setIncomeExpence(data.response);
-      }
+    this.transactions.getTransactions(false);
+    this.transactions.getUpdatedTransactions().subscribe((data) => {
+      this.transactionsData = data;
+      this.setIncomeExpence(data)
     });
   }
 
   setIncomeExpence(transactionsData) {
+    this.expense = [];
+    this.income = [];
     transactionsData.forEach((t)=>{
       if(t.ctype === 'e') {
         this.expense.push(t);
