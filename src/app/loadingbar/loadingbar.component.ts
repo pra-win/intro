@@ -13,7 +13,7 @@ export class LoadingbarComponent implements OnInit {
   constructor(private loading: LoadingService) { }
 
   ngOnInit() {
-      this.loading.getMessage().subscribe(data => {
+      this.loading.getLoading().subscribe(data => {
           console.log(data.loading);
           this.showLoading = data.loading;
       });

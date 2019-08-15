@@ -20,7 +20,7 @@ export class HttpConfigInterceptor {
   constructor(private router:Router, private auth:AuthService, private loading: LoadingService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-         this.loading.sendMessage(true);
+         this.loading.setLoading(true);
         const token: string = localStorage.getItem('token');
 
         if (token) {
@@ -44,7 +44,7 @@ export class HttpConfigInterceptor {
                       this.router.navigate(['/login']);
                       this.auth.setLoggedIn(false);
                     }
-                    this.loading.sendMessage(false);
+                    this.loading.setLoading(false);
                 }
                 return event;
             }),
@@ -55,7 +55,7 @@ export class HttpConfigInterceptor {
                       status: error.status
                   };
                   console.error(data);
-                  this.loading.sendMessage(false);
+                  this.loading.setLoading(false);
                   //this.errorDialogService.openDialog(data);
                   return throwError(error);
               }));

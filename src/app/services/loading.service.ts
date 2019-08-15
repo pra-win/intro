@@ -6,21 +6,11 @@ import { Observable, Subject } from 'rxjs';
 })
 export class LoadingService {
 
-    showLoading = false;
-
   constructor() { }
-
-  // get isShowLoading() {
-  //     return this.showLoading;
-  // }
-
-  // set isShowLoading(val) {
-  //     this.showLoading = val;
-  // }
 
   private subject = new Subject<any>();
 
-    sendMessage(isLoading: boolean ) {
+    setLoading(isLoading: boolean ) {
         this.subject.next({ loading: isLoading });
     }
 
@@ -28,7 +18,7 @@ export class LoadingService {
         this.subject.next();
     }
 
-    getMessage(): Observable<any> {
+    getLoading(): Observable<any> {
         return this.subject.asObservable();
     }
 
