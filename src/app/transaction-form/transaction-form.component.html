@@ -9,7 +9,11 @@
   <br/>
   <input type="number" formControlName="amt" placeholder="amt"/>
   <br/>
-  <input bsDatepicker type="text" formControlName="date" placeholder="date" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass:'theme-dark-blue' }"/>
+  <input type="text"
+         formControlName="date"
+         placeholder="date"
+         bsDatepicker
+         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass:'theme-dark-blue' }"/>
   <br/>
   <button value="submit">submit</button>
 </form>
