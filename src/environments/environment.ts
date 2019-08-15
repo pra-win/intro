@@ -9,7 +9,8 @@ export const environment = {
     addCategory: '/testApi/addCategory.php',
     logout: 'testApi/logout.php',
     auth: '/testApi/auth.php',
-    getTransactions: '/testApi/transactions.php'
+    getTransactions: '/testApi/transactions.php',
+    addTransactions: '/testApi/addTransactions.php'
   }
 };
 

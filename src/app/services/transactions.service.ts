@@ -14,4 +14,8 @@ export class TransactionsService {
   getTransactions() {
       return this.http.get<TraObj>(environment.apiURLs.getTransactions);
   }
+
+  addTransactions(params) {
+    return this.http.post<TraObj>(environment.apiURLs.addTransactions, params);
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TransactionsService } from './../services/transactions.service';
+import { TransactionObj as TraObj} from './../interfaces';
 
 @Component({
   selector: 'app-transaction-form',
@@ -22,7 +24,7 @@ export class TransactionFormComponent implements OnInit {
 
   categories = [];
 
-  constructor() {}
+  constructor(private transactions:TransactionsService) {}
 
   ngOnInit() {
     this.categories = this.selectedCategory;
@@ -32,6 +34,10 @@ export class TransactionFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.transactionForm.value);
+    let params = this.transactionForm.value;
+    this.transactions.addTransactions(params).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
