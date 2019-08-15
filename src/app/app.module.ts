@@ -29,7 +29,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { SpendingComponent } from './spending/spending.component';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { LoadingbarComponent } from './loadingbar/loadingbar.component';
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
@@ -57,7 +57,8 @@ import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.compone
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     AuthService,

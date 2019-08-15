@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
-//import { CategoriesService } from './../services/categories.service';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-transaction-form',
@@ -8,6 +8,8 @@ import { FormGroup, FormControl} from '@angular/forms';
   styleUrls: ['./transaction-form.component.css']
 })
 export class TransactionFormComponent implements OnInit {
+
+  bsValue = new Date();
 
   @Input('transactionCategory') selectedCategory: [];
 
@@ -25,6 +27,7 @@ export class TransactionFormComponent implements OnInit {
   ngOnInit() {
     this.categories = this.selectedCategory;
     this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
+    this.transactionForm.controls['date'].setValue(new Date(), {onlySelf: true});
   }
 
   onSubmit() {
