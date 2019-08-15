@@ -22,7 +22,7 @@ export class TransactionsService {
         if(data.response) {
           this.transactions = data.response;
         }
-        callback && callback(this.transactions);
+        callback && callback(this.getUpdatedTransactions());
         this.setTransactions(this.transactions);
       });
   }
@@ -34,15 +34,15 @@ export class TransactionsService {
     });
   }
 
-  getUpdatedTransactions(): Observable<any> {
+  private getUpdatedTransactions(): Observable<any> {
       return this.subject.asObservable();
   }
 
-  setTransactions(val) {
+  private setTransactions(val) {
       this.subject.next(val);
   }
 
-  clearTransactions() {
+  private clearTransactions() {
       this.subject.next();
   }
 

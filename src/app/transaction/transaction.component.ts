@@ -12,10 +12,10 @@ export class TransactionComponent implements OnInit {
   constructor(private transactionsService: TransactionsService) { }
 
   ngOnInit() {
-      this.transactionsService.getTransactions(false);
-
-      this.transactionsService.getUpdatedTransactions().subscribe((data) => {
-        this.transactions = data;
+      this.transactionsService.getTransactions((obs) => {
+        obs.subscribe((data) => {
+          this.transactions = data;
+        });
       });
   }
 
