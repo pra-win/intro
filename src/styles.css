@@ -6,7 +6,11 @@ html, body { height: 100%; background-color: #f8f9fa}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container { background-color: #fff;}
 
-.loading .modal-content {
+.loading-spinner {
+    top: 45%;
+}
+
+.loading-spinner .modal-content {
     background-color: transparent !important;
     border: 0px;
 }

@@ -31,6 +31,7 @@ import { TransactionFormComponent } from './transaction-form/transaction-form.co
 
 import { ModalModule } from 'ngx-bootstrap';
 import { LoadingbarComponent } from './loadingbar/loadingbar.component';
+import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { LoadingbarComponent } from './loadingbar/loadingbar.component';
     SpendingComponent,
     TransactionFormComponent,
     ModalComponent,
-    LoadingbarComponent
+    LoadingbarComponent,
+    LoadingspinnerComponent
   ],
   imports: [
     BrowserModule,
