@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
-import { CategoriesService } from './../services/categories.service';
+//import { CategoriesService } from './../services/categories.service';
 
 @Component({
   selector: 'app-transaction-form',
@@ -8,8 +8,8 @@ import { CategoriesService } from './../services/categories.service';
   styleUrls: ['./transaction-form.component.css']
 })
 export class TransactionFormComponent implements OnInit {
-    
-  @Input('transactionCategory') selectedCategory: string;
+
+  @Input('transactionCategory') selectedCategory: [];
 
   transactionForm = new FormGroup({
     category : new FormControl(''),
@@ -20,16 +20,11 @@ export class TransactionFormComponent implements OnInit {
 
   categories = [];
 
-  transactionCategory = 'e';
-
-  constructor(private categoriesService: CategoriesService) { }
+  constructor() {}
 
   ngOnInit() {
-
-    this.selectedCategory && (this.transactionCategory = this.selectedCategory);
-    this.categoriesService.getCategories().subscribe((data) => {
-      this.categories = data.response;
-    });
+    this.categories = this.selectedCategory;
+    this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
   }
 
   onSubmit() {
@@ -37,7 +32,7 @@ export class TransactionFormComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.transactionCategory = changes.selectedCategory.currentValue;
+    //this.transactionCategory = changes.selectedCategory.currentValue;
   }
 
 }

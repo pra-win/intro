@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TransactionsService } from './../services/transactions.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { CategoriesService } from './../services/categories.service';
 
 @Component({
   selector: 'app-spending',
@@ -17,7 +18,7 @@ export class SpendingComponent implements OnInit {
   incomeTotal = 0;
   expenseTotal = 0;
 
-  transactionCategory = 'i';
+  transactionCategory = [];
 
   modalRef: BsModalRef;
 
@@ -26,7 +27,10 @@ export class SpendingComponent implements OnInit {
     ignoreBackdropClick: true
   };
 
-  constructor(private transactions: TransactionsService, private modalService: BsModalService) { }
+  constructor(
+    private transactions: TransactionsService,
+    private modalService: BsModalService,
+    private categoriesService: CategoriesService) { }
 
   ngOnInit() {
     this.transactions.getTransactions().subscribe((data) => {
@@ -50,8 +54,12 @@ export class SpendingComponent implements OnInit {
   }
 
   onTransaction(type) {
-    this.transactionCategory = type;
-    this.modalRef = this.modalService.show(this.input, this.config);
+    this.categoriesService.getCategories().subscribe((data) => {
+      this.transactionCategory = data.response.filter((d) => {
+        return d.type === type
+      });
+      this.modalRef = this.modalService.show(this.input, this.config);
+    });
   }
 
   ngAfterViewInit() {

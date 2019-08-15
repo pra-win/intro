@@ -1,7 +1,7 @@
 <form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">
   <select formControlName="category">
-    <ng-container *ngFor="let category of categories">
-      <option  *ngIf="category.type === transactionCategory" value="category.id">{{category.cname}}</option>
+    <ng-container *ngFor="let category of categories; index as i">
+      <option [ngValue]=category.cid>{{category.cname}}</option>
     </ng-container>
   </select>
   <br/>
