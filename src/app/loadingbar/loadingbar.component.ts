@@ -14,8 +14,7 @@ export class LoadingbarComponent implements OnInit {
 
   ngOnInit() {
       this.loading.getLoading().subscribe(data => {
-          console.log(data.loading);
-          this.showLoading = data.loading;
+          this.showLoading = data.loadingBar;
       });
   }
 

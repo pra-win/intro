@@ -10,11 +10,11 @@ export class LoadingService {
 
   private subject = new Subject<any>();
 
-    setLoading(isLoading: boolean ) {
-        this.subject.next({ loading: isLoading });
+    setLoading(val) {
+        this.subject.next(val);
     }
 
-    clearMessages() {
+    clearLoading() {
         this.subject.next();
     }
 
