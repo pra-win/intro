@@ -1,41 +1,60 @@
-<div class="row">
-<div class="col-md-6">
-  <table>
-    <tr>
-      <td>income</td>
-      <td>{{incomeTotal}}</td>
-    </tr>
-    <tr *ngFor="let in of income">
-      <td>&nbsp;&nbsp;{{in.cname}}</td>
-      <td>{{in.amt}}</td>
-    </tr>
-  </table>
-  <button (click)="onTransaction('i')">income</button>
-</div>
-
-<div class="col-md-6">
-  <table>
-    <tr>
-      <td>expense</td>
-      <td>{{expenseTotal}}</td>
-    </tr>
-    <tr *ngFor="let in of expense">
-      <td>&nbsp;&nbsp;{{in.cname}}</td>
-      <td>{{in.amt}}</td>
-    </tr>
-  </table>
-  <button (click)="onTransaction('e')">expense</button>
-</div>
-
 <div class="col-md-12">
-  <table>
-    <tr>
-      <td>Total Balanse</td>
-      <td>{{incomeTotal-expenseTotal}}</td>
-    </tr>
-  </table>
+  <div class="row">
+    <div class="col-md-6">
+      <table>
+        <tr>
+          <td><h5>Total Balance &nbsp;&nbsp;</h5></td>
+          <td><h5>{{incomeTotal-expenseTotal}}</h5></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6 table-responsive">
+    <table class="table">
+      <thead class="table-primary">
+        <tr>
+          <td>Total Income</td>
+          <td>{{incomeTotal}}
+            <div class="float-right" style="font-size:20px; color:blue;position:relative;">
+              <a tooltip="Add Income" style="cursor: pointer;" (click)="onTransaction('i')">
+                <i class="far fa-plus-square">
+                </i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tr *ngFor="let in of income">
+        <td>{{in.cname}}</td>
+        <td>{{in.amt}}</td>
+      </tr>
+    </table>
+  </div>
 
-</div>
+  <div class="col-md-6 table-responsive">
+    <table class="table">
+      <thead class="table-danger">
+        <tr>
+          <td>Total Expense</td>
+          <td>{{expenseTotal}}
+            <div class="float-right" style="font-size:20px; color:red;position:relative;">
+              <a tooltip="Add Expense" style="cursor: pointer;" (click)="onTransaction('e')">
+                <i class="far fa-plus-square"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </thead>
+
+      <tr *ngFor="let in of expense">
+        <td>{{in.cname}}</td>
+        <td>{{in.amt}} </td>
+      </tr>
+    </table>
+
+  </div>
+  </div>
 </div>
 
 
