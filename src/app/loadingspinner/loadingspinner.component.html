@@ -1,7 +1,8 @@
-<ng-template #template>
-    <div class="d-flex justify-content-center">
-        <div class="spinner-grow text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-</ng-template>
+
+<div class="loading-container" *ngIf="showLoading">
+  <div class="loading d-flex justify-content-center">
+      <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+  </div>
+</div>
