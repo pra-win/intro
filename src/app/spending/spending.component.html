@@ -16,8 +16,8 @@
         <tr>
           <td>Total Income</td>
           <td>{{incomeTotal}}
-            <div class="float-right" style="font-size:20px; color:blue;position:relative;">
-              <a tooltip="Add Income" style="cursor: pointer;" (click)="onTransaction('i')">
+            <div class="float-right" style="font-size:20px; color:blue;">
+              <a tooltip="Add Income" style="position:relative;" placement="left" style="cursor: pointer;position:relative;" (click)="onTransaction('i')">
                 <i class="far fa-plus-square">
                 </i>
               </a>
@@ -39,7 +39,7 @@
           <td>Total Expense</td>
           <td>{{expenseTotal}}
             <div class="float-right" style="font-size:20px; color:red;position:relative;">
-              <a tooltip="Add Expense" style="cursor: pointer;" (click)="onTransaction('e')">
+              <a tooltip="Add Expense" style="position:relative;" placement="left" style="cursor: pointer;" (click)="onTransaction('e')">
                 <i class="far fa-plus-square"></i>
               </a>
             </div>
