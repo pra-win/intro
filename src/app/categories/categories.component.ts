@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
     ignoreBackdropClick: true
   };
 
-  categoriesData:ResObj;
+  categoriesData = [];
   CATEGORY_TYPE = {A: '', I: 'i', E: 'e'};
   showType = this.CATEGORY_TYPE.A;
 
@@ -28,28 +28,48 @@ export class CategoriesComponent implements OnInit {
     type: new FormControl()
   });
 
+  newData = [];
+
   constructor(private categories: CategoriesService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.categories.getCategories().subscribe(data => {
-      console.log("data=",data);
-      data.success && (this.categoriesData = data);
+      data.success && (this.categoriesData = data.response);
+      this.devideDataInChunk();
     });
+  }
+
+  devideDataInChunk() {
+    this.newData = [];
+    let filterData = this.categoriesData.filter((d) => {
+                      return this.showType === this.CATEGORY_TYPE.A ? true : d.type === this.showType;
+                    });
+    let chunk = Math.ceil(filterData.length/4);
+    let temparray = [];
+    let i; let sliceCnt = 4;
+
+    for(i = 0; i < filterData.length; i += sliceCnt) {
+      temparray = filterData.slice(i,i + sliceCnt);
+      this.newData.push(temparray);
+    }
+
   }
 
   showCategory(type) {
     this.showType = type;
+    this.devideDataInChunk();
   }
 
   addCategory(event) {
     event.preventDefault();
+    this.modalRef.hide();
     let {cname, type} = this.categoryForm.value;
     let catObj = {cname, type};
-    this.categoriesData.response.push(catObj);
-
     this.categories.addCategory(catObj)
                     .subscribe(data => {
                       console.log(data);
+                      this.categoriesData.push(catObj);
+                      this.devideDataInChunk();
                     });
   }
 

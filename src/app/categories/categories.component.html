@@ -1,30 +1,28 @@
-<button [ngClass]="{'active': showType==CATEGORY_TYPE.A}" (click)="showCategory(CATEGORY_TYPE.A)">All</button> &nbsp; &nbsp;
-<button [ngClass]="{'active': showType==CATEGORY_TYPE.I}" (click)="showCategory(CATEGORY_TYPE.I)">Income</button> &nbsp; &nbsp;
-<button [ngClass]="{'active': showType==CATEGORY_TYPE.E}" (click)="showCategory(CATEGORY_TYPE.E)">Expense</button> &nbsp; &nbsp;
-
-<table>
-  <tr>
-    <!-- <td>Id</td> -->
-    <td>Name</td>
-    <td>Type</td>
-  </tr>
-  <ng-container *ngIf="categoriesData">
-    <ng-container *ngFor="let category of categoriesData.response">
-      <tr *ngIf="showType===category.type || showType===CATEGORY_TYPE.A">
-        <!-- <td>{{category.cid}}</td> -->
-        <td>{{category.cname}}</td>
-        <!-- <td appReplaceCatType [catType]="category.type">{{category.type}}</td> -->
+<button [ngClass]="{'btn': true,'btn-primary': showType === CATEGORY_TYPE.A, 'btn-secondary': showType !== CATEGORY_TYPE.A}" (click)="showCategory(CATEGORY_TYPE.A)">All</button> &nbsp; &nbsp;
+<button [ngClass]="{'btn': true,'btn-primary': showType === CATEGORY_TYPE.I, 'btn-secondary': showType !== CATEGORY_TYPE.I}" (click)="showCategory(CATEGORY_TYPE.I)">Income</button> &nbsp; &nbsp;
+<button [ngClass]="{'btn': true,'btn-primary': showType === CATEGORY_TYPE.E, 'btn-secondary': showType !== CATEGORY_TYPE.E}" (click)="showCategory(CATEGORY_TYPE.E)">Expense</button> &nbsp; &nbsp;
+<br/><br/>
+<div class="table-responsive">
+  <table class="table">
+    <ng-container *ngIf="categoriesData">
+      <tr *ngFor="let categories of newData;">
+        <ng-container *ngFor="let category of categories;">
+          <td [ngClass]="{'income': category.type === CATEGORY_TYPE.I, 'expence':  category.type === CATEGORY_TYPE.E}">
+            {{category.cname}}
+          </td>
+        </ng-container>
       </tr>
     </ng-container>
-  </ng-container>
-</table>
+  </table>
+</div>
 
-<button (click)="openCategoryForm()">Add Category</button>
+
+<button class="btn btn-primary pull-right" (click)="openCategoryForm()">Add Category</button>
 
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add New Category</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button class="btn btn-primary" type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -37,7 +35,7 @@
         <option [ngValue]=CATEGORY_TYPE.I> Income </option>
         <option [ngValue]=CATEGORY_TYPE.E> Expence </option>
       </select>
-      <button> Submit </button>
+      <button class="btn btn-primary"> Submit </button>
     </form>
   </div>
 </ng-template>
