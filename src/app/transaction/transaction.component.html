@@ -1,20 +1,26 @@
-<table>
+<table class="table">
+  <thead class="thead-light table-primary">
     <tr>
-        <td>Id</td>
-        <td>Category Name</td>
-        <td>Category Type</td>
-        <td>Transaction Date</td>
-        <td>Transaction Desc</td>
-        <td>Transaction amount</td>
+        <!-- <td>Id</td> -->
+        <td>Date</td>
+        <td>Category</td>
+        <!-- <td>Category Type</td> -->
+
+        <td>Amount</td>
+        <td>Desc</td>
     </tr>
+  </thead>
+  <tbody>
     <ng-container *ngIf="transactions">
         <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of transactions">
-            <td>{{tran.id}}</td>
-            <td>{{tran.cname}}</td>
-            <td appReplaceCatType [catType]="tran.ctype">{{tran.ctype}}</td>
             <td>{{tran.tranDate}}</td>
-            <td>{{tran.tranDesc}}</td>
+            <!-- <td>{{tran.id}}</td> -->
+            <td>{{tran.cname}}</td>
+            <!-- <td appReplaceCatType [catType]="tran.ctype">{{tran.ctype}}</td> -->
+
             <td>{{tran.amt}}</td>
+            <td>{{tran.tranDesc}}</td>
         </tr>
     </ng-container>
+  </tbody>
 </table>
