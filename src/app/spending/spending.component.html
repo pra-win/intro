@@ -49,6 +49,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-transaction-form [transactionCategory]="transactionCategory"></app-transaction-form>
+    <app-transaction-form (modalCloseEvent)="modalRef.hide()" modalRef = "modalRef" [transactionCategory]="transactionCategory"></app-transaction-form>
   </div>
 </ng-template>

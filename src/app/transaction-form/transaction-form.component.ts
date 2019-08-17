@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TransactionsService } from './../services/transactions.service';
@@ -14,6 +14,7 @@ export class TransactionFormComponent implements OnInit {
   bsValue = new Date();
 
   @Input('transactionCategory') selectedCategory: [];
+  @Output() modalCloseEvent = new EventEmitter<string>();
 
   transactionForm = new FormGroup({
     category : new FormControl(''),
@@ -38,6 +39,7 @@ export class TransactionFormComponent implements OnInit {
     this.transactions.addTransactions(params, (data) => {
       console.log(data);
     });
+    this.modalCloseEvent.next();
   }
 
   ngOnChanges(changes: SimpleChanges) {
