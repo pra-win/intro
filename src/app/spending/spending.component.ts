@@ -45,6 +45,8 @@ export class SpendingComponent implements OnInit {
   setIncomeExpence(transactionsData) {
     this.expense = [];
     this.income = [];
+    this.incomeTotal = 0;
+    this.expenseTotal = 0;
     transactionsData.forEach((t)=>{
       if(t.ctype === 'e') {
         this.expense.push(t);
