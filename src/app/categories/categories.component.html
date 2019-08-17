@@ -1,6 +1,6 @@
-<button [ngClass]="{'active': showType=='a'}" (click)="showCategory('a')">All</button> &nbsp; &nbsp;
-<button [ngClass]="{'active': showType=='i'}" (click)="showCategory('i')">Income</button> &nbsp; &nbsp;
-<button [ngClass]="{'active': showType=='e'}" (click)="showCategory('e')">Expense</button> &nbsp; &nbsp;
+<button [ngClass]="{'active': showType==CATEGORY_TYPE.A}" (click)="showCategory(CATEGORY_TYPE.A)">All</button> &nbsp; &nbsp;
+<button [ngClass]="{'active': showType==CATEGORY_TYPE.I}" (click)="showCategory(CATEGORY_TYPE.I)">Income</button> &nbsp; &nbsp;
+<button [ngClass]="{'active': showType==CATEGORY_TYPE.E}" (click)="showCategory(CATEGORY_TYPE.E)">Expense</button> &nbsp; &nbsp;
 
 <table>
   <tr>
@@ -10,23 +10,36 @@
   </tr>
   <ng-container *ngIf="categoriesData">
     <ng-container *ngFor="let category of categoriesData.response">
-      <tr *ngIf="showType===category.type || showType==='a'">
+      <tr *ngIf="showType===category.type || showType===CATEGORY_TYPE.A">
         <!-- <td>{{category.cid}}</td> -->
         <td>{{category.cname}}</td>
-        <td appReplaceCatType [catType]="category.type">{{category.type}}</td>
+        <!-- <td appReplaceCatType [catType]="category.type">{{category.type}}</td> -->
       </tr>
     </ng-container>
   </ng-container>
 </table>
 
-<form [formGroup]="categoryForm" (submit)="addCategory($event)">
-  <input formControlName="cname" type="text" name="cname"/>
-  <!-- <input formControlName="type" type="text" name="type"/> -->
-  <select formControlName="type">
-    <option value="i"> Income</option>
-    <option value="e"> Expence</option>
-  </select>
-  <button> Submit </button>
-</form>
+<button (click)="openCategoryForm()">Add Category</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add New Category</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="categoryForm" (submit)="addCategory($event)">
+      <input formControlName="cname" type="text" name="cname"/>
+      <!-- <input formControlName="type" type="text" name="type"/> -->
+      <select formControlName="type">
+        <option [ngValue]=CATEGORY_TYPE.A> --Select--</option>
+        <option [ngValue]=CATEGORY_TYPE.I> Income </option>
+        <option [ngValue]=CATEGORY_TYPE.E> Expence </option>
+      </select>
+      <button> Submit </button>
+    </form>
+  </div>
+</ng-template>
 
 <!-- <button (click)="showCategoryForm()">Add Category</button> -->
