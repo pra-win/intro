@@ -19,6 +19,7 @@ export class SpendingComponent implements OnInit {
   expenseTotal = 0;
 
   transactionCategory = [];
+  transactionCategoryFilterData = [];
 
   modalRef: BsModalRef;
 
@@ -57,16 +58,25 @@ export class SpendingComponent implements OnInit {
 
   onTransaction(type) {
     this.categoriesService.getCategories().subscribe((data) => {
-      this.transactionCategory = data.response.filter((d) => {
-        return d.type === type
-      });
+      this.transactionCategory = data.response;
+      this.filterData(type);
       this.modalRef = this.modalService.show(this.input, this.config);
     });
+  }
+
+  filterData(type) {
+    this.transactionCategoryFilterData = this.transactionCategory.filter((d) => {
+      return d.type === type
+    })
   }
 
   ngAfterViewInit() {
       console.log(this.input);
      // this.modalRef = this.modalService.show(this.input);
+    }
+
+    changeCategoryType(type) {
+      this.filterData(type);
     }
 
 }

@@ -1,19 +1,24 @@
+<button (click)="onChangeCategoryType('i')">Income</button>
+<button (click)="onChangeCategoryType('e')">Expense</button>
 <form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">
+  <input type="text"
+         formControlName="tranDate"
+         placeholder="date"
+         bsDatepicker
+         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass:'theme-dark-blue' }"
+  />
+  <br/>
   <select formControlName="category">
     <ng-container *ngFor="let category of categories; index as i">
       <option [ngValue]=category.cid>{{category.cname}}</option>
     </ng-container>
   </select>
   <br/>
-  <input type="text" formControlName="tranDesc" placeholder="desc"/>
-  <br/>
+
   <input type="number" formControlName="amt" placeholder="amt"/>
   <br/>
-  <input type="text"
-         formControlName="tranDate"
-         placeholder="date"
-         bsDatepicker
-         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass:'theme-dark-blue' }"/>
+  <input type="text" formControlName="tranDesc" placeholder="desc"/>
   <br/>
+
   <button value="submit">submit</button>
 </form>

@@ -15,6 +15,7 @@ export class TransactionFormComponent implements OnInit {
 
   @Input('transactionCategory') selectedCategory: [];
   @Output() modalCloseEvent = new EventEmitter<string>();
+  @Output() changeCategoryType = new EventEmitter<string>();
 
   transactionForm = new FormGroup({
     category : new FormControl(''),
@@ -39,8 +40,12 @@ export class TransactionFormComponent implements OnInit {
     this.modalCloseEvent.next();
   }
 
+  onChangeCategoryType(type) {
+    this.changeCategoryType.next(type);
+  }
+
   ngOnChanges(changes: SimpleChanges) {
-    //this.transactionCategory = changes.selectedCategory.currentValue;
+    this.categories = changes.selectedCategory.currentValue;
   }
 
 }
