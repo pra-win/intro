@@ -1,5 +1,8 @@
-<button (click)="onChangeCategoryType('i')">Income</button>
-<button (click)="onChangeCategoryType('e')">Expense</button>
+<div class="text-center">
+  <button [ngClass]="{'btn': true, 'btn-danger': tType === 'i', 'btn-primary': tType !== 'i'}" (click)="onChangeCategoryType('i')">Income</button>
+  <button [ngClass]="{'btn': true, 'btn-danger': tType === 'e',  'btn-primary': tType !== 'e'}" (click)="onChangeCategoryType('e')">Expense</button>
+</div>
+<br/>
 <form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">
   <input type="text"
          formControlName="tranDate"

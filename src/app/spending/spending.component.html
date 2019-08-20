@@ -71,7 +71,8 @@
     <app-transaction-form
       (changeCategoryType)="changeCategoryType($event)"
       (modalCloseEvent)="modalRef.hide()" modalRef = "modalRef"
-      [transactionCategory]="transactionCategoryFilterData">
+      [transactionCategory]="transactionCategoryFilterData"
+      [transactionType]="transactionType">
     </app-transaction-form>
   </div>
 </ng-template>

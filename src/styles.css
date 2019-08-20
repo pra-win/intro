@@ -14,3 +14,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: transparent !important;
     border: 0px;
 }
+
+.btn {
+  border-radius: 0px;
+}
+
+.btn:focus {
+    box-shadow: none;
+}

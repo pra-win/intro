@@ -14,6 +14,7 @@ export class TransactionFormComponent implements OnInit {
   bsValue = new Date();
 
   @Input('transactionCategory') selectedCategory: [];
+  @Input('transactionType') transactionType: '';
   @Output() modalCloseEvent = new EventEmitter<string>();
   @Output() changeCategoryType = new EventEmitter<string>();
 
@@ -29,6 +30,8 @@ export class TransactionFormComponent implements OnInit {
   constructor(private transactions:TransactionsService) {}
 
   ngOnInit() {
+    console.log("t=",this.transactionType);
+    this.tType = this.transactionType;
     this.categories = this.selectedCategory;
     this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
     this.transactionForm.controls['tranDate'].setValue(new Date(), {onlySelf: true});
@@ -42,6 +45,7 @@ export class TransactionFormComponent implements OnInit {
 
   onChangeCategoryType(type) {
     this.changeCategoryType.next(type);
+    this.tType = type;
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -20,6 +20,7 @@ export class SpendingComponent implements OnInit {
 
   transactionCategory = [];
   transactionCategoryFilterData = [];
+  transactionType = '';
 
   modalRef: BsModalRef;
 
@@ -59,6 +60,7 @@ export class SpendingComponent implements OnInit {
   }
 
   onTransaction(type) {
+    this.transactionType = type;
     this.categoriesService.getCategories().subscribe((data) => {
       this.transactionCategory = data.response;
       this.filterData(type);
@@ -77,8 +79,8 @@ export class SpendingComponent implements OnInit {
      // this.modalRef = this.modalService.show(this.input);
     }
 
-    changeCategoryType(type) {
-      this.filterData(type);
-    }
+  changeCategoryType(type) {
+    this.filterData(type);
+  }
 
 }
