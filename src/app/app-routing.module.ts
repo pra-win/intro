@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AdminComponent
+    component: LoginComponent
     // redirectTo: '/admin',
     // pathMatch: 'full'
   },

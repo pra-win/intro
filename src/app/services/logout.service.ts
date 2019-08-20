@@ -20,8 +20,8 @@ export class LogoutService {
     this.http.get<statusData>(environment.apiURLs.logout)
                 .subscribe(data => {
                   if(data.success) {
-                    this.router.navigate(['']);
                     this.auth.setLoggedIn(false);
+                    this.router.navigate(['/login']);
                   }
                 });;
   }
