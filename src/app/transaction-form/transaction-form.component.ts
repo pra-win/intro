@@ -12,6 +12,7 @@ import { TransactionObj as TraObj} from './../interfaces';
 export class TransactionFormComponent implements OnInit {
 
   bsValue = new Date();
+  tType = ''
 
   @Input('transactionCategory') selectedCategory: [];
   @Input('transactionType') transactionType: '';
@@ -30,7 +31,6 @@ export class TransactionFormComponent implements OnInit {
   constructor(private transactions:TransactionsService) {}
 
   ngOnInit() {
-    console.log("t=",this.transactionType);
     this.tType = this.transactionType;
     this.categories = this.selectedCategory;
     this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
