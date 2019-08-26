@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   apiURLs : {
-    getCategories: '/testApi/categories.php',
-    addCategory: '/testApi/addCategory.php',
-    logout: 'testApi/logout.php',
-    auth: '/testApi/auth.php',
-    getTransactions: '/testApi/transactions.php',
-    addTransactions: '/testApi/addTransactions.php'
+    getCategories: '/api/testApi/categories.php',
+    addCategory: '/api/testApi/addCategory.php',
+    logout: '/api/testApi/logout.php',
+    auth: '/api/testApi/auth.php',
+    getTransactions: '/api/testApi/transactions.php',
+    addTransactions: '/api/testApi/addTransactions.php'
   }
 };
 
