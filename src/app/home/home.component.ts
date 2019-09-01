@@ -19,7 +19,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.employeeForm = new FormGroup({
       fullName: new FormControl(),
-      email: new FormControl()
+      email: new FormControl(),
+      skills: new FormGroup({
+        skillName: new FormControl(),
+        experience: new FormControl(),
+        proficiency: new FormControl()
+      })
     });
   }
 

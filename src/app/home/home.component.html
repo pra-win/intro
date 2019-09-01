@@ -22,6 +22,19 @@
         </div>
       </div>
 
+      <div formGroupName="skills">
+        <label class="col-sm-2 control-label" for="email">Skill Name</label>
+        <input type="text" name="" value="" formControlName="skillName">
+        <br>
+        <label class="col-sm-2 control-label" for="email">Experience</label>
+        <input type="text" name="" value="" formControlName="experience">
+        <br>
+        <label class="col-sm-2 control-label" for="email">Proficiency</label>
+        <input type="radio" name="" value="beginner" formControlName="proficiency">
+        <input type="radio" name="" value="intermediate" formControlName="proficiency">
+        <input type="radio" name="" value="advance" formControlName="proficiency">
+      </div>
+
     </div>
     <div class="panel-footer">
       <button class="btn btn-primary" type="submit">Save</button>
