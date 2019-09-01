@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,19 +11,29 @@ export class HomeComponent implements OnInit {
   // This FormGroup contains fullName and Email form controls
   employeeForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   // Initialise the FormGroup with the 2 FormControls we need.
   // ngOnInit ensures the FormGroup and it's form controls are
   // created when the component is initialised
   ngOnInit() {
-    this.employeeForm = new FormGroup({
-      fullName: new FormControl(),
-      email: new FormControl(),
-      skills: new FormGroup({
-        skillName: new FormControl(),
-        experience: new FormControl(),
-        proficiency: new FormControl()
+    // this.employeeForm = new FormGroup({
+    //   fullName: new FormControl(),
+    //   email: new FormControl(),
+    //   skills: new FormGroup({
+    //     skillName: new FormControl(),
+    //     experience: new FormControl(),
+    //     proficiency: new FormControl()
+    //   })
+    // });
+
+    this.employeeForm = this.fb.group({
+      fullName: [''],
+      email: [''],
+      skills: this.fb.group({       
+        skillName: [''],
+        experience: [''],
+        proficiency: ['']
       })
     });
   }
