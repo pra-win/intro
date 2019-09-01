@@ -32,4 +32,23 @@ export class HomeComponent implements OnInit {
     console.log(this.employeeForm.value);
   }
 
+  onLoadDataClick(): void {
+    this.employeeForm.setValue({
+      fullName: "test",
+      email: "email",
+      skills: {
+        skillName: 'skill name',
+        experience: 'expe',
+        proficiency: 'intermediate'
+      }
+    });
+  }
+
+  onPatchDataClick(): void {
+    this.employeeForm.patchValue({
+      fullName: "p test",
+      email: "p email",
+    });
+  }
+
 }
