@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
 
   // This FormGroup contains fullName and Email form controls
   employeeForm: FormGroup;
+  fullNameLength = 0;
 
   constructor(private fb: FormBuilder) { }
 
@@ -36,6 +37,16 @@ export class HomeComponent implements OnInit {
         proficiency: ['']
       })
     });
+
+    this.employeeForm.get("fullName").valueChanges.subscribe((value: string) => {
+      console.log(value);
+      this.fullNameLength = value.length;
+    });
+
+    this.employeeForm.valueChanges.subscribe((value: any) => {
+      console.log( JSON.stringify(value));
+    });
+
   }
 
   onSubmit(): void {
