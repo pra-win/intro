@@ -8,39 +8,34 @@
       <h3 class="panel-title">Create Employee</h3>
     </div>
     <div class="panel-body">
-      <div class="form-group" [ngClass]="{'has-error': employeeForm.get('fullName').errors && (employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty)}">
+      <div class="form-group" [ngClass]="{'has-error': formErrors.fullName}">
         <label class="col-sm-2 control-label" for="fullName">Full Name {{fullNameLength}}</label>
         <div class="col-sm-8">
-          <input id="fullName" type="text" class="form-control" formControlName="fullName">
+          <input (blur)="logValidationErrors()" id="fullName" type="text" class="form-control" formControlName="fullName">
         </div>
-        <span *ngIf="employeeForm.get('fullName').errors && (employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty)">
-          <span *ngIf="employeeForm.get('fullName').errors.required">
-            Full name is req.
-          </span>
-          <span *ngIf="employeeForm.get('fullName').errors.minlength || employeeForm.get('fullName').errors.maxlength">
-            Min lenghth is 2 and max lenght is 10.
-          </span>
+        <span *ngIf="formErrors.fullName">
+          {{formErrors.fullName}}
         </span>
       </div>
 
       <div class="form-group">
         <label class="col-sm-2 control-label" for="email">Email</label>
         <div class="col-sm-8">
-          <input id="email" type="text" class="form-control" formControlName="email">
+          <input (blur)="logValidationErrors()" id="email" type="text" class="form-control" formControlName="email">
         </div>
       </div>
 
       <div formGroupName="skills">
         <label class="col-sm-2 control-label" for="email">Skill Name</label>
-        <input type="text" name="" value="" formControlName="skillName">
+        <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="skillName">
         <br>
         <label class="col-sm-2 control-label" for="email">Experience</label>
-        <input type="text" name="" value="" formControlName="experience">
+        <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="experience">
         <br>
         <label class="col-sm-2 control-label" for="email">Proficiency</label>
-        <input type="radio" name="" value="beginner" formControlName="proficiency">
-        <input type="radio" name="" value="intermediate" formControlName="proficiency">
-        <input type="radio" name="" value="advance" formControlName="proficiency">
+        <input (blur)="logValidationErrors()" type="radio" name="" value="beginner" formControlName="proficiency">
+        <input (blur)="logValidationErrors()" type="radio" name="" value="intermediate" formControlName="proficiency">
+        <input (blur)="logValidationErrors()" type="radio" name="" value="advance" formControlName="proficiency">
       </div>
 
     </div>

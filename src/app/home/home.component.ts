@@ -73,6 +73,7 @@ export class HomeComponent implements OnInit {
 
     this.employeeForm.valueChanges.subscribe((value: any) => {
       console.log( JSON.stringify(value));
+      this.logValidationErrors(this.employeeForm);
     });
   }
 
@@ -91,10 +92,10 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    this.logValidationErrors(this.employeeForm);
+    //this.logValidationErrors(this.employeeForm);
   }
 
-  logValidationErrors(group: FormGroup): void {
+  logValidationErrors(group: FormGroup = this.employeeForm): void {
     //console.log(group.controls);
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -102,7 +103,7 @@ export class HomeComponent implements OnInit {
       if(abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       } else {
-        console.log('Key=',key, ' Value=',abstractControl.value);
+        // console.log('Key=',key, ' Value=',abstractControl.value);
         // abstractControl.markAsDirty();
         // abstractControl.disable();
 
@@ -110,7 +111,7 @@ export class HomeComponent implements OnInit {
 
         this.formErrors[key] = '';
 
-        if(abstractControl && !abstractControl.valid) {
+        if(abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
           const messages = this.validationMessages[key];
           for(const errorKey in abstractControl.errors) {
             this.formErrors[key] += messages[errorKey] + ' ';
