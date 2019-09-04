@@ -46,7 +46,6 @@ export class HomeComponent implements OnInit {
     this.employeeForm.valueChanges.subscribe((value: any) => {
       console.log( JSON.stringify(value));
     });
-
   }
 
   onSubmit(): void {
@@ -55,7 +54,7 @@ export class HomeComponent implements OnInit {
 
   onLoadDataClick(): void {
     this.employeeForm.setValue({
-      fullName: "test",
+      fullName: "t",
       email: "email",
       skills: {
         skillName: 'skill name',
@@ -63,6 +62,24 @@ export class HomeComponent implements OnInit {
         proficiency: 'intermediate'
       }
     });
+
+    this.logKeyValue(this.employeeForm);
+  }
+
+  logKeyValue(group: FormGroup): void {
+    //console.log(group.controls);
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+
+      if(abstractControl instanceof FormGroup) {
+        this.logKeyValue(abstractControl);
+      } else {
+        console.log('Key=',key, ' Value=',abstractControl.value);
+        abstractControl.markAsDirty();
+        abstractControl.disable();
+      }
+    });
+
   }
 
   onPatchDataClick(): void {
