@@ -17,12 +17,29 @@
           {{formErrors.fullName}}
         </span>
       </div>
-
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error': formErrors.fullName}">
+        <label class="col-sm-2 control-label" for="email">Contact Pref</label>
+        <input (blur)="logValidationErrors()" type="radio" name="" value="email" formControlName="contactPref">
+        <input (blur)="logValidationErrors()" type="radio" name="" value="phone" formControlName="contactPref">
+      </div>
+      <div class="form-group" [ngClass]="{'has-error': formErrors.email}">
         <label class="col-sm-2 control-label" for="email">Email</label>
         <div class="col-sm-8">
           <input (blur)="logValidationErrors()" id="email" type="text" class="form-control" formControlName="email">
         </div>
+        <span *ngIf="formErrors.email">
+          {{formErrors.email}}
+        </span>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error': formErrors.phone}">
+        <label class="col-sm-2 control-label" for="phone">phone</label>
+        <div class="col-sm-8">
+          <input (blur)="logValidationErrors()" id="phone" type="text" class="form-control" formControlName="phone">
+        </div>
+        <span *ngIf="formErrors.phone">
+          {{formErrors.phone}}
+        </span>
       </div>
 
       <div formGroupName="skills">

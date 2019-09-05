@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
     'email': {
       'required': 'Email is required.'
     },
+    'phone': {
+      'required': 'Phone is required.'
+    },
     'skillName': {
       'required': 'Skill is required.'
     },
@@ -37,7 +40,8 @@ export class HomeComponent implements OnInit {
     'email': '',
     'skillName': '',
     'experience': '',
-    'proficiency': ''
+    'proficiency': '',
+    'phone': ''
   }
 
   constructor(private fb: FormBuilder) { }
@@ -59,6 +63,8 @@ export class HomeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       fullName: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       email: ['', Validators.required],
+      phone: [''],
+      contactPref: ['email'],
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experience: ['', Validators.required],
@@ -74,6 +80,11 @@ export class HomeComponent implements OnInit {
     this.employeeForm.valueChanges.subscribe((value: any) => {
       console.log( JSON.stringify(value));
       this.logValidationErrors(this.employeeForm);
+    });
+
+    this.employeeForm.get("contactPref").valueChanges.subscribe((value: string) => {
+      console.log(value);
+      this.onContactPrefChange(value);
     });
   }
 
@@ -127,6 +138,22 @@ export class HomeComponent implements OnInit {
       fullName: "p test",
       email: "p email",
     });
+  }
+
+  onContactPrefChange(pref): void {
+    const phoneControl = this.employeeForm.get('phone');
+    const emailControl = this.employeeForm.get('email');
+
+    if(pref === 'phone') {
+      phoneControl.setValidators(Validators.required);
+      emailControl.clearValidators();
+    } else {
+      phoneControl.clearValidators();
+      emailControl.setValidators(Validators.required);
+    }
+
+    phoneControl.updateValueAndValidity();
+    emailControl.updateValueAndValidity();
   }
 
 }
