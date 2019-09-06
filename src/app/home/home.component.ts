@@ -23,6 +23,12 @@ export class HomeComponent implements OnInit {
       'required': 'Email is required.',
       'emailDomain': 'Email domain should be win-tech.com'
     },
+    'emailGroup': {
+        'emailMisMatch': 'Email and confirm email do not match.'
+    },
+    'confirmEmail': {
+        'required': 'Confirm email is required.'
+    },
     'phone': {
       'required': 'Phone is required.'
     },
@@ -40,6 +46,7 @@ export class HomeComponent implements OnInit {
   formErrors = {
     'fullName': '',
     'email': '',
+    'confirmEmail': '',
     'skillName': '',
     'experience': '',
     'proficiency': '',
@@ -64,9 +71,12 @@ export class HomeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       fullName: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['', [Validators.required, CustomValidators.emailDomain('win-tech.com')]],
       phone: [''],
       contactPref: ['email'],
+      emailGroup: this.fb.group({
+        email: ['', [Validators.required, CustomValidators.emailDomain('win-tech.com')]],
+        confirmEmail: ['', [Validators.required]],
+    }, {validator: matchEmail}),
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experience: ['', Validators.required],
@@ -115,23 +125,17 @@ export class HomeComponent implements OnInit {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
 
+      this.formErrors[key] = '';
+
+      if(abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
+        const messages = this.validationMessages[key];
+        for(const errorKey in abstractControl.errors) {
+          this.formErrors[key] += messages[errorKey] + ' ';
+        }
+      }
+
       if(abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
-      } else {
-        // console.log('Key=',key, ' Value=',abstractControl.value);
-        // abstractControl.markAsDirty();
-        // abstractControl.disable();
-
-        // console.log(abstractControl.errors);
-
-        this.formErrors[key] = '';
-
-        if(abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
-          const messages = this.validationMessages[key];
-          for(const errorKey in abstractControl.errors) {
-            this.formErrors[key] += messages[errorKey] + ' ';
-          }
-        }
       }
     });
     console.log(this.formErrors);
@@ -160,4 +164,16 @@ export class HomeComponent implements OnInit {
     emailControl.updateValueAndValidity();
   }
 
+}
+
+function matchEmail(group: AbstractControl): {[key: string]: any} | null {
+
+    const emailControl = group.get('email');
+    const confirmEmailControl = group.get('confirmEmail');
+    console.log("email=",emailControl.value, confirmEmailControl.value);
+    if(emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
+        return null;
+    } else {
+        return {'emailMisMatch': true};
+    }
 }
