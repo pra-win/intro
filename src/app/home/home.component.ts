@@ -97,6 +97,8 @@ export class HomeComponent implements OnInit {
     this.employeeForm.setValue({
       fullName: "t",
       email: "email",
+      phone: "8796141211",
+      contactPref: "phone",
       skills: {
         skillName: 'skill name',
         experience: 'expe',
@@ -141,7 +143,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onContactPrefChange(pref): void {
+  onContactPrefChange(pref: string): void {
     const phoneControl = this.employeeForm.get('phone');
     const emailControl = this.employeeForm.get('email');
 
