@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomValidators } from '../shared/custom.validators';
 
 @Component({
@@ -164,6 +164,36 @@ export class HomeComponent implements OnInit {
     emailControl.updateValueAndValidity();
   }
 
+  onFormArrayClick(): void {
+      // this.employeeForm = new FormGroup({
+      //   fullName: new FormControl(),
+      //   email: new FormControl(),
+      //   skills: new FormGroup({
+      //     skillName: new FormControl(),
+      //     experience: new FormControl(),
+      //     proficiency: new FormControl()
+      //   })
+      // });
+      const formArray = new FormArray([
+          new FormControl('John', Validators.required),
+          new FormGroup({
+              contry: new FormControl('', Validators.required)
+          }),
+          new FormArray([])
+      ]);
+
+      console.log(formArray.length);
+
+      const formArray1 = this.fb.array([
+          new FormControl('John', Validators.required),
+          new FormControl('IT', Validators.required),
+          new FormControl('', Validators.required)
+      ]);
+
+      formArray1.push(new FormControl('test', Validators.required));
+
+      console.log(formArray1.value, formArray1.valid, formArray1.at(3));
+  }
 }
 
 function matchEmail(group: AbstractControl): {[key: string]: any} | null {
