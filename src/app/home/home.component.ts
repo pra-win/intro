@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       fullName: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['', [Validators.required, emailDomain]],
+      email: ['', [Validators.required, emailDomain('win-tech.com')]],
       phone: [''],
       contactPref: ['email'],
       skills: this.fb.group({
@@ -161,13 +161,15 @@ export class HomeComponent implements OnInit {
 
 }
 
-function emailDomain (control: AbstractControl): {[key: string]: any} | null {
-  const email: string = control.value;
-  const emailDoamin = email.substring(email.lastIndexOf('@')+1);
-
-  if(emailDoamin === "win-tech.com" || !email) {
-    return null;
-  } else {
-    return {'emailDomain': true};
-  }
+function emailDomain (doaminName: string ) {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const email: string = control.value;
+    const emailDoamin = email.substring(email.lastIndexOf('@')+1);
+  
+    if(emailDoamin.toLowerCase() === doaminName.toLowerCase() || !email) {
+      return null;
+    } else {
+      return {'emailDomain': true};
+    }
+  };
 }
