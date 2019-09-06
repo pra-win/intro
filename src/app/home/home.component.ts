@@ -77,11 +77,7 @@ export class HomeComponent implements OnInit {
         email: ['', [Validators.required, CustomValidators.emailDomain('win-tech.com')]],
         confirmEmail: ['', [Validators.required]],
     }, {validator: matchEmail}),
-      skills: this.fb.group({
-        skillName: ['', Validators.required],
-        experience: ['', Validators.required],
-        proficiency: ['', Validators.required]
-      })
+      skills: this.fb.array([this.addSkillFormGroup()])
     });
 
     this.employeeForm.get("fullName").valueChanges.subscribe((value: string) => {
@@ -136,6 +132,14 @@ export class HomeComponent implements OnInit {
 
       if(abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
+      }
+
+      if(abstractControl instanceof FormArray) {
+          for(const control of abstractControl.controls) {
+              if(control instanceof FormGroup) {
+                  this.logValidationErrors(control);
+              }
+          }
       }
     });
     console.log(this.formErrors);
@@ -193,6 +197,18 @@ export class HomeComponent implements OnInit {
       formArray1.push(new FormControl('test', Validators.required));
 
       console.log(formArray1.value, formArray1.valid, formArray1.at(3));
+  }
+
+  addSkillFormGroup(): FormGroup {
+      return this.fb.group({
+        skillName: ['', Validators.required],
+        experience: ['', Validators.required],
+        proficiency: ['', Validators.required]
+      });
+  }
+
+  addSkillButtonClick(): void {
+      (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
   }
 }
 

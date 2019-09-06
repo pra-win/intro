@@ -53,20 +53,24 @@
           {{formErrors.phone}}
         </span>
       </div>
-
-      <div formGroupName="skills">
-        <label class="col-sm-2 control-label" for="email">Skill Name</label>
-        <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="skillName">
-        <br>
-        <label class="col-sm-2 control-label" for="email">Experience</label>
-        <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="experience">
-        <br>
-        <label class="col-sm-2 control-label" for="email">Proficiency</label>
-        <input (blur)="logValidationErrors()" type="radio" name="" value="beginner" formControlName="proficiency">
-        <input (blur)="logValidationErrors()" type="radio" name="" value="intermediate" formControlName="proficiency">
-        <input (blur)="logValidationErrors()" type="radio" name="" value="advance" formControlName="proficiency">
+      <button type="button" name="button" (click)="addSkillButtonClick()" type="button">Add Skill</button>
+      <div formArrayName="skills" *ngFor= "let skill of employeeForm.get('skills').controls; let i = index">
+          <div [formGroupName]="i">
+            <label class="col-sm-2 control-label" for="email">Skill Name</label>
+            <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="skillName">
+            <div>{{formErrors.skillName}}</div>
+            <br>
+            <label class="col-sm-2 control-label" for="email">Experience</label>
+            <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="experience">
+            <div>{{formErrors.experience}}</div>
+            <br>
+            <label class="col-sm-2 control-label" for="email">Proficiency</label>
+            <input (blur)="logValidationErrors()" type="radio" name="" value="beginner" formControlName="proficiency">
+            <input (blur)="logValidationErrors()" type="radio" name="" value="intermediate" formControlName="proficiency">
+            <input (blur)="logValidationErrors()" type="radio" name="" value="advance" formControlName="proficiency">
+            <div>{{formErrors.proficiency}}</div>
+          </div>
       </div>
-
     </div>
     <div class="panel-footer">
       <button type="button" name="button" (click)="onLoadDataClick()" type="button">Load Data</button>
