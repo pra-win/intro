@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit {
       'maxlength': 'Max length is 10.'
     },
     'email': {
-      'required': 'Email is required.'
+      'required': 'Email is required.',
+      'emailDomain': 'Email domain should be win-tech.com'
     },
     'phone': {
       'required': 'Phone is required.'
@@ -62,7 +63,7 @@ export class HomeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       fullName: ['',[Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, emailDomain]],
       phone: [''],
       contactPref: ['email'],
       skills: this.fb.group({
@@ -156,4 +157,15 @@ export class HomeComponent implements OnInit {
     emailControl.updateValueAndValidity();
   }
 
+}
+
+function emailDomain (control: AbstractControl): {[key: string]: any} | null {
+  const email: string = control.value;
+  const emailDoamin = email.substring(email.lastIndexOf('@')+1);
+
+  if(emailDoamin === "win-tech.com" || !email) {
+    return null;
+  } else {
+    return {'emailDomain': true};
+  }
 }
