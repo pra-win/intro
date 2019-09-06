@@ -56,18 +56,18 @@
       <button type="button" name="button" (click)="addSkillButtonClick()" type="button">Add Skill</button>
       <div formArrayName="skills" *ngFor= "let skill of employeeForm.get('skills').controls; let i = index">
           <div [formGroupName]="i">
-            <label class="col-sm-2 control-label" for="email">Skill Name</label>
-            <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="skillName">
+            <label class="col-sm-2 control-label" [attr.for]="'skillName'+i">Skill Name</label>
+            <input (blur)="logValidationErrors()" type="text" name="" value="" [id]="'skillName'+i" formControlName="skillName">
             <div>{{formErrors.skillName}}</div>
             <br>
-            <label class="col-sm-2 control-label" for="email">Experience</label>
-            <input (blur)="logValidationErrors()" type="text" name="" value="" formControlName="experience">
+            <label class="col-sm-2 control-label" [attr.for]="'experience'+i">Experience</label>
+            <input (blur)="logValidationErrors()" type="text" name="" value="" [id]="'experience'+i" formControlName="experience">
             <div>{{formErrors.experience}}</div>
             <br>
-            <label class="col-sm-2 control-label" for="email">Proficiency</label>
-            <input (blur)="logValidationErrors()" type="radio" name="" value="beginner" formControlName="proficiency">
-            <input (blur)="logValidationErrors()" type="radio" name="" value="intermediate" formControlName="proficiency">
-            <input (blur)="logValidationErrors()" type="radio" name="" value="advance" formControlName="proficiency">
+            <label class="col-sm-2 control-label" [attr.for]="'proficiency'+i">Proficiency</label>
+            <input (blur)="logValidationErrors()" type="radio" [id]="'proficiency'+i" name="" value="beginner" formControlName="proficiency">
+            <input (blur)="logValidationErrors()" type="radio" [id]="'proficiency'+i" name="" value="intermediate" formControlName="proficiency">
+            <input (blur)="logValidationErrors()" type="radio" [id]="'proficiency'+i" name="" value="advance" formControlName="proficiency">
             <div>{{formErrors.proficiency}}</div>
           </div>
       </div>
