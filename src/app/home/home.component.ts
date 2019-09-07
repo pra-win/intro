@@ -200,6 +200,10 @@ export class HomeComponent implements OnInit {
   addSkillButtonClick(): void {
       (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
   }
+
+  removeSkillGroupClick(index: number): void {
+    (<FormArray>this.employeeForm.get('skills')).removeAt(index);
+  }
 }
 
 function matchEmail(group: AbstractControl): {[key: string]: any} | null {

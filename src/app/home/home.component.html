@@ -56,6 +56,9 @@
       <button [disabled] = "employeeForm.get('skills').invalid" type="button" name="button" (click)="addSkillButtonClick()" type="button">Add Skill</button>
       <div formArrayName="skills" *ngFor= "let skill of employeeForm.get('skills').controls; let i = index">
           <hr *ngIf="i>0">
+          <div *ngIf="employeeForm.get('skills').length > 1">
+            <button type="button" (click)="removeSkillGroupClick(i)">Remove Skill Group</button>
+          </div>
           <div [formGroupName]="i">
             <div [ngClass]="{'has-error': skill.get('skillName').invalid && skill.get('skillName').touched}">
                 <label class="col-sm-2 control-label" [attr.for]="'skillName'+i">Skill Name</label>
