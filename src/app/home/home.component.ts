@@ -31,27 +31,10 @@ export class HomeComponent implements OnInit {
     },
     'phone': {
       'required': 'Phone is required.'
-    },
-    'skillName': {
-      'required': 'Skill is required.'
-    },
-    'experience': {
-      'required': 'Fill is required.'
-    },
-    'proficiency': {
-      'required': 'Proficiency is required.'
     }
   }
 
-  formErrors = {
-    'fullName': '',
-    'email': '',
-    'confirmEmail': '',
-    'skillName': '',
-    'experience': '',
-    'proficiency': '',
-    'phone': ''
-  }
+  formErrors = {}
 
   constructor(private fb: FormBuilder) { }
 

@@ -56,19 +56,31 @@
       <button type="button" name="button" (click)="addSkillButtonClick()" type="button">Add Skill</button>
       <div formArrayName="skills" *ngFor= "let skill of employeeForm.get('skills').controls; let i = index">
           <div [formGroupName]="i">
-            <label class="col-sm-2 control-label" [attr.for]="'skillName'+i">Skill Name</label>
-            <input (blur)="logValidationErrors()" type="text" name="" value="" [id]="'skillName'+i" formControlName="skillName">
-            <div>{{formErrors.skillName}}</div>
+            <div [ngClass]="{'has-error': skill.get('skillName').invalid && skill.get('skillName').touched}">
+                <label class="col-sm-2 control-label" [attr.for]="'skillName'+i">Skill Name</label>
+                <input type="text" name="" value="" [id]="'skillName'+i" formControlName="skillName">
+                <div *ngIf="skill.get('skillName').errors?.required && skill.get('skillName').touched">
+                  Skill name is required.
+                </div>
+            </div>
             <br>
-            <label class="col-sm-2 control-label" [attr.for]="'experience'+i">Experience</label>
-            <input (blur)="logValidationErrors()" type="text" name="" value="" [id]="'experience'+i" formControlName="experience">
-            <div>{{formErrors.experience}}</div>
+            <div [ngClass]="{'has-error': skill.get('experience').invalid && skill.get('experience').touched}">
+              <label class="col-sm-2 control-label" [attr.for]="'experience'+i">Experience</label>
+              <input type="text" name="" value="" [id]="'experience'+i" formControlName="experience">
+              <div *ngIf="skill.get('experience').errors?.required && skill.get('experience').touched">
+                  Experience name is required.
+                </div>
+            </div>
             <br>
-            <label class="col-sm-2 control-label" [attr.for]="'proficiency'+i">Proficiency</label>
-            <input (blur)="logValidationErrors()" type="radio" [id]="'proficiency'+i" name="" value="beginner" formControlName="proficiency">
-            <input (blur)="logValidationErrors()" type="radio" [id]="'proficiency'+i" name="" value="intermediate" formControlName="proficiency">
-            <input (blur)="logValidationErrors()" type="radio" [id]="'proficiency'+i" name="" value="advance" formControlName="proficiency">
-            <div>{{formErrors.proficiency}}</div>
+            <div [ngClass]="{'has-error': skill.get('proficiency').invalid && skill.get('proficiency').touched}">
+              <label class="col-sm-2 control-label" [attr.for]="'proficiency'+i">Proficiency</label>
+              <input type="radio" [id]="'proficiency'+i" name="" value="beginner" formControlName="proficiency">
+              <input type="radio" [id]="'proficiency'+i" name="" value="intermediate" formControlName="proficiency">
+              <input type="radio" [id]="'proficiency'+i" name="" value="advance" formControlName="proficiency">
+              <div *ngIf="skill.get('proficiency').errors?.required && skill.get('proficiency').touched">
+                  Proficiency name is required.
+                </div>
+            </div>                
           </div>
       </div>
     </div>
