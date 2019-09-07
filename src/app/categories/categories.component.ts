@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CategoriesService } from './../services/categories.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { CategoriesObj as ResObj} from './../interfaces';
 
@@ -23,20 +23,42 @@ export class CategoriesComponent implements OnInit {
   CATEGORY_TYPE = {A: '', I: 'i', E: 'e'};
   showType = this.CATEGORY_TYPE.A;
 
-  categoryForm = new FormGroup({
-    cname: new FormControl('Category Name'),
-    type: new FormControl()
-  });
+  categoryForm :FormGroup;
 
   newData = [];
 
-  constructor(private categories: CategoriesService, private modalService: BsModalService) { }
+  constructor(
+      private categories: CategoriesService, 
+      private modalService: BsModalService, 
+      private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
+
+    this.categoryForm = this.fb.group({
+      categoriesArray: this.fb.array([this.addCategoriesArray()])
+    });   
+
+
     this.categories.getCategories().subscribe(data => {
       data.success && (this.categoriesData = data.response);
       this.devideDataInChunk();
     });
+  }
+
+  addCategoriesArray(): FormGroup {
+    return this.fb.group({
+      cname: this.fb.control(''),
+      type: this.fb.control('')
+    });
+  }
+
+  addCategoryForm(): void{
+    (<FormArray>this.categoryForm.get('categoriesArray')).push(this.addCategoriesArray());
+  }
+
+  onRemoveCategory(index: number): void {
+    (<FormArray>this.categoryForm.get('categoriesArray')).removeAt(index);
   }
 
   devideDataInChunk() {
@@ -74,7 +96,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   openCategoryForm() {
-    this.categoryForm.controls['type'].setValue(this.showType, {onlySelf: true});
+    //this.categoryForm.controls['type'].setValue(this.showType, {onlySelf: true});
     this.modalRef = this.modalService.show(this.input, this.config);
   }
 

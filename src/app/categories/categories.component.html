@@ -27,17 +27,27 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <div><button type="button" (click)="addCategoryForm()">Add Form</button></div>
   <div class="modal-body">
     <form [formGroup]="categoryForm" (submit)="addCategory($event)">
-      <input formControlName="cname" type="text" name="cname"/>
-      <!-- <input formControlName="type" type="text" name="type"/> -->
-      <select formControlName="type">
-        <option [ngValue]=CATEGORY_TYPE.A> --Select--</option>
-        <option [ngValue]=CATEGORY_TYPE.I> Income </option>
-        <option [ngValue]=CATEGORY_TYPE.E> Expence </option>
-      </select>
-      <button class="btn btn-primary"> Submit </button>
+      <div formArrayName="categoriesArray" *ngFor="let category of categoryForm.get('categoriesArray').controls; let i = index">
+        <div [formGroupName]="i">
+            <input formControlName="cname" [id]="'cname'+i" type="text" name="cname"/>
+            <!-- <input formControlName="type" type="text" name="type"/> -->
+            <select formControlName="type" [id]="'type'+i">
+              <option [ngValue]=CATEGORY_TYPE.A> --Select--</option>
+              <option [ngValue]=CATEGORY_TYPE.I> Income </option>
+              <option [ngValue]=CATEGORY_TYPE.E> Expence </option>
+            </select>            
+        </div>
+        <div *ngIf="categoryForm.get('categoriesArray').controls.length > 1">
+            <button (click)="onRemoveCategory(i)">Remove Form</button>
+        </div>
+        
+      </div>
+      <button class="btn btn-primary"> Submit </button>      
     </form>
+    
   </div>
 </ng-template>
 
