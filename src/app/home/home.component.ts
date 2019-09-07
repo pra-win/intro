@@ -103,14 +103,21 @@ export class HomeComponent implements OnInit {
   onLoadDataClick(): void {
     this.employeeForm.setValue({
       fullName: "t",
-      email: "email",
+      emailGroup: {
+        email: "email",
+        confirmEmail: "email"
+      },      
       phone: "8796141211",
       contactPref: "phone",
-      skills: {
-        skillName: 'skill name',
-        experience: 'expe',
-        proficiency: 'intermediate'
-      }
+      skills: 
+          [
+            {
+              skillName: 'skill name',
+              experience: 'expe',
+              proficiency: 'intermediate'
+            }
+          ]
+      
     });
 
     //this.logValidationErrors(this.employeeForm);
@@ -154,7 +161,7 @@ export class HomeComponent implements OnInit {
 
   onContactPrefChange(pref: string): void {
     const phoneControl = this.employeeForm.get('phone');
-    const emailControl = this.employeeForm.get('email');
+    const emailControl = this.employeeForm.get('emailGroup');
 
     if(pref === 'phone') {
       phoneControl.setValidators(Validators.required);
