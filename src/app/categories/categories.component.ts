@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CategoriesService } from './../services/categories.service';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { CategoriesObj as ResObj} from './../interfaces';
 
@@ -27,6 +27,10 @@ export class CategoriesComponent implements OnInit {
 
   newData = [];
 
+  // formErrors = {};
+
+  // formErrorMessages = {};
+
   constructor(
       private categories: CategoriesService, 
       private modalService: BsModalService, 
@@ -48,8 +52,8 @@ export class CategoriesComponent implements OnInit {
 
   addCategoriesArray(): FormGroup {
     return this.fb.group({
-      cname: this.fb.control(''),
-      type: this.fb.control('')
+      cname: this.fb.control('', Validators.required),
+      type: this.fb.control('', Validators.required)
     });
   }
 
@@ -85,9 +89,11 @@ export class CategoriesComponent implements OnInit {
   addCategory(event) {
     event.preventDefault();
     this.modalRef.hide();
+    console.log(this.categoryForm.value);
+    
     let {cname, type} = this.categoryForm.value;
     let catObj = {cname, type};
-    this.categories.addCategory(catObj)
+    this.categories.addCategory(this.categoryForm.value)
                     .subscribe(data => {
                       console.log(data);
                       this.categoriesData.push(catObj);
@@ -99,5 +105,27 @@ export class CategoriesComponent implements OnInit {
     //this.categoryForm.controls['type'].setValue(this.showType, {onlySelf: true});
     this.modalRef = this.modalService.show(this.input, this.config);
   }
+
+  // logValidationErrors(group: FormGroup = this.categoryForm): void {
+  //   Object.keys(group.controls).forEach((key: string) => {
+  //     const abstractControl = group.get(key);
+
+  //     if(abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
+  //       //const messages = this.validationMessages[key];
+  //       for(const errorKey in abstractControl.errors) {
+  //         //this.formErrors[key] += messages[errorKey] + ' ';
+  //         console.log(errorKey);
+  //       }
+  //     }
+
+  //     if(abstractControl instanceof FormArray) {
+  //       for(const control of abstractControl.controls) {
+  //           if(control instanceof FormGroup) {
+  //               this.logValidationErrors(control);
+  //           }
+  //       }
+  //     }
+  //   });
+  // }
 
 }
