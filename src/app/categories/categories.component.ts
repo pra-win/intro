@@ -86,17 +86,17 @@ export class CategoriesComponent implements OnInit {
     this.devideDataInChunk();
   }
 
-  addCategory(event) {
+  addCategory(event: any) {
     event.preventDefault();
     this.modalRef.hide();
     console.log(this.categoryForm.value);
     
-    let {cname, type} = this.categoryForm.value;
-    let catObj = {cname, type};
-    this.categories.addCategory(this.categoryForm.value)
+    const categoriesArray = this.categoryForm.value.categoriesArray;
+
+    this.categories.addCategory(categoriesArray)
                     .subscribe(data => {
                       console.log(data);
-                      this.categoriesData.push(catObj);
+                      //this.categoriesData.push();
                       this.devideDataInChunk();
                     });
   }
