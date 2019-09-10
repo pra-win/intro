@@ -40,7 +40,7 @@ export class CategoriesComponent implements OnInit {
   ngOnInit() {
 
     this.categoryForm = this.fb.group({
-      categoriesArray: this.fb.array([this.addCategoriesArray()])
+      categoriesArray: this.fb.array([])
     });   
 
 
@@ -86,10 +86,14 @@ export class CategoriesComponent implements OnInit {
     this.devideDataInChunk();
   }
 
+  hideFormModel(): void {
+    this.modalRef.hide();
+    this.clearCategoryForm();
+  }
+
   addCategory(event: any) {
     event.preventDefault();
     this.modalRef.hide();
-    console.log(this.categoryForm.value);
     
     const categoriesArray = this.categoryForm.value.categoriesArray;
 
@@ -99,6 +103,11 @@ export class CategoriesComponent implements OnInit {
                       this.updateCategorys(data.response);
                       this.devideDataInChunk();
                     });
+    this.clearCategoryForm();
+  }
+
+  clearCategoryForm():void {
+    (<FormArray>this.categoryForm.get('categoriesArray')).clear();
   }
 
   updateCategorys(res: any) {
@@ -108,6 +117,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   openCategoryForm() {
+    this.addCategoryForm();
     //this.categoryForm.controls['type'].setValue(this.showType, {onlySelf: true});
     this.modalRef = this.modalService.show(this.input, this.config);
   }
