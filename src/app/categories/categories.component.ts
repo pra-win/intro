@@ -94,11 +94,17 @@ export class CategoriesComponent implements OnInit {
     const categoriesArray = this.categoryForm.value.categoriesArray;
 
     this.categories.addCategory(categoriesArray)
-                    .subscribe(data => {
+                    .subscribe((data: ResObj) => {
                       console.log(data);
-                      //this.categoriesData.push();
+                      this.updateCategorys(data.response);
                       this.devideDataInChunk();
                     });
+  }
+
+  updateCategorys(res: any) {
+      res.forEach(r => {
+        this.categoriesData.push(r);
+      });
   }
 
   openCategoryForm() {
