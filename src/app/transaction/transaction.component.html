@@ -1,3 +1,7 @@
+<div>
+  <input type="text" placeholder="Filter by keywords" [(ngModel)]="searchTerm" name="filterKeyword"/> 
+</div>
+<hr>
 <div class="table-responsive">
 <table class="table">
   <thead class="thead-light table-primary">
@@ -9,12 +13,12 @@
 
         <td>Amount</td>
         <td>Desc</td>
-        <td>Key Words</td>
+        <td>Keywords</td>
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf="transactions">
-        <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of transactions">
+    <ng-container *ngIf="filterTransactions">
+        <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of filterTransactions">
             <td>{{tran.tranDate}}</td>
             <!-- <td>{{tran.id}}</td> -->
             <td>{{tran.cname}}</td>

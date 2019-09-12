@@ -8,15 +8,35 @@ import { TransactionObj as TraObj} from './../interfaces';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit {
-  transactions:TraObj;
+  transactions = [];
+  private filterKeyword: string;
+  filterTransactions = [];
+
+  get searchTerm(): string {
+    return this.filterKeyword;
+  }
+
+  set searchTerm(value: string) {
+    this.filterKeyword = value;
+    this.onTransactionFilter(value);
+  }
+
   constructor(private transactionsService: TransactionsService) { }
 
   ngOnInit() {
       this.transactionsService.getTransactions((obs) => {
         obs.subscribe((data) => {
           this.transactions = data;
+          this.filterTransactions = data;
         });
       });
+  }
+
+  onTransactionFilter(value: string): void {
+    console.log(value);
+    this.filterTransactions = this.transactions.filter(o => {
+      return o.keyWords.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    });
   }
 
 }
