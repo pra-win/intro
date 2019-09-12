@@ -26,6 +26,7 @@
         &nbsp;
         <input [id] = "'tranDesc'+i" type="text" formControlName="tranDesc" placeholder="desc"/>
         &nbsp;
+        <input [id] = "'keyWords'+i" type="text" formControlName="keyWords" placeholder="key words"/>
         <button type="button" *ngIf="transactionForm.get('transactionFormArray').controls.length > 1" (click)="removeForm(i)">Remove</button>
       </div>
   </div>

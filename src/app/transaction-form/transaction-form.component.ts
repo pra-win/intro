@@ -41,10 +41,11 @@ export class TransactionFormComponent implements OnInit {
 
   getTransactionFormControls(): FormGroup {
     return new FormGroup({
-      category : this.fb.control(this.categories[0].cid, Validators.required),
-      tranDesc : this.fb.control(''),
-      amt : this.fb.control('',Validators.required),
-      tranDate : this.fb.control(new Date(), Validators.required)
+      category: this.fb.control(this.categories[0].cid, Validators.required),
+      tranDesc: this.fb.control(''),
+      amt: this.fb.control('',Validators.required),
+      tranDate: this.fb.control(new Date(), Validators.required),
+      keyWords: this.fb.control('')
     });
   }
 
