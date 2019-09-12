@@ -3,24 +3,33 @@
   <button [ngClass]="{'btn': true, 'btn-danger': tType === 'e',  'btn-primary': tType !== 'e'}" (click)="onChangeCategoryType('e')">Expense</button>
 </div>
 <br/>
+<button (click)="addTransactionForm()" [disabled] = "transactionForm.get('transactionFormArray').invalid">Add Form</button>
 <form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">
-  <input type="text"
-         formControlName="tranDate"
-         placeholder="date"
-         bsDatepicker
-         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass:'theme-dark-blue' }"
-  />
-  <br/>
-  <select formControlName="category">
-    <ng-container *ngFor="let category of categories; index as i">
-      <option [ngValue]=category.cid>{{category.cname}}</option>
-    </ng-container>
-  </select>
-  <br/>
-
-  <input type="number" formControlName="amt" placeholder="amt"/>
-  <br/>
-  <input type="text" formControlName="tranDesc" placeholder="desc"/>
+  <div formArrayName="transactionFormArray" *ngFor="let transaction of transactionForm.get('transactionFormArray').controls; let i = index">
+    <hr>  
+    <div [formGroupName]="i">
+        <input type="text"
+          [id] = "'tranDate'+i"
+          formControlName="tranDate"
+          placeholder="date"
+          bsDatepicker
+          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass:'theme-dark-blue' }"
+        />
+        &nbsp;
+        <select formControlName="category" [id] = "'category'+i">
+          <ng-container *ngFor="let category of categories; index as i">
+            <option [ngValue]=category.cid>{{category.cname}}</option>
+          </ng-container>
+        </select>
+        &nbsp;      
+        <input [id] = "amt+i" type="number" formControlName="amt" placeholder="amt"/>
+        &nbsp;
+        <input [id] = "'tranDesc'+i" type="text" formControlName="tranDesc" placeholder="desc"/>
+        &nbsp;
+        <button type="button" *ngIf="transactionForm.get('transactionFormArray').controls.length > 1" (click)="removeForm(i)">Remove</button>
+      </div>
+  </div>
+  
   <br/>
 
   <button value="submit">submit</button>

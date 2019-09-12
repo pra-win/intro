@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray, Validators} from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TransactionsService } from './../services/transactions.service';
 import { TransactionObj as TraObj} from './../interfaces';
@@ -19,31 +19,48 @@ export class TransactionFormComponent implements OnInit {
   @Output() modalCloseEvent = new EventEmitter<string>();
   @Output() changeCategoryType = new EventEmitter<string>();
 
-  transactionForm = new FormGroup({
-    category : new FormControl(''),
-    tranDesc : new FormControl(''),
-    amt : new FormControl(''),
-    tranDate : new FormControl('')
-  });
+  transactionForm: FormGroup;
 
   categories = [];
 
-  constructor(private transactions:TransactionsService) {}
+  constructor(private transactions:TransactionsService, private fb: FormBuilder) {}
 
   ngOnInit() {
+
+    this.transactionForm = this.fb.group(
+      {
+        transactionFormArray: this.fb.array([this.getTransactionFormControls()])
+      }
+    );
+
     this.tType = this.transactionType;
     this.categories = this.selectedCategory;
-    this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
-    this.transactionForm.controls['tranDate'].setValue(new Date(), {onlySelf: true});
+    // this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
+    // this.transactionForm.controls['tranDate'].setValue(new Date(), {onlySelf: true});
+  }
+
+  getTransactionFormControls(): FormGroup {
+    return new FormGroup({
+      category : this.fb.control(this.categories[0].cid, Validators.required),
+      tranDesc : this.fb.control(''),
+      amt : this.fb.control('',Validators.required),
+      tranDate : this.fb.control(new Date(), Validators.required)
+    });
+  }
+
+  addTransactionForm(): void {
+    (<FormArray>this.transactionForm.get('transactionFormArray')).push(this.getTransactionFormControls());
   }
 
   onSubmit() {
-    let params = this.transactionForm.value;
-    this.transactions.addTransactions(params, (data) => {});
+    let params = this.transactionForm.value.transactionFormArray;
+    this.transactions.addTransactions(params, (data: any) => {
+      console.log(data);
+    });
     this.modalCloseEvent.next();
   }
 
-  onChangeCategoryType(type) {
+  onChangeCategoryType(type: any) {
     this.changeCategoryType.next(type);
     this.tType = type;
   }
@@ -52,4 +69,7 @@ export class TransactionFormComponent implements OnInit {
     this.categories = changes.selectedCategory.currentValue;
   }
 
+  removeForm(index: number): void{
+    (<FormArray>this.transactionForm.get('transactionFormArray')).removeAt(index);
+  }
 }

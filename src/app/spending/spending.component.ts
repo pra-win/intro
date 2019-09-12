@@ -26,7 +26,8 @@ export class SpendingComponent implements OnInit {
 
   config = {
     backdrop: true,
-    ignoreBackdropClick: true
+    ignoreBackdropClick: true,
+    class: "modal-lg"
   };
 
   constructor(
