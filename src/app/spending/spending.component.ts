@@ -2,6 +2,10 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TransactionsService } from './../services/transactions.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { CategoriesService } from './../services/categories.service';
+import { FileUploadService } from './../services/file-upload.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpParams, HttpRequest } from  '@angular/common/http';
 
 @Component({
   selector: 'app-spending',
@@ -30,10 +34,17 @@ export class SpendingComponent implements OnInit {
     class: "modal-lg"
   };
 
+  form: FormGroup;
+  uploadResponse;
+
+
   constructor(
     private transactions: TransactionsService,
     private modalService: BsModalService,
-    private categoriesService: CategoriesService) { }
+    private categoriesService: CategoriesService,
+    private uploadService: FileUploadService,
+    private formBuilder: FormBuilder,
+    private http: HttpClient) { }
 
   ngOnInit() {
     this.transactions.getTransactions((obs) => {
@@ -41,6 +52,9 @@ export class SpendingComponent implements OnInit {
         this.transactionsData = data;
         this.setIncomeExpence(data)
       });
+    });
+    this.form = this.formBuilder.group({
+      avatar: ['']
     });
   }
 
@@ -82,6 +96,54 @@ export class SpendingComponent implements OnInit {
 
   changeCategoryType(type) {
     this.filterData(type);
+  }
+
+  selectedFile: File;
+
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      console.log(event);
+      this.form.get('avatar').setValue(this.selectedFile);
+    }
+  }
+
+  onSubmit() {
+    // const formData = new FormData();
+    // formData.append('avatar', this.selectedFile, this.selectedFile.name);
+
+    // console.log(formData.get('avatar'));
+
+    // this.http.post("api/testApi/fileUploadTest.php", formData, {
+    //   headers: {
+    //     'Accept': 'application/json'
+    //   }
+    // }).subscribe( event => {
+    //   console.log(event);
+    // });
+
+    const formData = new FormData();
+        formData.append('excel', this.selectedFile);
+
+        const params = new HttpParams();
+
+        const options = {
+            params,
+            reportProgress: true,
+        };
+
+        const req = new HttpRequest('POST', 'api/testApi/fileUploadTest.php', formData, options);
+        this.http.request(req).subscribe(console.log)
+
+    // this.uploadService.uploadFile(formData).subscribe(
+    //   (res) => {
+    //     this.uploadResponse = res;
+    //       console.log(res);
+    //   },
+    //   (err) => {  
+    //     console.log(err);
+    //   }
+    // );
   }
 
 }

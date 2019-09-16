@@ -10,7 +10,8 @@ export const environment = {
     logout: '/api/testApi/logout.php',
     auth: '/api/testApi/auth.php',
     getTransactions: '/api/testApi/transactions.php',
-    addTransactions: '/api/testApi/addTransactions.php'
+    addTransactions: '/api/testApi/addTransactions.php',
+    fileUpladTest: 'api/testApi/fileUploadTest.php'
   }
 };
 
