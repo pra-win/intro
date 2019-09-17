@@ -109,11 +109,10 @@ export class SpendingComponent implements OnInit {
   }
 
   onSubmit() {
-    // const formData = new FormData();
-    // formData.append('avatar', this.selectedFile, this.selectedFile.name);
-
-    // console.log(formData.get('avatar'));
-
+    const formData = new FormData();
+    console.log(this.selectedFile);
+    formData.append('avatar', this.selectedFile, this.selectedFile.name);
+  
     // this.http.post("api/testApi/fileUploadTest.php", formData, {
     //   headers: {
     //     'Accept': 'application/json'
@@ -122,28 +121,29 @@ export class SpendingComponent implements OnInit {
     //   console.log(event);
     // });
 
-    const formData = new FormData();
-        formData.append('excel', this.selectedFile);
+    // const formData = new FormData();
+    //     formData.append('excel', this.selectedFile);
 
-        const params = new HttpParams();
+    //     const params = new HttpParams();
 
-        const options = {
-            params,
-            reportProgress: true,
-        };
+    //     const options = {
+    //         params,
+    //         reportProgress: true,
+    //         headers: {}
+    //     };
 
-        const req = new HttpRequest('POST', 'api/testApi/fileUploadTest.php', formData, options);
-        this.http.request(req).subscribe(console.log)
+        // const req = new HttpRequest('POST', 'api/testApi/fileUploadTest.php', formData, options);
+        // this.http.request(req).subscribe(console.log)
 
-    // this.uploadService.uploadFile(formData).subscribe(
-    //   (res) => {
-    //     this.uploadResponse = res;
-    //       console.log(res);
-    //   },
-    //   (err) => {  
-    //     console.log(err);
-    //   }
-    // );
+    this.uploadService.uploadFile(formData).subscribe(
+      (res) => {
+        this.uploadResponse = res;
+          console.log(res);
+      },
+      (err) => {  
+        console.log(err);
+      }
+    );
   }
 
 }
