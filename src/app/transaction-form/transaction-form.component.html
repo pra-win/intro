@@ -1,7 +1,7 @@
-<div class="text-center">
+<!-- <div class="text-center">
   <button [ngClass]="{'btn': true, 'btn-danger': tType === 'i', 'btn-primary': tType !== 'i'}" (click)="onChangeCategoryType('i')">Income</button>
   <button [ngClass]="{'btn': true, 'btn-danger': tType === 'e',  'btn-primary': tType !== 'e'}" (click)="onChangeCategoryType('e')">Expense</button>
-</div>
+</div> -->
 <br/>
 <button (click)="addTransactionForm()" [disabled] = "transactionForm.get('transactionFormArray').invalid">Add Form</button>
 <form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">

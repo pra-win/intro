@@ -16,8 +16,8 @@ export class SpendingComponent implements OnInit {
   transactionsData = [];
   income = [];
   expense = [];
-  incomeTotal = 0;
-  expenseTotal = 0;
+  incomeTotal: number;
+  expenseTotal: number;
 
   transactionCategory = [];
   transactionCategoryFilterData = [];
@@ -48,18 +48,18 @@ export class SpendingComponent implements OnInit {
     });
   }
 
-  setIncomeExpence(transactionsData) {
+  setIncomeExpence(transactionsData: any) {
     this.expense = [];
     this.income = [];
     this.incomeTotal = 0;
     this.expenseTotal = 0;
-    transactionsData.forEach((t)=>{
+    transactionsData.forEach((t: any)=>{
       if(t.ctype === 'e') {
         this.expense.push(t);
-        this.expenseTotal+=t.amt;
+        this.expenseTotal+= parseInt(t.amt);
       } else {
         this.income.push(t);
-        this.incomeTotal+=t.amt;
+        this.incomeTotal+=parseInt(t.amt);
       }
     });
   }
