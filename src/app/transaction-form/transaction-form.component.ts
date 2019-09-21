@@ -37,11 +37,12 @@ export class TransactionFormComponent implements OnInit {
     this.categories = this.selectedCategory;
     // this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
     // this.transactionForm.controls['tranDate'].setValue(new Date(), {onlySelf: true});
+    //this.setDefaultCategory(this.categories);
   }
 
   getTransactionFormControls(): FormGroup {
     return new FormGroup({
-      category: this.fb.control(this.categories[0].cid, Validators.required),
+      category: this.fb.control('', Validators.required),
       tranDesc: this.fb.control(''),
       amt: this.fb.control('',Validators.required),
       tranDate: this.fb.control(new Date(), Validators.required),
@@ -70,9 +71,19 @@ export class TransactionFormComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.categories = changes.selectedCategory.currentValue;
+    setTimeout(() => {
+      this.setDefaultCategory(this.categories);
+    }, 0);
   }
 
-  removeForm(index: number): void{
+  removeForm(index: number): void {
     (<FormArray>this.transactionForm.get('transactionFormArray')).removeAt(index);
+  }
+
+  setDefaultCategory(categories: any) {
+    let controls = ((<FormArray>this.transactionForm.get('transactionFormArray')).controls);
+    controls.forEach((g) => {
+      (<FormGroup>g).get('category').setValue(categories[0].cid, {onlySelf: true});      
+    });
   }
 }
