@@ -97,7 +97,9 @@ export class CategoriesComponent implements OnInit {
     
     const categoriesArray = this.categoryForm.value.categoriesArray;
 
-    this.categories.addCategory(categoriesArray)
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(categoriesArray));
+    this.categories.addCategory(formData)
                     .subscribe((data: ResObj) => {
                       console.log(data);
                       if(data.success) {
