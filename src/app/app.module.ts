@@ -32,6 +32,7 @@ import { TransactionFormComponent } from './transaction-form/transaction-form.co
 import { ModalModule, BsDatepickerModule, TooltipModule } from 'ngx-bootstrap';
 import { LoadingbarComponent } from './loadingbar/loadingbar.component';
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.compone
     TransactionFormComponent,
     ModalComponent,
     LoadingbarComponent,
-    LoadingspinnerComponent
+    LoadingspinnerComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
