@@ -100,8 +100,10 @@ export class CategoriesComponent implements OnInit {
     this.categories.addCategory(categoriesArray)
                     .subscribe((data: ResObj) => {
                       console.log(data);
-                      this.updateCategorys(data.response);
-                      this.devideDataInChunk();
+                      if(data.success) {
+                        this.updateCategorys(data.response);
+                        this.devideDataInChunk();
+                      }
                     });
     this.clearCategoryForm();
   }
