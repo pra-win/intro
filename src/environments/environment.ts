@@ -2,16 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const path = "/api/testApi/";
+
 export const environment = {
   production: false,
   apiURLs : {
-    getCategories: '/api/testApi/categories.php',
-    addCategory: '/api/testApi/addCategory.php',
-    logout: '/api/testApi/logout.php',
-    auth: '/api/testApi/auth.php',
-    getTransactions: '/api/testApi/transactions.php',
-    addTransactions: '/api/testApi/addTransactions.php',
-    fileUpladTest: 'api/testApi/fileUploadTest.php'
+    getCategories: path+'categories.php',
+    addCategory: path+'addCategory.php',
+    logout: path+'logout.php',
+    auth: path+'auth.php',
+    getTransactions: path+'transactions.php',
+    addTransactions: path+'addTransactions.php',
+    fileUpladTest: path+'fileUploadTest.php'
   }
 };
 
