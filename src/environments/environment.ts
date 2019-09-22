@@ -13,7 +13,8 @@ export const environment = {
     auth: path+'auth.php',
     getTransactions: path+'transactions.php',
     addTransactions: path+'addTransactions.php',
-    fileUpladTest: path+'fileUploadTest.php'
+    fileUpladTest: path+'uploadtest.php',
+    fileUpload: path+"fileUpload.php"
   }
 };
 

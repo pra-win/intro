@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from './../services/file-upload.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { environment } from './../../environments/environment';
+import { FileImportService } from './../services/file-import.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -15,6 +17,7 @@ export class FileUploadComponent implements OnInit {
 
   constructor(
     private uploadService: FileUploadService,
+    private fileImportService: FileImportService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -33,35 +36,21 @@ export class FileUploadComponent implements OnInit {
 
   onSubmit() {
     const formData = new FormData();
-    console.log(this.selectedFile);
     formData.append('file', this.selectedFile, this.selectedFile.name);
-  
-    // this.http.post("api/testApi/fileUploadTest.php", formData, {
-    //   headers: {
-    //     'Accept': 'application/json'
-    //   }
-    // }).subscribe( event => {
-    //   console.log(event);
-    // });
 
-    // const formData = new FormData();
-    //     formData.append('excel', this.selectedFile);
+    let uploadURL = environment.apiURLs.fileUpload;
 
-    //     const params = new HttpParams();
-
-    //     const options = {
-    //         params,
-    //         reportProgress: true,
-    //         headers: {}
-    //     };
-
-        // const req = new HttpRequest('POST', 'api/testApi/fileUploadTest.php', formData, options);
-        // this.http.request(req).subscribe(console.log)
-
-    this.uploadService.uploadFile(formData).subscribe(
+    this.uploadService.uploadFile(formData, uploadURL).subscribe(
       (res) => {
         this.uploadResponse = res;
-          console.log(res);
+          const formData = new FormData();
+          formData.append('filePath', res.filePath);
+
+          // setTimeout(() => {
+          //   this.fileImportService.importFile(formData, environment.apiURLs.fileUpladTest).subscribe(
+          //     () => {}
+          //   );
+          // }, 1000);
       },
       (err) => {  
         console.log(err);
