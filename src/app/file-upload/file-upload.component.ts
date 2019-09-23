@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from './../services/file-upload.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from './../../environments/environment';
-import { FileImportService } from './../services/file-import.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -17,7 +16,6 @@ export class FileUploadComponent implements OnInit {
 
   constructor(
     private uploadService: FileUploadService,
-    private fileImportService: FileImportService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -45,12 +43,6 @@ export class FileUploadComponent implements OnInit {
         this.uploadResponse = res;
           const formData = new FormData();
           formData.append('filePath', res.filePath);
-
-          // setTimeout(() => {
-          //   this.fileImportService.importFile(formData, environment.apiURLs.fileUpladTest).subscribe(
-          //     () => {}
-          //   );
-          // }, 1000);
       },
       (err) => {  
         console.log(err);
