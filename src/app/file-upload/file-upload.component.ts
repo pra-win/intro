@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FileUploadService } from './../services/file-upload.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from './../../environments/environment';
+
 
 @Component({
   selector: 'app-file-upload',
@@ -13,6 +14,8 @@ export class FileUploadComponent implements OnInit {
   selectedFile: File;
   form: FormGroup;
   uploadResponse: any;
+
+  @Output() onFileUpload = new EventEmitter<string>();
 
   constructor(
     private uploadService: FileUploadService,
@@ -43,8 +46,9 @@ export class FileUploadComponent implements OnInit {
         this.uploadResponse = res;
           const formData = new FormData();
           formData.append('filePath', res.filePath);
+          this.onFileUpload.next();
       },
-      (err) => {  
+      (err) => {
         console.log(err);
       }
     );

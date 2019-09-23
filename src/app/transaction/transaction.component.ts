@@ -24,12 +24,7 @@ export class TransactionComponent implements OnInit {
   constructor(private transactionsService: TransactionsService) { }
 
   ngOnInit() {
-      this.transactionsService.getTransactions((obs) => {
-        obs.subscribe((data) => {
-          this.transactions = data;
-          this.filterTransactions = data;
-        });
-      });
+      this.getTransactions();
   }
 
   onTransactionFilter(value: string): void {
@@ -37,6 +32,19 @@ export class TransactionComponent implements OnInit {
     this.filterTransactions = this.transactions.filter(o => {
       return o.keyWords.toLowerCase().indexOf(value.toLowerCase()) !== -1
     });
+  }
+
+  onFileUpload(event) {
+      this.getTransactions();
+  }
+
+  getTransactions() {
+      this.transactionsService.getTransactions((obs) => {
+        obs.subscribe((data) => {
+          this.transactions = data;
+          this.filterTransactions = data;
+        });
+      });
   }
 
 }
