@@ -55,7 +55,12 @@ export class TransactionFormComponent implements OnInit {
   }
 
   onSubmit() {
-    let params = JSON.stringify(this.transactionForm.value.transactionFormArray);
+    let formValues = this.transactionForm.value.transactionFormArray;
+    console.log(formValues);
+    formValues.forEach((obj: any) => {
+      console.log(obj.tranDate);
+    });
+    let params = JSON.stringify(formValues);
     const formData = new FormData();
     formData.append("data",params);
     this.transactions.addTransactions(formData, (data: any) => {

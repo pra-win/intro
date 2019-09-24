@@ -40,8 +40,17 @@ export class SpendingComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.getTransactions();
+  }
+
+  getTransactions() {
     this.transactions.getTransactions((obs) => {
-      obs.subscribe((data) => {
+      obs.subscribe((data: any) => {
+        data.sort((a: any, b: any) => {
+          const aDate = new Date(a.tranDate).getTime();
+          const bDate = new Date(b.tranDate).getTime();          
+          return bDate - aDate;
+        });
         this.transactionsData = data;
         this.setIncomeExpence(data)
       });

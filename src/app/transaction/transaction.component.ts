@@ -40,7 +40,12 @@ export class TransactionComponent implements OnInit {
 
   getTransactions() {
       this.transactionsService.getTransactions((obs) => {
-        obs.subscribe((data) => {
+        obs.subscribe((data: any) => {
+          data.sort((a: any, b: any) => {
+            const aDate = new Date(a.tranDate).getTime();
+            const bDate = new Date(b.tranDate).getTime();
+            return bDate - aDate;
+          });
           this.transactions = data;
           this.filterTransactions = data;
         });
