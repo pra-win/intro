@@ -54,7 +54,7 @@ export class SpendingComponent implements OnInit {
         this.transactionsData = data;
         this.setIncomeExpence(data)
       });
-    });
+    }, {});
   }
 
   setIncomeExpence(transactionsData: any) {

@@ -42,3 +42,7 @@
   </table>
   </div>
 </div>
+<app-pagination 
+  [totalRecords]="totalRecords"
+  (onPageChanged)="onPageChanged($event)"
+></app-pagination>

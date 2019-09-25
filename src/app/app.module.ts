@@ -30,10 +30,11 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { SpendingComponent } from './spending/spending.component';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 
-import { ModalModule, BsDatepickerModule, TooltipModule } from 'ngx-bootstrap';
+import { ModalModule, BsDatepickerModule, TooltipModule, PaginationModule } from 'ngx-bootstrap';
 import { LoadingbarComponent } from './loadingbar/loadingbar.component';
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     ModalComponent,
     LoadingbarComponent,
     LoadingspinnerComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     BrowserAnimationsModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     AuthService,

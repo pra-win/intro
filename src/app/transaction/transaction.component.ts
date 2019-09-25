@@ -11,6 +11,8 @@ export class TransactionComponent implements OnInit {
   transactions = [];
   private filterKeyword: string;
   filterTransactions = [];
+  totalRecords: number;
+  paginationIndex: {startItem: number, endItem: number}; 
 
   get searchTerm(): string {
     return this.filterKeyword;
@@ -34,12 +36,16 @@ export class TransactionComponent implements OnInit {
     });
   }
 
-  onFileUpload(event) {
+  onFileUpload(event: any) {
       this.getTransactions();
   }
 
   getTransactions() {
-      this.transactionsService.getTransactions((obs) => {
+    const formData = new FormData();
+    // let {startItem, endItem} = this.paginationIndex;
+    formData.append("data", JSON.stringify(this.paginationIndex));
+
+      this.transactionsService.getTransactions((obs:any) => {
         obs.subscribe((data: any) => {
           data.sort((a: any, b: any) => {
             const aDate = new Date(a.tranDate).getTime();
@@ -48,8 +54,16 @@ export class TransactionComponent implements OnInit {
           });
           this.transactions = data;
           this.filterTransactions = data;
+          this.totalRecords = this.filterTransactions.length;
+          console.log(this.totalRecords);
         });
-      });
+      }, formData);
+  }
+
+  onPageChanged(data: {startItem: number, endItem: number}) {
+    console.log(data);
+    this.paginationIndex = data;
+    this.getTransactions();
   }
 
 }

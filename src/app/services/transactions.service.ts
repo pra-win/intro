@@ -17,8 +17,8 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) { }
 
-  getTransactions(callback) {
-      this.http.get<TraObj>(environment.apiURLs.getTransactions).subscribe((data) => {
+  getTransactions(callback: any, paginationIndex: any) {
+      this.http.post<TraObj>(environment.apiURLs.getTransactions, paginationIndex).subscribe((data:any) => {
         if(data.response) {
           this.transactions = data.response;
         }
@@ -30,7 +30,7 @@ export class TransactionsService {
   addTransactions(params, callback) {
     return this.http.post<TraObj>(environment.apiURLs.addTransactions, params).subscribe((data) => {
       callback && callback(data);
-      data.success && this.getTransactions(false);
+      data.success && this.getTransactions(false, {startItem:0, endItem:0});
     });
   }
 
