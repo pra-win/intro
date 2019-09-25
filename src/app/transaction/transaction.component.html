@@ -33,7 +33,7 @@
               <td>{{tran.cname}}</td>
               <!-- <td appReplaceCatType [catType]="tran.ctype">{{tran.ctype}}</td> -->
 
-              <td>{{tran.amt}}</td>
+              <td>{{tran.amt | number:'.2'}}</td>
               <td>{{tran.tranDesc}}</td>
               <td>{{tran.keyWords}}</td>
           </tr>

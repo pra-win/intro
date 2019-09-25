@@ -13,7 +13,7 @@
       <table>
         <tr>
           <td><h5>Total Balance &nbsp;&nbsp;</h5></td>
-          <td><h5>{{incomeTotal-expenseTotal}}</h5></td>
+          <td><h5>{{incomeTotal-expenseTotal | number:'.2'}}</h5></td>
         </tr>
       </table>
     </div>
@@ -24,7 +24,7 @@
       <thead class="table-primary">
         <tr>
           <td>Total Income</td>
-          <td>{{incomeTotal}}
+          <td>{{incomeTotal | number:'.2'}}
             <div class="float-right" style="font-size:20px; color:blue;">
               <a tooltip="Add Income" style="position:relative;" placement="left" style="cursor: pointer;position:relative;" (click)="onTransaction('i')">
                 <i class="far fa-plus-square">
@@ -36,7 +36,7 @@
       </thead>
       <tr *ngFor="let in of income">
         <td>{{in.cname}}</td>
-        <td>{{in.amt}}</td>
+        <td>{{in.amt | number:'.2'}}</td>
       </tr>
     </table>
   </div>
@@ -46,7 +46,7 @@
       <thead class="table-danger">
         <tr>
           <td>Total Expense</td>
-          <td>{{expenseTotal}}
+          <td>{{expenseTotal | number:'.2'}}
             <div class="float-right" style="font-size:20px; color:red;position:relative;">
               <a tooltip="Add Expense" style="position:relative;" placement="left" style="cursor: pointer;" (click)="onTransaction('e')">
                 <i class="far fa-plus-square"></i>
@@ -58,7 +58,7 @@
 
       <tr *ngFor="let in of expense">
         <td>{{in.cname}}</td>
-        <td>{{in.amt}} </td>
+        <td>{{in.amt | number:'.2'}} </td>
       </tr>
     </table>
 
