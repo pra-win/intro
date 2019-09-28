@@ -35,6 +35,7 @@ import { LoadingbarComponent } from './loadingbar/loadingbar.component';
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { CategoriesFormComponent } from './categories-form/categories-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     LoadingbarComponent,
     LoadingspinnerComponent,
     FileUploadComponent,
-    PaginationComponent
+    PaginationComponent,
+    CategoriesFormComponent
   ],
   imports: [
     BrowserModule,
