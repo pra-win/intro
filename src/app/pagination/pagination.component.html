@@ -1,1 +1,5 @@
-<pagination [totalItems]="totalRecords" (pageChanged)="pageChanged($event)"></pagination>
+<pagination 
+    [totalItems]="totalRecords" 
+    [itemsPerPage]="5" 
+    (pageChanged)="pageChanged($event)">
+</pagination>
