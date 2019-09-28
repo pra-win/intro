@@ -15,9 +15,15 @@ export class SpendingComponent implements OnInit {
 
   transactionsData = [];
   income = [];
+  incomeFilter = [];
   expense = [];
+  expenseFilter = [];
   incomeTotal: number;
   expenseTotal: number;
+  itemsPerPage: number = 5;
+
+  totalExpenseRecords: number;
+  totalIncomeRecords: number;
 
   transactionCategory = [];
   transactionCategoryFilterData = [];
@@ -71,6 +77,10 @@ export class SpendingComponent implements OnInit {
         this.incomeTotal+=parseInt(t.amt);
       }
     });
+    this.expenseFilter = this.expense.slice(0, this.itemsPerPage);
+    this.incomeFilter = this.income.slice(0, this.itemsPerPage);
+    this.totalExpenseRecords = this.expense.length;
+    this.totalIncomeRecords = this.income.length;
   }
 
   onTransaction(type) {
@@ -95,5 +105,13 @@ export class SpendingComponent implements OnInit {
 
   changeCategoryType(type) {
     this.filterData(type);
+  }
+
+  onExpensePageChanged(data: {startItem: number, endItem: number}) {
+    this.expenseFilter = this.expense.slice(data.startItem, data.endItem);
+  }
+
+  onIncomePageChanged(data: {startItem: number, endItem: number}) {
+    this.incomeFilter = this.income.slice(data.startItem, data.endItem);
   }
 }

@@ -34,7 +34,7 @@
           </td>
         </tr>
       </thead>
-      <tr *ngFor="let in of income">
+      <tr *ngFor="let in of incomeFilter">
         <td>{{in.cname}}</td>
         <td>{{in.amt | number:'.2'}}</td>
       </tr>
@@ -56,13 +56,29 @@
         </tr>
       </thead>
 
-      <tr *ngFor="let in of expense">
+      <tr *ngFor="let in of expenseFilter">
         <td>{{in.cname}}</td>
         <td>{{in.amt | number:'.2'}} </td>
       </tr>
     </table>
-
+    
   </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <app-pagination 
+        [totalRecords]="totalIncomeRecords"
+        [itemsPerPage]="itemsPerPage"
+        (onPageChanged)="onIncomePageChanged($event)"
+      ></app-pagination>
+    </div>
+    <div class="col-md-6">
+      <app-pagination 
+        [totalRecords]="totalExpenseRecords"
+        [itemsPerPage]="itemsPerPage"
+        (onPageChanged)="onExpensePageChanged($event)"
+      ></app-pagination>
+    </div>
   </div>
 </div>
 
