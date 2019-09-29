@@ -13,9 +13,11 @@ export class CategoriesFormComponent implements OnInit {
   categoryForm :FormGroup;
   CATEGORY_TYPE = {A: '', I: 'i', E: 'e'};
   showType = this.CATEGORY_TYPE.A;
+  selectetCategoryData: any;
 
   @Output() onSubmitCategoriesEvent = new EventEmitter<any>();
   @Output() modelCloseEvent = new EventEmitter<any>();
+  @Input('editCatId') editCatId: number; 
 
   constructor(
     private categories: CategoriesService, 
@@ -26,6 +28,21 @@ export class CategoriesFormComponent implements OnInit {
       categoriesArray: this.fb.array([])
     });
     this.addCategoryForm();
+  }
+
+  ngAfterContentInit() {
+    setTimeout(() => {if(this.editCatId) {
+      this.categories.getCategories(this.editCatId).subscribe((data) => {
+        console.log(data);
+        this.selectetCategoryData = (<any>data.response[0]);
+        console.log(this.selectetCategoryData);
+        this.patchFormValues(this.selectetCategoryData);
+      });
+    }}, 0);
+  }
+
+  patchFormValues(data) {
+    (<FormArray>this.categoryForm.get('categoriesArray')).controls[0].patchValue(data);
   }
 
   addCategory(event: any) {
@@ -45,8 +62,26 @@ export class CategoriesFormComponent implements OnInit {
     this.clearCategoryForm();
   }
 
+  editCategory(event: any) {
+    event.preventDefault();
+    const categoriesArray = this.categoryForm.value.categoriesArray;
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(categoriesArray));
+    this.categories.editCategory(formData)
+                    .subscribe((data: ResObj) => {
+                      console.log(data);
+                      if(data.success) {
+                        //this.onSubmitCategoriesEvent.next(data.response);
+                      }
+                    });
+    this.modelCloseEvent.next();  
+    this.clearCategoryForm();
+  }
+
   addCategoriesArray(): FormGroup {
     return this.fb.group({
+      cid: this.fb.control(''),
       cname: this.fb.control('', Validators.required),
       type: this.fb.control('', Validators.required)
     });
@@ -62,6 +97,23 @@ export class CategoriesFormComponent implements OnInit {
 
   clearCategoryForm():void {
     (<FormArray>this.categoryForm.get('categoriesArray')).clear();
+  }
+  
+  deleteCategory(event) {
+    event.preventDefault();
+    const categoriesArray = this.categoryForm.value.categoriesArray;
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(categoriesArray));
+    this.categories.deleteCategory(formData)
+                    .subscribe((data: ResObj) => {
+                      console.log(data);
+                      if(data.success) {
+                        //this.onSubmitCategoriesEvent.next(data.response);
+                      }
+                    });
+    this.modelCloseEvent.next();  
+    this.clearCategoryForm();
   }
 
   // logValidationErrors(group: FormGroup = this.categoryForm): void {

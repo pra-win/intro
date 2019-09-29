@@ -14,7 +14,9 @@ export const environment = {
     getTransactions: path+'transactions.php',
     addTransactions: path+'addTransactions.php',
     fileUpladTest: path+'uploadtest.php',
-    fileUpload: path+"fileUpload.php"
+    fileUpload: path+"fileUpload.php",
+    editCategory: path+'editCategory.php',
+    deleteCategory: path+'deleteCategory.php'
   }
 };
 

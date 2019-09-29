@@ -23,6 +23,8 @@ export class CategoriesComponent implements OnInit {
 
   newData = [];
 
+  editCatId: number;
+
   constructor(
       private categories: CategoriesService, 
       private modalService: BsModalService
@@ -33,7 +35,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getCategories() {
-    this.categories.getCategories().subscribe(data => {
+    this.categories.getCategories(null).subscribe(data => {
       data.success && (this.categoriesData = data.response);
       this.devideDataInChunk();
     });
@@ -73,7 +75,8 @@ export class CategoriesComponent implements OnInit {
       });
   }
 
-  openCategoryForm() {
+  openCategoryForm(id: number = null) {
+    this.editCatId = id;    
     this.modalRef = this.modalService.show(this.input, this.config);
   }
 

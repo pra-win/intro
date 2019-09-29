@@ -1,10 +1,12 @@
 <div>
-    <button [disabled] = "categoryForm.get('categoriesArray').invalid" type="button" (click)="addCategoryForm()">Add Form</button>
+    <button *ngIf = "!this.editCatId" [disabled] = "categoryForm.get('categoriesArray').invalid" type="button" (click)="addCategoryForm()">Add Form</button>
 </div>
-<form [formGroup]="categoryForm" (submit)="addCategory($event)">
+<form [formGroup]="categoryForm" (submit)="this.editCatId ? editCategory($event) : addCategory($event)">
     <div formArrayName="categoriesArray" 
          *ngFor="let category of categoryForm.get('categoriesArray').controls; let i = index">
             <div [formGroupName]="i">
+                <input disabled *ngIf = "this.editCatId" formControlName="cid" [id]="'cid'+i" type="text" name="cid"/>
+
                 <input formControlName="cname" [id]="'cname'+i" type="text" name="cname"/>
                 <div *ngIf="category.get('cname').errors?.required && category.get('cname').touched">
                     Category name is required.
@@ -19,5 +21,10 @@
                 <button (click)="onRemoveCategory(i)">Remove Form</button>
             </div>        
     </div>
-    <button class="btn btn-primary"> Submit </button>      
+    <div class="btn-toolbar">
+        <button class="btn btn-primary"> Submit </button>  
+        &nbsp;
+        <button (click)="deleteCategory($event)" class="btn btn-primary"> Delete </button>
+    </div>
+    
 </form>

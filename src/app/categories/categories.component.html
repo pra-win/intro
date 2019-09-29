@@ -10,8 +10,8 @@
       <ng-container *ngIf="categoriesData">
         <tr *ngFor="let categories of newData;">
           <ng-container *ngFor="let category of categories;">
-            <td [ngClass]="{'income': category.type === CATEGORY_TYPE.I, 'expence':  category.type === CATEGORY_TYPE.E}">
-              {{category.cname}}
+            <td [ngClass]="{'income': category.type === CATEGORY_TYPE.I, 'expence':  category.type ===        CATEGORY_TYPE.E}">
+              <a tooltip="Click to Update or Delete" placement="left" style="cursor: pointer" (click)="openCategoryForm(category.cid)">{{category.cname}}</a>
             </td>
           </ng-container>
         </tr>
@@ -23,14 +23,15 @@
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add New Category</h4>
-    <button class="btn btn-primary" type="button" class="close pull-right" aria-label="Close" (click)="hideFormModel()">
+    <button class="btn btn-primary" type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
       <app-categories-form
-        (onSubmitCategoriesEvent)="onSubmitCategoriesEvent($event)"
-        (modelCloseEvent)="modelCloseEvent($event)"
+        (onSubmitCategoriesEvent)= "onSubmitCategoriesEvent($event)"
+        (modelCloseEvent)= "modelCloseEvent($event)"
+        [editCatId] = "editCatId"
       ></app-categories-form>   
   </div>
 </ng-template>
