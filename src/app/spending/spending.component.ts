@@ -85,7 +85,7 @@ export class SpendingComponent implements OnInit {
 
   onTransaction(type) {
     this.transactionType = type;
-    this.categoriesService.getCategories().subscribe((data) => {
+    this.categoriesService.getCategories(null).subscribe((data) => {
       this.transactionCategory = data.response;
       this.filterData(type);
       this.modalRef = this.modalService.show(this.input, this.config);
