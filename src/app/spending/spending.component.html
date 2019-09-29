@@ -20,65 +20,62 @@
   </div>
   <div class="row">
   <div class="col-md-6 table-responsive">
-    <table class="table">
-      <thead class="table-primary">
-        <tr>
-          <td>Total Income</td>
-          <td>{{incomeTotal | number:'.2'}}
-            <div class="float-right" style="font-size:20px; color:blue;">
-              <a tooltip="Add Income" style="position:relative;" placement="left" style="cursor: pointer;position:relative;" (click)="onTransaction('i')">
-                <i class="far fa-plus-square">
-                </i>
-              </a>
-            </div>
-          </td>
-        </tr>
-      </thead>
-      <tr *ngFor="let in of incomeFilter">
-        <td>{{in.cname}}</td>
-        <td>{{in.amt | number:'.2'}}</td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="col-md-6 table-responsive">
-    <table class="table">
-      <thead class="table-danger">
-        <tr>
-          <td>Total Expense</td>
-          <td>{{expenseTotal | number:'.2'}}
-            <div class="float-right" style="font-size:20px; color:red;position:relative;">
-              <a tooltip="Add Expense" style="position:relative;" placement="left" style="cursor: pointer;" (click)="onTransaction('e')">
-                <i class="far fa-plus-square"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-      </thead>
-
-      <tr *ngFor="let in of expenseFilter">
-        <td>{{in.cname}}</td>
-        <td>{{in.amt | number:'.2'}} </td>
-      </tr>
-    </table>
-    
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <app-pagination 
+      <div class="min-height">
+        <table class="table">
+          <thead class="table-primary">
+            <tr>
+              <td>Total Income</td>
+              <td>{{incomeTotal | number:'.2'}}
+                <div class="float-right" style="font-size:20px; color:blue;">
+                  <a tooltip="Add Income" style="position:relative;" placement="left" style="cursor: pointer;position:relative;" (click)="onTransaction('i')">
+                    <i class="far fa-plus-square">
+                    </i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </thead>
+          <tr *ngFor="let in of incomeFilter">
+            <td>{{in.cname}}</td>
+            <td>{{in.amt | number:'.2'}}</td>
+          </tr>
+        </table>
+    </div>
+    <app-pagination 
         [totalRecords]="totalIncomeRecords"
         [itemsPerPage]="itemsPerPage"
         (onPageChanged)="onIncomePageChanged($event)"
       ></app-pagination>
+  </div>
+  <div class="col-md-6 table-responsive">
+    <div class="min-height">
+        <table class="table">
+            <thead class="table-danger">
+              <tr>
+                <td>Total Expense</td>
+                <td>{{expenseTotal | number:'.2'}}
+                  <div class="float-right" style="font-size:20px; color:red;position:relative;">
+                    <a tooltip="Add Expense" style="position:relative;" placement="left" style="cursor: pointer;" (click)="onTransaction('e')">
+                      <i class="far fa-plus-square"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </thead>
+      
+            <tr *ngFor="let in of expenseFilter">
+              <td>{{in.cname}}</td>
+              <td>{{in.amt | number:'.2'}} </td>
+            </tr>
+          </table>
     </div>
-    <div class="col-md-6">
-      <app-pagination 
+    
+    <app-pagination 
         [totalRecords]="totalExpenseRecords"
         [itemsPerPage]="itemsPerPage"
         (onPageChanged)="onExpensePageChanged($event)"
       ></app-pagination>
-    </div>
+  </div>
   </div>
 </div>
 
