@@ -62,6 +62,15 @@ export class SpendingComponent implements OnInit {
   }
 
   getTransactions() {
+    const formData = new FormData();
+    const fromDate = this.bsRangeValue[0];
+    const toDate = this.bsRangeValue[1];
+
+    const obj = [
+      {'fromDate': fromDate.toISOString(), 'toDate': toDate.toISOString()}
+    ];
+    
+    formData.append('params', JSON.stringify(obj));
     this.transactions.getTransactions((obs) => {
       obs.subscribe((data: any) => {
         data.sort((a: any, b: any) => {
@@ -72,7 +81,7 @@ export class SpendingComponent implements OnInit {
         this.transactionsData = data;
         this.setIncomeExpence(data)
       });
-    }, this.bsRangeValue);
+    }, formData);
   }
 
   setIncomeExpence(transactionsData: any) {
@@ -128,6 +137,6 @@ export class SpendingComponent implements OnInit {
   }
 
   filterDatewise() {
-    console.log(this.bsRangeValue);
+    this.getTransactions();
   }
 }
