@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class SpendingComponent implements OnInit {
 
-    @ViewChild('template', {static: false}) input;
+  @ViewChild('template', {static: false}) input;
 
   transactionsData = [];
   income = [];
@@ -37,6 +37,11 @@ export class SpendingComponent implements OnInit {
     class: "modal-lg"
   };
 
+  bsInlineRangeValue = new Date();
+  bsValue = new Date();
+  bsRangeValue: Date[];
+  maxDate = new Date();
+
   form: FormGroup;
 
   constructor(
@@ -46,6 +51,13 @@ export class SpendingComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+    var firstDay = new Date(y, m, 1);
+    var lastDay = new Date(y, m + 1, 0);
+
+    this.maxDate = new Date();
+    this.bsRangeValue = [firstDay, lastDay];
+
     this.getTransactions();
   }
 
@@ -60,7 +72,7 @@ export class SpendingComponent implements OnInit {
         this.transactionsData = data;
         this.setIncomeExpence(data)
       });
-    }, {});
+    }, this.bsRangeValue);
   }
 
   setIncomeExpence(transactionsData: any) {
@@ -113,5 +125,9 @@ export class SpendingComponent implements OnInit {
 
   onIncomePageChanged(data: {startItem: number, endItem: number}) {
     this.incomeFilter = this.income.slice(data.startItem, data.endItem);
+  }
+
+  filterDatewise() {
+    console.log(this.bsRangeValue);
   }
 }

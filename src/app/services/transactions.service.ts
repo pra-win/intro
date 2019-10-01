@@ -17,8 +17,8 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) { }
 
-  getTransactions(callback: any, paginationIndex: any) {
-      this.http.post<TraObj>(environment.apiURLs.getTransactions, paginationIndex).subscribe((data:any) => {
+  getTransactions(callback: any, dateRange: any) {    
+      this.http.post<TraObj>(environment.apiURLs.getTransactions, {params:{dateRange: dateRange}} ).subscribe((data:any) => {
         if(data.response) {
           this.transactions = data.response;
         }
