@@ -30,7 +30,7 @@
   <div class="modal-body">
       <app-categories-form
         (onSubmitCategoriesEvent)= "onSubmitCategoriesEvent($event)"
-        (modelCloseEvent)= "modelCloseEvent($event)"
+        (modelCloseEvent)= "modalRef.hide()"
         [editCatId] = "editCatId"
       ></app-categories-form>   
   </div>

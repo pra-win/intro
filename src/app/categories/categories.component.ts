@@ -41,10 +41,11 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  onSubmitCategoriesEvent(data: any) {
-    this.updateCategorys(data);
+  onSubmitCategoriesEvent(data: any = {}) {
+    console.log(data);
+    this.getCategories();
+    //this.updateCategorys(data);
     this.devideDataInChunk();
-    this.modalRef.hide();
   }
 
   devideDataInChunk() {
@@ -80,9 +81,9 @@ export class CategoriesComponent implements OnInit {
     this.modalRef = this.modalService.show(this.input, this.config);
   }
 
-  modelCloseEvent(event) {
-    this.modalRef.hide();
-    this.getCategories();
-  }
+  // modelCloseEvent(event) {
+  //   this.modalRef.hide();
+  //   this.getCategories();
+  // }
 
 }

@@ -54,10 +54,11 @@ export class CategoriesFormComponent implements OnInit {
     this.categories.addCategory(formData)
                     .subscribe((data: ResObj) => {
                       console.log(data);
-                      if(data.success) {
-                        //this.onSubmitCategoriesEvent.next(data.response);
-                      }
+                      // if(data.success) {
+                       
+                      // }
                     });
+    this.onSubmitCategoriesEvent.next();
     this.modelCloseEvent.next();  
     this.clearCategoryForm();
   }
@@ -72,10 +73,10 @@ export class CategoriesFormComponent implements OnInit {
                     .subscribe((data: ResObj) => {
                       console.log(data);
                       if(data.success) {
-                        //this.onSubmitCategoriesEvent.next(data.response);
+                        this.onSubmitCategoriesEvent.next(data.response);
                       }
                     });
-    this.modelCloseEvent.next();  
+    // this.modelCloseEvent.next();  
     this.clearCategoryForm();
   }
 
