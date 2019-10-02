@@ -33,5 +33,5 @@
   
   <br/>
 
-  <button value="submit">submit</button>
+  <button [disabled] = "transactionForm.get('transactionFormArray').invalid" value="submit">submit</button>
 </form>
