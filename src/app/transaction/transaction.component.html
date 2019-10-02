@@ -56,10 +56,12 @@
     </tbody>
   </table>
   </div>
-  <app-pagination *ngIf="totalRecords"
-    [totalRecords]="totalRecords"
-    [itemsPerPage]="itemsPerPage"
-    (onPageChanged)="onPageChanged($event)"
-  ></app-pagination>
+  <div class="overflow-auto">
+      <app-pagination *ngIf="totalRecords"
+      [totalRecords]="totalRecords"
+      [itemsPerPage]="itemsPerPage"
+      (onPageChanged)="onPageChanged($event)"
+    ></app-pagination>
+  </div>  
 </div>
 

@@ -63,11 +63,13 @@
           </tr>
         </table>
     </div>
-    <app-pagination *ngIf="totalIncomeRecords"
-        [totalRecords]="totalIncomeRecords"
-        [itemsPerPage]="itemsPerPage"
-        (onPageChanged)="onIncomePageChanged($event)"
-      ></app-pagination>
+    <div class="overflow-auto">
+      <app-pagination *ngIf="totalIncomeRecords"
+          [totalRecords]="totalIncomeRecords"
+          [itemsPerPage]="itemsPerPage"
+          (onPageChanged)="onIncomePageChanged($event)"
+        ></app-pagination>
+    </div>
   </div>
   <div class="col-md-6 table-responsive">
     <div class="text-center" *ngIf="!expenseFilter.length"> 
@@ -98,12 +100,13 @@
             </tr>
           </table>
     </div>
-    
-    <app-pagination *ngIf="totalExpenseRecords"
+    <div class="overflow-auto">
+        <app-pagination *ngIf="totalExpenseRecords"
         [totalRecords]="totalExpenseRecords"
         [itemsPerPage]="itemsPerPage"
         (onPageChanged)="onExpensePageChanged($event)"
       ></app-pagination>
+    </div>
   </div>
   </div>
 </div>
