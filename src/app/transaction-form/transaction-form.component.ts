@@ -18,6 +18,7 @@ export class TransactionFormComponent implements OnInit {
   @Input('transactionType') transactionType: '';
   @Output() modalCloseEvent = new EventEmitter<string>();
   @Output() changeCategoryType = new EventEmitter<string>();
+  @Output() onSubmitTransaction = new EventEmitter<any>();
 
   transactionForm: FormGroup;
 
@@ -67,6 +68,7 @@ export class TransactionFormComponent implements OnInit {
       console.log(data);
     });
     this.modalCloseEvent.next();
+    this.onSubmitTransaction.next();
   }
 
   onChangeCategoryType(type: any) {

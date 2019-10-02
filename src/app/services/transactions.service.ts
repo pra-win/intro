@@ -27,10 +27,10 @@ export class TransactionsService {
       });
   }
 
-  addTransactions(params, callback) {
+  addTransactions(params: any, callback: any) {
     return this.http.post<TraObj>(environment.apiURLs.addTransactions, params).subscribe((data) => {
       callback && callback(data);
-      data.success && this.getTransactions(false, {startItem:0, endItem:0});
+      //data.success && this.getTransactions(false, {startItem:0, endItem:0});
     });
   }
 

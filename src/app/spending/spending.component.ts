@@ -139,4 +139,9 @@ export class SpendingComponent implements OnInit {
   filterDatewise() {
     this.getTransactions();
   }
+
+  onSubmitTransaction(event) {
+    console.log(event);
+    this.getTransactions();
+  }
 }
