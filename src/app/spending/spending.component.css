@@ -1,3 +1,5 @@
-.min-height{
-    min-height:320px
+@media (min-width: 765px) {
+    .min-height{
+        min-height:320px
+    }
 }
