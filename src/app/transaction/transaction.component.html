@@ -26,7 +26,8 @@
   </div>
   </div>
   <hr>
-  <div class="table-responsive">
+  <div class="text-center" *ngIf="!filterTransactions.length">No Data.</div>
+  <div class="table-responsive" *ngIf="filterTransactions.length">
   <table class="table">
     <thead class="thead-light table-primary">
       <tr>
@@ -56,7 +57,7 @@
     </tbody>
   </table>
   </div>
-  <app-pagination 
+  <app-pagination *ngIf="totalRecords"
     [totalRecords]="totalRecords"
     [itemsPerPage]="itemsPerPage"
     (onPageChanged)="onPageChanged($event)"

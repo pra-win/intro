@@ -5,9 +5,10 @@
   <br class="d-sm-block d-md-none d-lg-none"/><br class="d-sm-block d-md-none d-lg-none"/>
   <button class="btn btn-primary float-md-right" (click)="openCategoryForm()">Add Category</button>
   <br/><br/>
-  <div class="table-responsive">
+  <div class="text-center" *ngIf="!categoriesData.length">No Data.</div>
+  <div class="table-responsive" *ngIf="categoriesData.length">
     <table class="table">
-      <ng-container *ngIf="categoriesData">
+      <ng-container>
         <tr *ngFor="let categories of newData;">
           <ng-container *ngFor="let category of categories;">
             <td [ngClass]="{'income': category.type === CATEGORY_TYPE.I, 'expence':  category.type ===        CATEGORY_TYPE.E}">

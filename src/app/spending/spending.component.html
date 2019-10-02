@@ -35,8 +35,16 @@
   </div>
   <div class="row">
   <div class="col-md-6 table-responsive">
-      <div class="min-height">
-        <table class="table">
+      <div class="text-center" *ngIf="!incomeFilter.length">
+          <div style="font-size:20px; color:blue;">
+              <a tooltip="Add Income" style="position:relative;" placement="left" style="cursor: pointer;position:relative;" (click)="onTransaction('i')">
+                  Add Income <i class="far fa-plus-square">
+                </i>
+              </a>
+            </div>
+      </div>
+      <div class="min-height" *ngIf="incomeFilter.length">
+        <table class="table" >
           <thead class="table-primary">
             <tr>
               <td>Total Income</td>
@@ -56,14 +64,21 @@
           </tr>
         </table>
     </div>
-    <app-pagination 
+    <app-pagination *ngIf="totalIncomeRecords"
         [totalRecords]="totalIncomeRecords"
         [itemsPerPage]="itemsPerPage"
         (onPageChanged)="onIncomePageChanged($event)"
       ></app-pagination>
   </div>
   <div class="col-md-6 table-responsive">
-    <div class="min-height">
+    <div class="text-center" *ngIf="!expenseFilter.length"> 
+      <div style="font-size:20px; color:red;position:relative;">
+        <a tooltip="Add Expense" style="position:relative;" placement="left" style="cursor: pointer;" (click)="onTransaction('e')">
+            Add Expense <i class="far fa-plus-square"></i>
+        </a>
+      </div>
+    </div>
+    <div class="min-height" *ngIf="expenseFilter.length">
         <table class="table">
             <thead class="table-danger">
               <tr>
@@ -85,7 +100,7 @@
           </table>
     </div>
     
-    <app-pagination 
+    <app-pagination *ngIf="totalExpenseRecords"
         [totalRecords]="totalExpenseRecords"
         [itemsPerPage]="itemsPerPage"
         (onPageChanged)="onExpensePageChanged($event)"
