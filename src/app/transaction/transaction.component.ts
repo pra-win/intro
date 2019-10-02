@@ -24,10 +24,19 @@ export class TransactionComponent implements OnInit {
     this.onTransactionFilter(value);
   }
 
+  bsRangeValue: Date[];
+  maxDate = new Date();
+
   constructor(private transactionsService: TransactionsService) { }
 
   ngOnInit() {
-      this.getTransactions();
+    var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+    var firstDay = new Date(y, m, 1);
+    var lastDay = new Date(y, m + 1, 0);
+    
+    this.maxDate = new Date();
+    this.bsRangeValue = [firstDay, lastDay];
+    this.getTransactions();
   }
 
   onTransactionFilter(value: string): void {
@@ -42,8 +51,15 @@ export class TransactionComponent implements OnInit {
   }
 
   getTransactions() {
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(this.paginationIndex));
+      const formData = new FormData();
+      const fromDate = this.bsRangeValue[0];
+      const toDate = this.bsRangeValue[1];
+
+      const obj = [
+        {'fromDate': fromDate.toISOString(), 'toDate': toDate.toISOString()}
+      ];
+      
+      formData.append('params', JSON.stringify(obj));
 
       this.transactionsService.getTransactions((obs:any) => {
         obs.subscribe((data: any) => {
@@ -62,6 +78,10 @@ export class TransactionComponent implements OnInit {
   onPageChanged(data: {startItem: number, endItem: number}) {
     this.paginationIndex = data;
     this.filterTransactions = this.transactions.slice(data.startItem, data.endItem);
+  }
+
+  filterDatewise() {
+    this.getTransactions();
   }
 
 }
