@@ -15,7 +15,8 @@ export class TransactionFormComponent implements OnInit {
   tType = ''
 
   @Input('transactionCategory') selectedCategory: [];
-  @Input('transactionType') transactionType: '';
+  @Input('transactionType') transactionType: string;
+  @Input('selectedTransaction') selectedTransaction: number;
   @Output() modalCloseEvent = new EventEmitter<string>();
   @Output() changeCategoryType = new EventEmitter<string>();
   @Output() onSubmitTransaction = new EventEmitter<any>();
@@ -39,10 +40,27 @@ export class TransactionFormComponent implements OnInit {
     // this.transactionForm.controls['category'].setValue(this.categories[0].cid, {onlySelf: true});
     // this.transactionForm.controls['tranDate'].setValue(new Date(), {onlySelf: true});
     //this.setDefaultCategory(this.categories);
+
+    setTimeout(() => {
+      if(this.selectedTransaction) {
+        let formData = new FormData();
+        let obj = [{id: this.selectedTransaction}];
+        formData.append('params', JSON.stringify(obj));
+        this.transactions.getTransactionsNew(formData).subscribe((data: any) => {
+          this.patchData(data.response[0]);
+        });
+      }
+    });
+  }
+
+  patchData(data:any) {
+    data.tranDate = new Date(data.tranDate);
+    (<FormArray>this.transactionForm.get('transactionFormArray')).controls[0].patchValue(data);
   }
 
   getTransactionFormControls(): FormGroup {
     return new FormGroup({
+      id: this.fb.control(''),
       category: this.fb.control('', Validators.required),
       tranDesc: this.fb.control(''),
       amt: this.fb.control('',Validators.required),
@@ -57,16 +75,27 @@ export class TransactionFormComponent implements OnInit {
 
   onSubmit() {
     let formValues = this.transactionForm.value.transactionFormArray;
-    console.log(formValues);
-    formValues.forEach((obj: any) => {
-      console.log(obj.tranDate);
-    });
     let params = JSON.stringify(formValues);
     const formData = new FormData();
     formData.append("data",params);
     this.transactions.addTransactions(formData, (data: any) => {
       console.log(data);
     });
+    this.modalCloseEvent.next();
+    this.onSubmitTransaction.next();
+  }
+
+  updateTransaction() {
+    let formValues = this.transactionForm.value.transactionFormArray;
+
+    let params = JSON.stringify(formValues);
+    const formData = new FormData();
+    formData.append("data",params);
+
+    this.transactions.editTransactions(formData).subscribe((data) => {
+      console.log(data);
+    });
+    
     this.modalCloseEvent.next();
     this.onSubmitTransaction.next();
   }

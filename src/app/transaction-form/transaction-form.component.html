@@ -3,11 +3,23 @@
   <button [ngClass]="{'btn': true, 'btn-danger': tType === 'e',  'btn-primary': tType !== 'e'}" (click)="onChangeCategoryType('e')">Expense</button>
 </div>
 <br/>
-<button (click)="addTransactionForm()" [disabled] = "transactionForm.get('transactionFormArray').invalid">Add Form</button>
-<form [formGroup] = "transactionForm" (ngSubmit)="onSubmit()">
-  <div formArrayName="transactionFormArray" *ngFor="let transaction of transactionForm.get('transactionFormArray').controls; let i = index">
+
+<button 
+    *ngIf = "!selectedTransaction" 
+    (click)="addTransactionForm()" 
+    [disabled] = "transactionForm.get('transactionFormArray').invalid">
+        Add Form
+</button>
+
+
+<form [formGroup] = "transactionForm" 
+  (ngSubmit)="selectedTransaction ? updateTransaction() : onSubmit()">
+  <div formArrayName="transactionFormArray" 
+       *ngFor="let transaction of transactionForm.get('transactionFormArray').controls; let i = index">
     <hr>  
     <div [formGroupName]="i">
+        <input *ngIf = "selectedTransaction" disabled [id] = "id+i" type="number" formControlName="id" placeholder="id"/>
+        &nbsp;
         <input type="text"
           [id] = "'tranDate'+i"
           formControlName="tranDate"
@@ -33,5 +45,9 @@
   
   <br/>
 
-  <button [disabled] = "transactionForm.get('transactionFormArray').invalid" value="submit">submit</button>
+  <button 
+    [disabled] = "transactionForm.get('transactionFormArray').invalid" 
+    value="submit">
+      submit
+  </button>
 </form>

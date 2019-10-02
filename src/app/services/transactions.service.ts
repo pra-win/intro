@@ -26,12 +26,20 @@ export class TransactionsService {
         this.setTransactions(this.transactions);
       });
   }
+  /** Replace the getTransactions with following function */
+  getTransactionsNew(params: any) {    
+    return this.http.post<TraObj>(environment.apiURLs.getTransactions, params);
+  }
 
   addTransactions(params: any, callback: any) {
     return this.http.post<TraObj>(environment.apiURLs.addTransactions, params).subscribe((data) => {
       callback && callback(data);
       //data.success && this.getTransactions(false, {startItem:0, endItem:0});
     });
+  }
+
+  editTransactions(params: any) {
+    return this.http.post<TraObj>(environment.apiURLs.editTransactions, params);
   }
 
   private getUpdatedTransactions(): Observable<any> {

@@ -42,6 +42,8 @@ export class SpendingComponent implements OnInit {
   bsRangeValue: Date[];
   maxDate = new Date();
 
+  selectedTransaction: number;
+
   form: FormGroup;
 
   constructor(
@@ -61,7 +63,7 @@ export class SpendingComponent implements OnInit {
     this.getTransactions();
   }
 
-  getTransactions() {
+  getTransactions(id: number = null) {
     const formData = new FormData();
     const fromDate = this.bsRangeValue[0];
     const toDate = this.bsRangeValue[1];
@@ -104,8 +106,9 @@ export class SpendingComponent implements OnInit {
     this.totalIncomeRecords = this.income.length;
   }
 
-  onTransaction(type) {
+  onTransaction(type:string, id:number = null ) {
     this.transactionType = type;
+    this.selectedTransaction = id;
     this.categoriesService.getCategories(null).subscribe((data) => {
       this.transactionCategory = data.response;
       this.filterData(type);
