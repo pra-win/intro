@@ -54,7 +54,12 @@ export class TransactionFormComponent implements OnInit {
         let obj = [{id: this.selectedTransaction}];
         formData.append('params', JSON.stringify(obj));
         this.transactions.getTransactionsNew(formData).subscribe((data: any) => {
-          this.patchData(data.response[0]);
+          let formData = data.response[0];
+          var catObj = this.categories.find((o) => {
+            return o.cname = formData.cname;
+          });
+          this.patchData(formData);
+          this.setDefaultCategory([catObj]);
         });
       }
     });
@@ -114,9 +119,11 @@ export class TransactionFormComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.categories = changes.selectedCategory.currentValue;
-    setTimeout(() => {
-      this.setDefaultCategory(this.categories);
-    }, 0);
+    if(!this.selectedTransaction) {
+      setTimeout(() => {
+        this.setDefaultCategory(this.categories);
+      }, 0);
+    }
   }
 
   removeForm(index: number): void {
