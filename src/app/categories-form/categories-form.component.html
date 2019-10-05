@@ -24,7 +24,16 @@
     <div class="btn-toolbar">
         <button class="btn btn-primary" [disabled] = "categoryForm.get('categoriesArray').invalid"> Submit </button>  
         &nbsp;
-        <button (click)="deleteCategory($event)" class="btn btn-primary"> Delete </button>
+        <button type="button" (click)="deleteCategory(template)" class="btn btn-primary"> Delete </button>
     </div>
     
 </form>
+
+<ng-template #template>
+    <div class="modal-body text-center">
+      <p>Do you want to confirm?</p>
+      <button type="button" class="btn btn-default" (click)="confirmDelete()" >Yes</button>
+      &nbsp;
+      <button type="button" class="btn btn-primary" (click)="deleteDecline()" >No</button>
+    </div>
+</ng-template>

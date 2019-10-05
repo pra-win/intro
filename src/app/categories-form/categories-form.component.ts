@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { CategoriesService } from './../services/categories.service';
 import { CategoriesObj as ResObj} from './../interfaces';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-categories-form',
@@ -15,13 +16,17 @@ export class CategoriesFormComponent implements OnInit {
   showType = this.CATEGORY_TYPE.A;
   selectetCategoryData: any;
 
+  modalRef: BsModalRef;
+  message: string;
+
   @Output() onSubmitCategoriesEvent = new EventEmitter<any>();
   @Output() modelCloseEvent = new EventEmitter<any>();
   @Input('editCatId') editCatId: number; 
 
   constructor(
     private categories: CategoriesService, 
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.categoryForm = this.fb.group({
@@ -101,7 +106,11 @@ export class CategoriesFormComponent implements OnInit {
     (<FormArray>this.categoryForm.get('categoriesArray')).clear();
   }
   
-  deleteCategory(event) {
+  deleteCategory(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirmDelete(): void {
     event.preventDefault();
     const categoriesArray = this.categoryForm.value.categoriesArray;
 
@@ -114,10 +123,18 @@ export class CategoriesFormComponent implements OnInit {
                         //this.onSubmitCategoriesEvent.next(data.response);
                       }
                     });
+    this.modalRef.hide();
     this.onSubmitCategoriesEvent.next();
     this.modelCloseEvent.next();  
     this.clearCategoryForm();
+    
   }
+ 
+  deleteDecline(): void {
+    this.message = 'Declined!';
+    this.modalRef.hide();
+  }
+
 
   // logValidationErrors(group: FormGroup = this.categoryForm): void {
   //   Object.keys(group.controls).forEach((key: string) => {
