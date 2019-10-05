@@ -43,14 +43,20 @@
     <tbody>
       <ng-container *ngIf="filterTransactions">
           <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of filterTransactions">
-              <td>{{tran.tranDate}}</td>
-              <!-- <td>{{tran.id}}</td> -->
-              <td>{{tran.cname}}</td>
+             
+              <td style="vertical-align: middle;width: 110px;">
+                <div>
+                  {{tran.tranDate | date: 'dd/MM/yyyy'}}
+                  <br>
+                  {{tran.tranDate | date: 'h:mm:ss a'}}
+                </div>
+              </td>
+              <td style="vertical-align: middle;">{{tran.cname}}</td>
               <!-- <td appReplaceCatType [catType]="tran.ctype">{{tran.ctype}}</td> -->
 
-              <td>{{tran.amt | number:'.2'}}</td>
-              <td>{{tran.tranDesc}}</td>
-              <td>{{tran.keyWords}}</td>
+              <td style="vertical-align: middle;">{{tran.amt | number:'.2'}}</td>
+              <td style="vertical-align: middle;">{{tran.tranDesc}}</td>
+              <td style="vertical-align: middle;">{{tran.keyWords}}</td>
           </tr>
       </ng-container>
     </tbody>
@@ -58,10 +64,10 @@
   </div>
   <div class="overflow-auto">
       <app-pagination *ngIf="totalRecords"
-      [totalRecords]="totalRecords"
-      [itemsPerPage]="itemsPerPage"
-      (onPageChanged)="onPageChanged($event)"
-    ></app-pagination>
+        [totalRecords]="totalRecords"
+        [itemsPerPage]="itemsPerPage"
+        (onPageChanged)="onPageChanged($event)"
+      ></app-pagination>
   </div>  
 </div>
 
