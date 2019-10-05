@@ -18,7 +18,8 @@ export const environment = {
     editCategory: path+'editCategory.php',
     deleteCategory: path+'deleteCategory.php',
     editTransactions: path+'editTransactions.php',
-    deleteTransactions: path+'deleteTransaction.php'
+    deleteTransactions: path+'deleteTransaction.php',
+    exportTransactions: path+'exportTransactions.php'
   }
 };
 

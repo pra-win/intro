@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from './../services/transactions.service';
 import { TransactionObj as TraObj} from './../interfaces';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-transaction',
@@ -14,6 +15,8 @@ export class TransactionComponent implements OnInit {
   totalRecords: number;
   paginationIndex: {startItem: number, endItem: number}; 
   private itemsPerPage: number = 5;
+
+  exportUrl = environment.apiURLs.exportTransactions;
 
   get searchTerm(): string {
     return this.filterKeyword;
