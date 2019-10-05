@@ -64,18 +64,17 @@ export class TransactionComponent implements OnInit {
       
       formData.append('params', JSON.stringify(obj));
 
-      this.transactionsService.getTransactions((obs:any) => {
-        obs.subscribe((data: any) => {
-          data.sort((a: any, b: any) => {
-            const aDate = new Date(a.tranDate).getTime();
-            const bDate = new Date(b.tranDate).getTime();
-            return bDate - aDate;
-          });
-          this.transactions = data;
-          this.filterTransactions = data.slice(0, this.itemsPerPage);
-          this.totalRecords = this.transactions.length;
+      this.transactionsService.getTransactions(formData).subscribe((data: any) => {
+        let transData = data.response;
+        transData.sort((a: any, b: any) => {
+          const aDate = new Date(a.tranDate).getTime();
+          const bDate = new Date(b.tranDate).getTime();
+          return bDate - aDate;
         });
-      }, formData);
+        this.transactions = transData;
+        this.filterTransactions = transData.slice(0, this.itemsPerPage);
+        this.totalRecords = this.transactions.length;
+      });
   }
 
   onPageChanged(data: {startItem: number, endItem: number}) {

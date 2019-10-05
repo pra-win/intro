@@ -73,17 +73,18 @@ export class SpendingComponent implements OnInit {
     ];
     
     formData.append('params', JSON.stringify(obj));
-    this.transactions.getTransactions((obs) => {
-      obs.subscribe((data: any) => {
-        data.sort((a: any, b: any) => {
-          const aDate = new Date(a.tranDate).getTime();
-          const bDate = new Date(b.tranDate).getTime();          
-          return bDate - aDate;
-        });
-        this.transactionsData = data;
-        this.setIncomeExpence(data)
+
+    this.transactions.getTransactions(formData).subscribe((data: any) => {
+      let transData = data.response;
+      transData.sort((a: any, b: any) => {
+        const aDate = new Date(a.tranDate).getTime();
+        const bDate = new Date(b.tranDate).getTime();          
+        return bDate - aDate;
       });
-    }, formData);
+      this.transactionsData = transData;
+      this.setIncomeExpence(transData)
+    });
+
   }
 
   setIncomeExpence(transactionsData: any) {

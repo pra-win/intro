@@ -17,24 +17,14 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) { }
 
-  getTransactions(callback: any, dateRange: any) {    
-      this.http.post<TraObj>(environment.apiURLs.getTransactions, dateRange ).subscribe((data:any) => {
-        if(data.response) {
-          this.transactions = data.response;
-        }
-        callback && callback(this.getUpdatedTransactions());
-        this.setTransactions(this.transactions);
-      });
-  }
   /** Replace the getTransactions with following function */
-  getTransactionsNew(params: any) {    
+  getTransactions(params: any) {    
     return this.http.post<TraObj>(environment.apiURLs.getTransactions, params);
   }
 
   addTransactions(params: any, callback: any) {
     return this.http.post<TraObj>(environment.apiURLs.addTransactions, params).subscribe((data) => {
       callback && callback(data);
-      //data.success && this.getTransactions(false, {startItem:0, endItem:0});
     });
   }
 
@@ -45,17 +35,4 @@ export class TransactionsService {
   deleteTransaction(params: any) {
     return this.http.post<TraObj>(environment.apiURLs.deleteTransactions, params);
   }
-
-  private getUpdatedTransactions(): Observable<any> {
-      return this.subject.asObservable();
-  }
-
-  private setTransactions(val) {
-      this.subject.next(val);
-  }
-
-  private clearTransactions() {
-      this.subject.next();
-  }
-
 }

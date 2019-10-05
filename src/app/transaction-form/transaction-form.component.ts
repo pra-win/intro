@@ -53,7 +53,7 @@ export class TransactionFormComponent implements OnInit {
         let formData = new FormData();
         let obj = [{id: this.selectedTransaction}];
         formData.append('params', JSON.stringify(obj));
-        this.transactions.getTransactionsNew(formData).subscribe((data: any) => {
+        this.transactions.getTransactions(formData).subscribe((data: any) => {
           let formData = data.response[0];
           var catObj = this.categories.find((o) => {
             return o.cname = formData.cname;
