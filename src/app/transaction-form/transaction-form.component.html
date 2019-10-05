@@ -51,7 +51,7 @@
       submit
   </button>
   &nbsp;
-  <button type="button" (click) = "onDeleteTransaction(template)">
+  <button *ngIf="selectedTransaction" type="button" (click) = "onDeleteTransaction(template)">
     Delete
   </button>
 </form>
@@ -60,6 +60,7 @@
   <div class="modal-body text-center">
     <p>Do you want to confirm?</p>
     <button type="button" class="btn btn-default" (click)="confirmDelete()" >Yes</button>
+    &nbsp;
     <button type="button" class="btn btn-primary" (click)="deleteDecline()" >No</button>
   </div>
 </ng-template>
