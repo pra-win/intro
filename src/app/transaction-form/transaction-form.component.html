@@ -39,6 +39,9 @@
         <input [id] = "'tranDesc'+i" type="text" formControlName="tranDesc" placeholder="desc"/>
         &nbsp;
         <input [id] = "'keyWords'+i" type="text" formControlName="keyWords" placeholder="key words"/>
+        &nbsp;
+        <input [id] = "'futureTransaction'+i" formControlName="futureTransaction" type="checkbox" name="futureTransaction"/>
+        <label [for]= "'futureTransaction'+i">Future transaction</label>
         <button type="button" *ngIf="transactionForm.get('transactionFormArray').controls.length > 1" (click)="removeForm(i)">Remove</button>
       </div>
   </div>

@@ -77,7 +77,8 @@ export class TransactionFormComponent implements OnInit {
       tranDesc: this.fb.control(''),
       amt: this.fb.control('',Validators.required),
       tranDate: this.fb.control(new Date(), Validators.required),
-      keyWords: this.fb.control('')
+      keyWords: this.fb.control(''),
+      futureTransaction: this.fb.control('')
     });
   }
 
