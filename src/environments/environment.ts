@@ -17,7 +17,8 @@ export const environment = {
     fileUpload: path+"fileUpload.php",
     editCategory: path+'editCategory.php',
     deleteCategory: path+'deleteCategory.php',
-    editTransactions: path+'editTransactions.php'
+    editTransactions: path+'editTransactions.php',
+    deleteTransactions: path+'deleteTransaction.php'
   }
 };
 

@@ -42,6 +42,10 @@ export class TransactionsService {
     return this.http.post<TraObj>(environment.apiURLs.editTransactions, params);
   }
 
+  deleteTransaction(params: any) {
+    return this.http.post<TraObj>(environment.apiURLs.deleteTransactions, params);
+  }
+
   private getUpdatedTransactions(): Observable<any> {
       return this.subject.asObservable();
   }

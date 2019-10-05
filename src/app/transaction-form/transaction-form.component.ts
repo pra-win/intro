@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators} from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+// import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TransactionsService } from './../services/transactions.service';
 import { TransactionObj as TraObj} from './../interfaces';
 
@@ -25,7 +26,13 @@ export class TransactionFormComponent implements OnInit {
 
   categories = [];
 
-  constructor(private transactions:TransactionsService, private fb: FormBuilder) {}
+  modalRef: BsModalRef;
+  message: string;
+
+  constructor(
+    private transactions:TransactionsService, 
+    private fb: FormBuilder, 
+    private modalService: BsModalService) {}
 
   ngOnInit() {
 
@@ -121,5 +128,30 @@ export class TransactionFormComponent implements OnInit {
     controls.forEach((g) => {
       (<FormGroup>g).get('category').setValue(categories[0].cid, {onlySelf: true});      
     });
+  }
+
+  onDeleteTransaction(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirmDelete(): void {
+    this.message = 'Confirmed!';
+
+    let formValues = this.transactionForm.value.transactionFormArray;
+
+    let params = JSON.stringify(formValues);
+    const formData = new FormData();
+    formData.append("data",params);
+
+    this.transactions.deleteTransaction(formData).subscribe((data) => {
+      this.modalRef.hide();
+      this.onSubmitTransaction.next();
+      this.modalCloseEvent.next();
+    });
+  }
+ 
+  deleteDecline(): void {
+    this.message = 'Declined!';
+    this.modalRef.hide();
   }
 }
