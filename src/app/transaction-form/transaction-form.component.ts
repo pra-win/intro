@@ -67,6 +67,7 @@ export class TransactionFormComponent implements OnInit {
 
   patchData(data:any) {
     data.tranDate = new Date(data.tranDate);
+    data.futureTransaction = Number(data.futureTransaction);
     (<FormArray>this.transactionForm.get('transactionFormArray')).controls[0].patchValue(data);
   }
 

@@ -21,7 +21,7 @@ export class SpendingComponent implements OnInit {
   incomeTotal: number;
   expenseTotal: number;
   itemsPerPage: number = 5;
-
+  isShowFutureTransaction: boolean;
   totalExpenseRecords: number;
   totalIncomeRecords: number;
 
@@ -82,7 +82,7 @@ export class SpendingComponent implements OnInit {
         return bDate - aDate;
       });
       this.transactionsData = transData;
-      this.setIncomeExpence(transData)
+      this.setIncomeExpence(transData);
     });
 
   }
@@ -105,6 +105,19 @@ export class SpendingComponent implements OnInit {
     this.incomeFilter = this.income.slice(0, this.itemsPerPage);
     this.totalExpenseRecords = this.expense.length;
     this.totalIncomeRecords = this.income.length;
+  }
+
+  hideShowFutureTransaction(isShowFutureTransaction: boolean) {
+    let newTransactionsData = Object.assign([], this.transactionsData);;
+
+    if(!isShowFutureTransaction) {
+      newTransactionsData = newTransactionsData.filter((data) => {
+        let futureTransaction = Number(data.futureTransaction);
+        return !futureTransaction;
+      });
+    }
+    
+    this.setIncomeExpence(newTransactionsData);    
   }
 
   onTransaction(type:string, id:number = null ) {
