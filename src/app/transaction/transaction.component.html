@@ -49,7 +49,10 @@
     </thead>
     <tbody>
       <ng-container *ngIf="filterTransactions">
-          <tr [ngClass]="tran.ctype =='e' ? 'red-line' : 'green-line'" *ngFor="let tran of filterTransactions">
+          <tr
+            *ngFor="let tran of filterTransactions"
+            [ngClass]="{'red-line': tran.ctype =='e', 'green-line': tran.ctype =='i', 'table-warning': tran.futureTransaction == 1}" 
+            [tooltip]="tran.futureTransaction == 1 ? 'Future Transaction' : ''">
              
               <td style="vertical-align: middle;width: 110px;">
                 <div>

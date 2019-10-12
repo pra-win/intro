@@ -66,7 +66,10 @@
               </td>
             </tr>
           </thead>
-          <tr *ngFor="let in of incomeFilter" [ngClass]="{'table-warning': in.futureTransaction == 1}">
+          <tr 
+            *ngFor="let in of incomeFilter" 
+            [ngClass]="{'table-warning': in.futureTransaction == 1}"
+            [tooltip]="in.futureTransaction == 1 ? 'Future Transaction' : ''">
             <td>{{in.cname}}</td>
             <!-- <td>{{in.tranDesc}}</td> -->
             <td>{{in.amt | number:'.2'}}</td>
@@ -114,7 +117,7 @@
             </thead>
       
             <ng-container *ngFor="let in of expenseFilter">
-                <tr [ngClass]="{'table-warning': in.futureTransaction == 1}">
+                <tr [tooltip]="in.futureTransaction == 1 ? 'Future Transaction' : ''" [ngClass]="{'table-warning': in.futureTransaction == 1}">
                     <td>{{in.cname}}</td>
                     <!-- <td>{{in.tranDesc}}</td> -->
                     <td>{{in.amt | number:'.2'}} </td>

@@ -21,7 +21,7 @@ export class SpendingComponent implements OnInit {
   incomeTotal: number;
   expenseTotal: number;
   itemsPerPage: number = 5;
-  isShowFutureTransaction: boolean;
+  isShowFutureTransaction: boolean = false;
   totalExpenseRecords: number;
   totalIncomeRecords: number;
 
@@ -82,8 +82,7 @@ export class SpendingComponent implements OnInit {
         return bDate - aDate;
       });
       this.transactionsData = transData;
-      //this.setIncomeExpence(transData);
-      this.hideShowFutureTransaction(false);
+      this.hideShowFutureTransaction(this.isShowFutureTransaction);
     });
 
   }
