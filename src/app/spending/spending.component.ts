@@ -82,7 +82,8 @@ export class SpendingComponent implements OnInit {
         return bDate - aDate;
       });
       this.transactionsData = transData;
-      this.setIncomeExpence(transData);
+      //this.setIncomeExpence(transData);
+      this.hideShowFutureTransaction(false);
     });
 
   }
@@ -107,7 +108,7 @@ export class SpendingComponent implements OnInit {
     this.totalIncomeRecords = this.income.length;
   }
 
-  hideShowFutureTransaction(isShowFutureTransaction: boolean) {
+  hideShowFutureTransaction(isShowFutureTransaction: boolean) {    
     let newTransactionsData = Object.assign([], this.transactionsData);;
 
     if(!isShowFutureTransaction) {

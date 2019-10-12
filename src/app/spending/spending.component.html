@@ -19,13 +19,13 @@
     </div>
     <div class="col-md-6">
         <div class="row">
-            <div>
+            <div class="col-xs-12 col-12 col-md-5 form-group">
               <input 
                 type="checkbox" 
                 id="futureTransaction" 
                 name="futureTransaction" 
                 [(ngModel)] = "isShowFutureTransaction"
-                (change)="hideShowFutureTransaction(isChecked?'A':'B')"/>
+                (change)="hideShowFutureTransaction(isShowFutureTransaction)"/>
               <label for="futureTransaction">Future Transaction</label>
             </div>
             <div class="col-xs-12 col-12 col-md-7 form-group">
@@ -66,7 +66,7 @@
               </td>
             </tr>
           </thead>
-          <tr *ngFor="let in of incomeFilter">
+          <tr *ngFor="let in of incomeFilter" [ngClass]="{'table-warning': in.futureTransaction == 1}">
             <td>{{in.cname}}</td>
             <!-- <td>{{in.tranDesc}}</td> -->
             <td>{{in.amt | number:'.2'}}</td>
@@ -113,20 +113,22 @@
               </tr>
             </thead>
       
-            <tr *ngFor="let in of expenseFilter">
-              <td>{{in.cname}}</td>
-              <!-- <td>{{in.tranDesc}}</td> -->
-              <td>{{in.amt | number:'.2'}} </td>
-              <td class="text-right">
-                <a (click)="onTransaction(in.ctype, in.id)">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <!-- &nbsp;
-                <a (click)="onDelete(in.id)">
-                    <i class="far fa-trash-alt"></i>
-                </a> -->
-              </td>
-            </tr>
+            <ng-container *ngFor="let in of expenseFilter">
+                <tr [ngClass]="{'table-warning': in.futureTransaction == 1}">
+                    <td>{{in.cname}}</td>
+                    <!-- <td>{{in.tranDesc}}</td> -->
+                    <td>{{in.amt | number:'.2'}} </td>
+                    <td class="text-right">
+                      <a (click)="onTransaction(in.ctype, in.id)">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <!-- &nbsp;
+                      <a (click)="onDelete(in.id)">
+                          <i class="far fa-trash-alt"></i>
+                      </a> -->
+                    </td>
+                  </tr>
+            </ng-container>
           </table>
     </div>
     <div class="overflow-auto">
