@@ -1,8 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { TransactionsService } from './../services/transactions.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { CategoriesService } from './../services/categories.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { TransactionsService } from './../services/transactions.service';
+import { PreferenceService } from './../services/preference.service';
 
 @Component({
   selector: 'app-spending',
@@ -49,7 +51,8 @@ export class SpendingComponent implements OnInit {
   constructor(
     private transactions: TransactionsService,
     private modalService: BsModalService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private preferenceService: PreferenceService
     ) { }
 
   ngOnInit() {
@@ -82,6 +85,7 @@ export class SpendingComponent implements OnInit {
         return bDate - aDate;
       });
       this.transactionsData = transData;
+      this.isShowFutureTransaction = this.preferenceService.getPreference(this.preferenceService.ISSHOWFUTURERANSACTION) === "true";
       this.hideShowFutureTransaction(this.isShowFutureTransaction);
     });
 
@@ -117,7 +121,8 @@ export class SpendingComponent implements OnInit {
       });
     }
     
-    this.setIncomeExpence(newTransactionsData);    
+    this.setIncomeExpence(newTransactionsData);      
+    this.preferenceService.setPreference(this.preferenceService.ISSHOWFUTURERANSACTION, this.isShowFutureTransaction);  
   }
 
   onTransaction(type:string, id:number = null ) {
