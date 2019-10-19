@@ -13,12 +13,17 @@
 
 
 <form [formGroup] = "transactionForm" 
-  (ngSubmit)="selectedTransaction ? updateTransaction() : onSubmit()">
+  (ngSubmit)="onSubmit(selectedTransaction)">
   <div formArrayName="transactionFormArray" 
        *ngFor="let transaction of transactionForm.get('transactionFormArray').controls; let i = index">
     <hr>  
     <div [formGroupName]="i">
-        <input *ngIf = "selectedTransaction" disabled [id] = "id+i" type="number" formControlName="id" placeholder="id"/>
+        <input 
+          *ngIf = "selectedTransaction" 
+          disabled [id] = "id+i" 
+          type="number" 
+          formControlName="id" placeholder="id"
+        />
         &nbsp;
         <input type="text"
           [id] = "'tranDate'+i"
@@ -40,7 +45,11 @@
         &nbsp;
         <input [id] = "'keyWords'+i" type="text" formControlName="keyWords" placeholder="key words"/>
         &nbsp;
-        <input [id] = "'futureTransaction'+i" formControlName="futureTransaction" type="checkbox" name="futureTransaction"/>
+        <input [id] = "'futureTransaction'+i" 
+          formControlName="futureTransaction" 
+          type="checkbox" 
+          name="futureTransaction"
+        />
         <label [for]= "'futureTransaction'+i">Future transaction</label>
         <button type="button" *ngIf="transactionForm.get('transactionFormArray').controls.length > 1" (click)="removeForm(i)">Remove</button>
       </div>

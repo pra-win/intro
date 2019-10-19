@@ -139,6 +139,8 @@ export class SpendingComponent implements OnInit {
     this.transactionCategoryFilterData = this.transactionCategory.filter((d) => {
       return d.type === type
     })
+    console.log("cat=",this.transactionCategoryFilterData);
+    
   }
 
   ngAfterViewInit() {

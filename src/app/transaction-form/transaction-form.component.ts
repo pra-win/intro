@@ -56,19 +56,31 @@ export class TransactionFormComponent implements OnInit {
         this.transactions.getTransactions(formData).subscribe((data: any) => {
           let formData = data.response[0];
           var catObj = this.categories.find((o) => {
-            return o.cname = formData.cname;
+            return o.cname === formData.cname;
           });
           this.patchData(formData);
-          this.setDefaultCategory([catObj]);
+          //this.setDefaultCategory([catObj]);
         });
       }
     });
   }
 
   patchData(data:any) {
-    data.tranDate = new Date(data.tranDate);
-    data.futureTransaction = Number(data.futureTransaction);
-    (<FormArray>this.transactionForm.get('transactionFormArray')).controls[0].patchValue(data);
+    var catObj = this.categories.find((o) => {
+      return o.cname === data.cname;
+    });
+
+    let obj = {
+        id: data.id, 
+        tranDate: data.tranDate, 
+        category: catObj.cid, 
+        amt: data.amt, 
+        tranDesc: data.tranDesc, 
+        keyWords: data.keyWords, 
+        futureTransaction: Number(data.futureTransaction)
+      };
+          
+    (<FormArray>this.transactionForm.get('transactionFormArray')).controls[0].setValue(obj);
   }
 
   getTransactionFormControls(): FormGroup {
@@ -87,28 +99,24 @@ export class TransactionFormComponent implements OnInit {
     (<FormArray>this.transactionForm.get('transactionFormArray')).push(this.getTransactionFormControls());
   }
 
-  onSubmit() {
+  onSubmit(isUpdate) {
     let formValues = this.transactionForm.value.transactionFormArray;
-    let params = JSON.stringify(formValues);
-    const formData = new FormData();
-    formData.append("data",params);
-    this.transactions.addTransactions(formData, (data: any) => {
-      console.log(data);
-    });
-    this.modalCloseEvent.next();
-    this.onSubmitTransaction.next();
-  }
-
-  updateTransaction() {
-    let formValues = this.transactionForm.value.transactionFormArray;
-
+    formValues[0].futureTransaction = Number(formValues[0].futureTransaction);
+    console.log(formValues);
+    
     let params = JSON.stringify(formValues);
     const formData = new FormData();
     formData.append("data",params);
 
-    this.transactions.editTransactions(formData).subscribe((data) => {
-      console.log(data);
-    });
+    if(isUpdate) {
+        this.transactions.editTransactions(formData).subscribe((data) => {
+          console.log(data);
+        });
+    } else {
+        this.transactions.addTransactions(formData, (data: any) => {
+          console.log(data);
+        });
+    }
     
     this.modalCloseEvent.next();
     this.onSubmitTransaction.next();
