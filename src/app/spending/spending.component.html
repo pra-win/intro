@@ -8,6 +8,27 @@
 </div>
 
 <div class="col-md-12 sm-no-padding">
+    <div class="row">
+        <div class="col-xs-12 col-12 col-md-5 form-group">
+          <input 
+            class="form-control" 
+            #drp="bsDaterangepicker" 
+            bsDaterangepicker 
+            [(ngModel)]="bsRangeValue">
+        </div>
+        <div class="col-xs-12 col-12 col-md-3 form-group">
+          <button class="btn btn-primary" (click)="filterDatewise()">Filter Data</button>
+        </div>
+        <div class="col-xs-12 col-12 col-md-2 form-group">
+            <input 
+              type="checkbox" 
+              id="futureTransaction" 
+              name="futureTransaction" 
+              [(ngModel)] = "isShowFutureTransaction"
+              (change)="hideShowFutureTransaction(isShowFutureTransaction)"/>
+            <label for="futureTransaction">Future Transaction</label>
+          </div>
+      </div>
   <div class="row">
     <div class="col-md-6">
       <table>
@@ -16,29 +37,6 @@
           <td><h5>{{incomeTotal-expenseTotal | number:'.2'}}</h5></td>
         </tr>
       </table>
-    </div>
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-xs-12 col-12 col-md-5 form-group">
-              <input 
-                type="checkbox" 
-                id="futureTransaction" 
-                name="futureTransaction" 
-                [(ngModel)] = "isShowFutureTransaction"
-                (change)="hideShowFutureTransaction(isShowFutureTransaction)"/>
-              <label for="futureTransaction">Future Transaction</label>
-            </div>
-            <div class="col-xs-12 col-12 col-md-7 form-group">
-              <input 
-                class="form-control" 
-                #drp="bsDaterangepicker" 
-                bsDaterangepicker 
-                [(ngModel)]="bsRangeValue">
-            </div>
-            <div class="col-xs-12 col-12 col-md-3 form-group">
-              <button class="btn btn-primary" (click)="filterDatewise()">Filter Data</button>
-            </div>
-          </div>
     </div>
   </div>
   <div class="row">
