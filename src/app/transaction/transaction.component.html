@@ -16,21 +16,39 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-          <div class="col-xs-12 col-12 col-md-7 form-group">
-            <input 
-              class="form-control" 
-              #drp="bsDaterangepicker" 
-              bsDaterangepicker 
-              [(ngModel)]="bsRangeValue">
-          </div>
-          <div class="col-xs-12 col-12 col-md-3 form-group">
-            <button class="btn btn-primary" (click)="filterDatewise()">Filter Data</button>
-          </div>
-        </div>
   </div>
+
+  <div class="row">
+      <div class="col-md-3">
+          <input 
+              type="text" 
+              placeholder="Category Filter" 
+              name="categoryFilter" 
+              [(ngModel)]="categoryFilter" 
+              ngValue="categoryFilter"/>
+      </div>
+      <div class="col-md-3">
+          <input 
+              type="text" 
+              placeholder="Keywords Filter" 
+              name="keyworldFilter" 
+              [(ngModel)]="keyworldFilter" 
+              ngValue="keyworldFilter"/>  
+          
+      </div>
+      <div class="col-md-3">
+          <input 
+            class="form-control" 
+            #drp="bsDaterangepicker" 
+            bsDaterangepicker 
+            [(ngModel)]="bsRangeValue">
+          
+      </div>
+      <div class="col-md-3">
+            <button class="btn btn-primary" (click)="getTransactions()">Filter Data</button>
+      </div>
   </div>
+
   <hr>
   <div class="text-center" *ngIf="!filterTransactions.length">No Data.</div>
   <div class="table-responsive" *ngIf="filterTransactions.length">

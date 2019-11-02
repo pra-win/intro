@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from './../services/transactions.service';
 import { TransactionObj as TraObj} from './../interfaces';
 import { environment } from './../../environments/environment';
+import { ProcessTransactions } from '../common/ProcessTransactions'
 
 @Component({
   selector: 'app-transaction',
@@ -12,23 +13,18 @@ export class TransactionComponent implements OnInit {
   transactions = [];
   private filterKeyword: string;
   filterTransactions = [];
+  categoryFilter: string;
+  keyworldFilter: string;
   totalRecords: number;
   paginationIndex: {startItem: number, endItem: number}; 
   private itemsPerPage: number = 5;
 
   exportUrl = environment.apiURLs.exportTransactions;
 
-  get searchTerm(): string {
-    return this.filterKeyword;
-  }
-
-  set searchTerm(value: string) {
-    this.filterKeyword = value;
-    this.onTransactionFilter(value);
-  }
-
   bsRangeValue: Date[];
   maxDate = new Date();
+
+  ProcessTransaction = new ProcessTransactions();
 
   constructor(private transactionsService: TransactionsService) { }
 
@@ -40,13 +36,6 @@ export class TransactionComponent implements OnInit {
     this.maxDate = new Date();
     this.bsRangeValue = [firstDay, lastDay];
     this.getTransactions();
-  }
-
-  onTransactionFilter(value: string): void {
-    console.log(value);
-    this.filterTransactions = this.transactions.filter(o => {
-      return o.keyWords.toLowerCase().indexOf(value.toLowerCase()) !== -1
-    });
   }
 
   onFileUpload(event: any) {
@@ -65,14 +54,17 @@ export class TransactionComponent implements OnInit {
       formData.append('params', JSON.stringify(obj));
 
       this.transactionsService.getTransactions(formData).subscribe((data: any) => {
-        let transData = data.response;
-        transData.sort((a: any, b: any) => {
-          const aDate = new Date(a.tranDate).getTime();
-          const bDate = new Date(b.tranDate).getTime();
-          return bDate - aDate;
-        });
-        this.transactions = transData;
-        this.filterTransactions = transData.slice(0, this.itemsPerPage);
+        this.transactions = this.ProcessTransaction.sortTransactionsDateWise(data.response);
+
+        let filterObj = Object.assign({}, this.ProcessTransaction.filterObj);
+
+        filterObj.category = this.categoryFilter ? this.categoryFilter.split(',') : [];
+        filterObj.keywords = this.keyworldFilter ? this.keyworldFilter.split(',') : [];
+
+        this.transactions = this.ProcessTransaction
+                                  .filterTransactions(filterObj, this.transactions);
+
+        this.filterTransactions = this.transactions.slice(0, this.itemsPerPage);
         this.totalRecords = this.transactions.length;
       });
   }
@@ -81,9 +73,4 @@ export class TransactionComponent implements OnInit {
     this.paginationIndex = data;
     this.filterTransactions = this.transactions.slice(data.startItem, data.endItem);
   }
-
-  filterDatewise() {
-    this.getTransactions();
-  }
-
 }
