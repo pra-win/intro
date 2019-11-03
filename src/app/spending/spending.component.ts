@@ -6,6 +6,8 @@ import { CategoriesService } from './../services/categories.service';
 import { TransactionsService } from './../services/transactions.service';
 import { PreferenceService } from './../services/preference.service';
 
+import { ProcessTransactions } from '../common/ProcessTransactions';
+
 @Component({
   selector: 'app-spending',
   templateUrl: './spending.component.html',
@@ -47,6 +49,8 @@ export class SpendingComponent implements OnInit {
   selectedTransaction: number;
 
   form: FormGroup;
+
+  processTransactions = new ProcessTransactions();
 
   constructor(
     private transactions: TransactionsService,
@@ -96,30 +100,22 @@ export class SpendingComponent implements OnInit {
     this.income = [];
     this.incomeTotal = 0;
     this.expenseTotal = 0;
-    transactionsData.forEach((t: any)=>{
-      if(t.ctype === 'e') {
-        this.expense.push(t);
-        this.expenseTotal+= parseInt(t.amt);
-      } else {
-        this.income.push(t);
-        this.incomeTotal+=parseInt(t.amt);
-      }
-    });
+
+    let {expense, income, incomeTotal, expenseTotal} = (this.processTransactions.setIncomeExpence(transactionsData));
+
+    this.expense = expense;
+    this.income = income;
+    this.incomeTotal = incomeTotal;
+    this.expenseTotal = expenseTotal;
+
     this.expenseFilter = this.expense.slice(0, this.itemsPerPage);
     this.incomeFilter = this.income.slice(0, this.itemsPerPage);
     this.totalExpenseRecords = this.expense.length;
     this.totalIncomeRecords = this.income.length;
   }
 
-  hideShowFutureTransaction(isShowFutureTransaction: boolean) {    
-    let newTransactionsData = Object.assign([], this.transactionsData);;
-
-    if(!isShowFutureTransaction) {
-      newTransactionsData = newTransactionsData.filter((data) => {
-        let futureTransaction = Number(data.futureTransaction);
-        return !futureTransaction;
-      });
-    }
+  hideShowFutureTransaction(isShowFutureTransaction: boolean) {
+    let newTransactionsData = this.processTransactions.hideShowFutureTransaction(isShowFutureTransaction, this.transactionsData);
     
     this.setIncomeExpence(newTransactionsData);      
     this.preferenceService.setPreference(this.preferenceService.ISSHOWFUTURERANSACTION, this.isShowFutureTransaction);  

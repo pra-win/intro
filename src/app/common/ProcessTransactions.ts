@@ -71,4 +71,34 @@ export class ProcessTransactions {
           
         return sortData;
     }
+
+    hideShowFutureTransaction(isShowFutureTransaction: boolean, data: any) {   
+        let newTransactionsData = Object.assign([], data);
+    
+        if(!isShowFutureTransaction) {
+          newTransactionsData = newTransactionsData.filter((data) => {
+            let futureTransaction = Number(data.futureTransaction);
+            return !futureTransaction;
+          });
+        }
+        return newTransactionsData;
+    }
+
+    setIncomeExpence(transactionsData: any) {
+        let expense = [];
+        let income = [];
+        let incomeTotal = 0;
+        let expenseTotal = 0;
+        transactionsData.forEach((t: any)=>{
+          if(t.ctype === 'e') {
+            expense.push(t);
+            expenseTotal+= parseInt(t.amt);
+          } else {
+            income.push(t);
+            incomeTotal+=parseInt(t.amt);
+          }
+        });
+
+        return ({expense, income, incomeTotal, expenseTotal});
+    }
 }

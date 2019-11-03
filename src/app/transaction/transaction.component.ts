@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from './../services/transactions.service';
 import { TransactionObj as TraObj} from './../interfaces';
 import { environment } from './../../environments/environment';
-import { ProcessTransactions } from '../common/ProcessTransactions'
+import { ProcessTransactions } from '../common/ProcessTransactions';
 
 @Component({
   selector: 'app-transaction',
