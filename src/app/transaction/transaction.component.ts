@@ -77,7 +77,7 @@ export class TransactionComponent implements OnInit {
         this.filterTransactions = this.transactions.slice(0, this.itemsPerPage);
         this.totalRecords = this.transactions.length;
 
-        let {incomeTotal, expenseTotal} = (this.ProcessTransaction.setIncomeExpence(this.filterTransactions));
+        let {incomeTotal, expenseTotal} = (this.ProcessTransaction.setIncomeExpence(this.transactions));
         this.expenseTotal = expenseTotal;
         this.incomeTotal = incomeTotal;
       });
