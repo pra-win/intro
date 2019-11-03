@@ -3,6 +3,7 @@ import { TransactionsService } from './../services/transactions.service';
 import { TransactionObj as TraObj} from './../interfaces';
 import { environment } from './../../environments/environment';
 import { ProcessTransactions } from '../common/ProcessTransactions';
+import { PreferenceService } from './../services/preference.service';
 
 @Component({
   selector: 'app-transaction',
@@ -16,6 +17,10 @@ export class TransactionComponent implements OnInit {
   categoryFilter: string;
   keyworldFilter: string;
   totalRecords: number;
+  incomeTotal: number;
+  expenseTotal: number;
+  isShowFutureTransaction: boolean;
+
   paginationIndex: {startItem: number, endItem: number}; 
   private itemsPerPage: number = 5;
 
@@ -26,7 +31,8 @@ export class TransactionComponent implements OnInit {
 
   ProcessTransaction = new ProcessTransactions();
 
-  constructor(private transactionsService: TransactionsService) { }
+  constructor(private transactionsService: TransactionsService,
+              private preferenceService: PreferenceService) { }
 
   ngOnInit() {
     var date = new Date(), y = date.getFullYear(), m = date.getMonth();
@@ -36,6 +42,7 @@ export class TransactionComponent implements OnInit {
     this.maxDate = new Date();
     this.bsRangeValue = [firstDay, lastDay];
     this.getTransactions();
+    this.isShowFutureTransaction = this.preferenceService.getPreference(this.preferenceService.ISSHOWFUTURERANSACTION) === "true";
   }
 
   onFileUpload(event: any) {
@@ -54,7 +61,10 @@ export class TransactionComponent implements OnInit {
       formData.append('params', JSON.stringify(obj));
 
       this.transactionsService.getTransactions(formData).subscribe((data: any) => {
-        this.transactions = this.ProcessTransaction.sortTransactionsDateWise(data.response);
+
+        this.transactions = this.hideShowFutureTransaction(data.response, this.isShowFutureTransaction);
+
+        this.transactions = this.ProcessTransaction.sortTransactionsDateWise(this.transactions);
 
         let filterObj = Object.assign({}, this.ProcessTransaction.filterObj);
 
@@ -66,11 +76,22 @@ export class TransactionComponent implements OnInit {
 
         this.filterTransactions = this.transactions.slice(0, this.itemsPerPage);
         this.totalRecords = this.transactions.length;
+
+        let {incomeTotal, expenseTotal} = (this.ProcessTransaction.setIncomeExpence(this.filterTransactions));
+        this.expenseTotal = expenseTotal;
+        this.incomeTotal = incomeTotal;
       });
   }
 
   onPageChanged(data: {startItem: number, endItem: number}) {
     this.paginationIndex = data;
     this.filterTransactions = this.transactions.slice(data.startItem, data.endItem);
+  }
+
+  hideShowFutureTransaction(data: any, isShowFutureTransaction: boolean) {
+    let newTransactionsData = this.ProcessTransaction.hideShowFutureTransaction(isShowFutureTransaction, data);   
+    this.preferenceService.setPreference(this.preferenceService.ISSHOWFUTURERANSACTION, this.isShowFutureTransaction);  
+
+    return newTransactionsData;
   }
 }

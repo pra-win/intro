@@ -44,9 +44,23 @@
             [(ngModel)]="bsRangeValue">
           
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
+          <input 
+            type="checkbox" 
+            id="futureTransaction" 
+            name="futureTransaction" 
+            [(ngModel)] = "isShowFutureTransaction"/>
+          <label for="futureTransaction">Future Transaction</label>
+      </div>
+      <div class="col-md-1">
             <button class="btn btn-primary" (click)="getTransactions()">Filter Data</button>
       </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-4"><h5>Income: {{incomeTotal}}</h5> </div>
+    <div class="col-md-4"><h5>Expense: {{expenseTotal}}</h5> </div>
+    <div class="col-md-4"><h5>Total Balance: {{incomeTotal-expenseTotal}}</h5> </div>
   </div>
 
   <hr>

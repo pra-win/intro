@@ -96,11 +96,6 @@ export class SpendingComponent implements OnInit {
   }
 
   setIncomeExpence(transactionsData: any) {
-    this.expense = [];
-    this.income = [];
-    this.incomeTotal = 0;
-    this.expenseTotal = 0;
-
     let {expense, income, incomeTotal, expenseTotal} = (this.processTransactions.setIncomeExpence(transactionsData));
 
     this.expense = expense;
