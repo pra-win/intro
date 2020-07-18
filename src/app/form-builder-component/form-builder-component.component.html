@@ -1,0 +1,97 @@
+<form [formGroup]="employeeFrom" (ngSubmit)="onSubmit()">
+    <div 
+        [ngClass]="{'has-error': formErrors.fullName}">
+        <label>Name: </label>
+        <input formControlName="fullName" type="text" (blur)="logValidationErrors()">
+        {{formErrors.fullName}}
+    </div>
+    <br>
+    <div>
+        <label>Contact Preferance</label>
+        <input formControlName="contactPreferance" type="radio" id="contactPreferance" value="email"> Email
+        <input formControlName="contactPreferance" type="radio" id="contactPreferance" value="phone"> Phone  
+    </div>
+
+    <div  
+        [ngClass]="{'has-error': formErrors.email}">
+        <label>Email: </label>
+        <input formControlName="email" type="text" (blur)="logValidationErrors()">
+        {{formErrors.email}}
+    </div>
+
+    <div  
+        [ngClass]="{'has-error': formErrors.phone}">
+        <label>Phone: </label>
+        <input formControlName="phone" type="text" (blur)="logValidationErrors()">
+        {{formErrors.phone}}
+    </div>
+
+    <!-- *ngFor="let skill of employeeFrom.get('skills')" -->
+    <br>
+    <button 
+        (click)="addSkill()"
+        [disabled]="this.employeeFrom.get('skills').invalid">Add Skill</button>
+    <div formArrayName="skills" *ngFor="let skill of this.employeeFrom.get('skills')['controls']; let i = index">
+        <div [formGroupName]="i">
+            <label>Skills</label> 
+            <button *ngIf="this.employeeFrom.get('skills')['controls'].length > 1" (click)="removeSkill(i)">Remove</button>
+            <div [ngClass]="{'has-error': skill.get('name').invalid && (skill.get('name').touched || skill.get('name').dirty)}">
+                <label [attr.for]="'name'+i">Name:</label>
+                <input [id]="'name'+i" type="text" value="name" formControlName="name"> 
+            </div>
+            <div [ngClass]="{'has-error': skill.get('experience').invalid && (skill.get('experience').touched || skill.get('experience').dirty)}">
+                <label [attr.for]="'experience'+i"> Experience:</label>
+                <input [id]="'experience'+i" type="text" value="experience" formControlName="experience"> 
+            </div>
+            <div [ngClass]="{'has-error': skill.get('proficiency').invalid && (skill.get('proficiency').touched || skill.get('proficiency').dirty)}">
+                <label [attr.for]="'proficiency'+i">Proficiency:</label> 
+                <input type="radio" [id]="'proficiency'+i" value="b" formControlName="proficiency"> B
+                <input type="radio" [id]="'proficiency'+i" value="i" formControlName="proficiency"> I
+                <input type="radio" [id]="'proficiency'+i" value="a" formControlName="proficiency"> A 
+            </div>
+        </div>
+        <br>
+    </div>    
+    <br>
+    <div>
+        <button type="submit"> Submit </button> &nbsp;
+        <button type="button" (click)="onLoadData()"> Load Data </button> &nbsp;
+    </div>
+    
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div>
+    <table>
+        <tr>
+            <th>Form Group</th>
+            <th>Form Control</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                Touched: {{ employeeFrom.touched }} <br>
+                Dirty: {{ employeeFrom.dirty }} <br>
+                Valid: {{ employeeFrom.valid }} <br>
+                Touched: {{ employeeFrom.value | json }} <br>
+            </td>
+            <td>
+                fullName Touched: {{ employeeFrom.get('fullName').touched }} <br>
+                fullName Dirty: {{ employeeFrom.get('fullName').dirty }} <br>
+                fullName Valid: {{ employeeFrom.get('fullName').valid }} <br>
+                fullName Touched: {{ employeeFrom.get('fullName').value | json }} <br>
+            </td>
+            <td>
+                email Touched: {{ employeeFrom.get('email').touched }} <br>
+                email Dirty: {{ employeeFrom.get('email').dirty }} <br>
+                email Valid: {{ employeeFrom.get('email').valid }} <br>
+                email Touched: {{ employeeFrom.get('email').value | json }} <br>
+            </td>
+        </tr>
+    </table>
+</div>

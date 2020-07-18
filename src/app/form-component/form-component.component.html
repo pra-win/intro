@@ -1,0 +1,58 @@
+<form [formGroup]="employeeFrom" (ngSubmit)="onSubmit()">
+    <div>
+        <label>Name: </label>
+        <input formControlName="fullName" type="text">
+    </div>
+
+    <div>
+        <label>Email: </label>
+        <input formControlName="email" type="text">
+    </div>
+
+    <div formGroupName = "skills">
+        <label>Skills</label>
+        <div>
+            Name: <input type="text" value="name" formControlName="name"> 
+            Experience: <input type="text" value="experience" formControlName="experience"> 
+            Proficiency: 
+                <input type="radio" id="proficiency" value="b" formControlName="proficiency"> B
+                <input type="radio" id="proficiency" value="i" formControlName="proficiency"> I
+                <input type="radio" id="proficiency" value="a" formControlName="proficiency"> A 
+        </div>
+    </div>
+    <br>
+    <div>
+        <button type="submit"> Submit </button> &nbsp;
+        <button type="button" (click)="onLoadData()"> Load Data </button> &nbsp;
+    </div>
+    
+</form>
+<!-- <div>
+    <table>
+        <tr>
+            <th>Form Group</th>
+            <th>Form Control</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                Touched: {{ employeeFrom.touched }} <br>
+                Dirty: {{ employeeFrom.dirty }} <br>
+                Valid: {{ employeeFrom.valid }} <br>
+                Touched: {{ employeeFrom.value | json }} <br>
+            </td>
+            <td>
+                fullName Touched: {{ employeeFrom.get('fullName').touched }} <br>
+                fullName Dirty: {{ employeeFrom.get('fullName').dirty }} <br>
+                fullName Valid: {{ employeeFrom.get('fullName').valid }} <br>
+                fullName Touched: {{ employeeFrom.get('fullName').value | json }} <br>
+            </td>
+            <td>
+                email Touched: {{ employeeFrom.get('email').touched }} <br>
+                email Dirty: {{ employeeFrom.get('email').dirty }} <br>
+                email Valid: {{ employeeFrom.get('email').valid }} <br>
+                email Touched: {{ employeeFrom.get('email').value | json }} <br>
+            </td>
+        </tr>
+    </table>
+</div> -->
