@@ -1,12 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
+import {NgbDate, NgbDateStruct, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+
+import { strict } from 'assert';
+
+function isNumber(value: any): boolean {
+  return !isNaN(toInteger(value));
+}
+
+function toInteger(value: any): number {
+  return parseInt(`${value}`, 10);
+}
+
+function padNumber(value: number) {
+  if (isNumber(value)) {
+      return `0${value}`.slice(-2);
+  } else {
+      return "";
+  }
+}
+
 @Component({
   selector: 'app-form-builder-component',
   templateUrl: './form-builder-component.component.html',
   styleUrls: ['./form-builder-component.component.less']
 })
 export class FormBuilderComponentComponent implements OnInit {
+
+  model: NgbDateStruct;
+  date: {year: number, month: number};
 
   employeeFrom: FormGroup;
   validationMessages = {
@@ -33,7 +56,24 @@ export class FormBuilderComponentComponent implements OnInit {
     name: ''
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private calendar: NgbCalendar,
+    private parserFormatter: NgbDateParserFormatter,
+    public formatter: NgbDateParserFormatter) { }
+
+  selectToday() {
+    this.model = this.calendar.getToday();
+  }
+  
+
+  getDate(date): any {    
+    if(typeof(date) == "object") {
+      return new Date(date.year, date.month-1, date.day).toString();
+    } else {
+      return date;
+    }
+  }
 
   ngOnInit(): void {
     /** Using class */
@@ -58,6 +98,8 @@ export class FormBuilderComponentComponent implements OnInit {
 
     /** valueChanges */
     this.employeeFrom.valueChanges.subscribe(value => {
+      console.log(this.employeeFrom.get('skills'));
+      
       this.logValidationErrors(this.employeeFrom);
     });
 
@@ -70,7 +112,8 @@ export class FormBuilderComponentComponent implements OnInit {
     return this.fb.group({
       name: ['', Validators.required],
       experience: ['', Validators.required],
-      proficiency: ['b', Validators.required]
+      proficiency: ['b', Validators.required],
+      dateP: [new Date('2020-05-30').toDateString()]
     });
   }
 
